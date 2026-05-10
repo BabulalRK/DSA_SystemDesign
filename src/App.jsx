@@ -9,7 +9,7 @@ import SystemDesignDetailPage from './pages/SystemDesignDetailPage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/DSA_SystemDesign">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
