@@ -5,4 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/DSA_SystemDesign/',
+  test: {
+    globals: true,
+    environment: 'happy-dom',
+    setupFiles: './tests/setup.js',
+  },
 })
