@@ -57,6 +57,7 @@ L=$20, R=$80 -> Cost=$100 (Perfect Match!)`,
       spaceComplexity: 'O(1)'
     },
     mentalModel: 'Imagine two fingers scanning a line of text. They can start at opposite ends and move inward, or both start at the beginning. You move them based on what you are looking for (e.g., if the sum is too small, move the left finger right to get a bigger number).',
+    reference: { name: 'GeeksforGeeks: Two Pointers Technique', url: 'https://www.geeksforgeeks.org/two-pointers-technique/' },
     mermaidCode: `graph LR
     A[Array] --> L(Left Pointer)
     A --> R(Right Pointer)
@@ -122,6 +123,7 @@ Window 2: Drop $200, Add $100 -> [$150, $500, $100] -> $750`,
       spaceComplexity: 'O(1)'
     },
     mentalModel: 'Think of a picture frame sliding over a panoramic photo. You only see what\'s inside the frame. Instead of repainting the whole picture every time you move the frame, you just add what entered the frame on the right and remove what left on the left.',
+    reference: { name: 'GeeksforGeeks: Sliding Window', url: 'https://www.geeksforgeeks.org/window-sliding-technique/' },
     mermaidCode: `graph LR
     A[Data Stream/Array] --> W{Window}
     W -->|Expand Right| In(Add to Window)
@@ -185,6 +187,7 @@ PrefixSums[3] - PrefixSums[1] -> 35 - 10 = 25!`,
       spaceComplexity: 'O(1)'
     },
     mentalModel: 'Like a running bank account balance. If you want to know how much you spent between March and June, you take your total spending up to June and subtract your total spending up to February.',
+    reference: { name: 'USACO Guide: Prefix Sums', url: 'https://usaco.guide/silver/prefix-sums' },
     mermaidCode: `graph TD
     A[Original Array: 1, 2, 3] --> B[Prefix Sum Array: 1, 3, 6]
     B --> C{Sum of Range i to j}
@@ -248,6 +251,7 @@ Iter 3: Slow=C, Fast=C -> COLLISION!`,
       spaceComplexity: 'O(N)'
     },
     mentalModel: 'A track race where one runner is twice as fast as the other. If the track is a loop, the faster runner will eventually lap the slower runner. If it\'s a straight line, the faster runner will finish when the slower one is exactly halfway.',
+    reference: { name: 'Educative: Fast & Slow Pointers', url: 'https://www.educative.io/courses/grokking-the-coding-interview/fast-and-slow-pointers' },
     mermaidCode: `graph LR
     A((Start)) --> S(Slow: 1 step)
     A --> F(Fast: 2 steps)
@@ -321,6 +325,7 @@ Scan: Idx 1 is missing Box2!`,
       spaceComplexity: 'O(1) to O(N)'
     },
     mentalModel: 'Like a postman sorting mail into numbered P.O. boxes. You look at a letter, walk over to the P.O. box with that number, and swap it with whatever letter is currently sitting there. Repeat until every letter is in the right box.',
+    reference: { name: 'Educative: Cyclic Sort', url: 'https://www.educative.io/courses/grokking-the-coding-interview/cyclic-sort' },
     mermaidCode: `graph TD
     A[Box 3 at Index 0] -->|Swap to Index 2| B[Box 4 at Index 0]
     B -->|Swap to Index 3| C[Box 1 at Index 0]
@@ -385,6 +390,7 @@ NULL <- Google <- Facebook   Amazon -> NULL
       spaceComplexity: 'O(N) - Extra space for the array'
     },
     mentalModel: 'Imagine turning a line of one-way signs to face the opposite direction. You have to walk down the line, and at each sign, remember where the next sign is, turn the current sign around, and then step to the next sign.',
+    reference: { name: 'Educative: In-place Reversal of a Linked List', url: 'https://www.educative.io/courses/grokking-the-coding-interview/in-place-reversal-of-a-linked-list' },
     mermaidCode: `graph LR
     P[Prev] -->|Null initially| C[Current]
     C -->|Points to| N[Next]
@@ -462,6 +468,7 @@ Q: [Alice, Bob] -> pop both, push Dave, Eve`,
       spaceComplexity: 'O(V)'
     },
     mentalModel: 'Like ripples spreading outward when you drop a stone in a pond. You explore all options 1 step away, then all options 2 steps away, etc. Or like networking at a party: talk to all your friends first, then talk to their friends.',
+    reference: { name: 'GeeksforGeeks: Level Order Traversal', url: 'https://www.geeksforgeeks.org/level-order-tree-traversal/' },
     mermaidCode: `graph TD
     A[Start Node] --> B[Level 1]
     A --> C[Level 1]
@@ -531,6 +538,7 @@ Q: [Alice, Bob] -> pop both, push Dave, Eve`,
       spaceComplexity: 'O(V)'
     },
     mentalModel: 'Like solving a maze by keeping your hand on the left wall. You go as deep as possible down one path until you hit a dead end, then you backtrack to the last intersection and try the next path.',
+    reference: { name: 'GeeksforGeeks: DFS Traversal', url: 'https://www.geeksforgeeks.org/dfs-traversal-of-a-tree-using-recursion/' },
     mermaidCode: `graph TD
     A[Root] -->|1| B[Child 1]
     B -->|2| C[Grandchild 1]
@@ -598,6 +606,7 @@ Mid: 6PM. Match! Found in 2 steps instead of 6.`,
       spaceComplexity: 'O(1)'
     },
     mentalModel: 'Like looking up a word in a physical dictionary. You don\'t read every page; you open it to the middle, see if the word comes before or after, and then rip the book in half, keeping only the relevant half.',
+    reference: { name: 'TopCoder: Binary Search Tutorial', url: 'https://www.topcoder.com/thrive/articles/Binary%20Search' },
     mermaidCode: `graph TD
     A[Sorted Array] --> M{Midpoint}
     M -->|Target > Mid| R[Search Right Half]
@@ -669,6 +678,7 @@ Result: Busy {1-5} and {6-7}`,
       spaceComplexity: 'O(1)'
     },
     mentalModel: 'Like laying down strips of tape on a line. If a new strip overlaps an existing one, they become one continuous, longer strip of tape.',
+    reference: { name: 'Educative: Merge Intervals', url: 'https://www.educative.io/courses/grokking-the-coding-interview/merge-intervals' },
     mermaidCode: `graph TD
     A[Interval 1] -->|Overlaps| B[Interval 2]
     B --> C{Merge}
@@ -749,6 +759,7 @@ class SearchAutocomplete {
       spaceComplexity: 'O(N * M)'
     },
     mentalModel: 'Like a physical card catalog in a library or a file cabinet. You open the "A" drawer, then the "P" section, then "P", then "L", then "E".',
+    reference: { name: 'Toptal: The Trie Data Structure', url: 'https://www.toptal.com/java/the-trie-a-neglected-data-structure' },
     mermaidCode: `graph TD
     Root(( )) --> C(c)
     C --> A(a)
@@ -819,6 +830,7 @@ Heap: [#tech, #sports]`,
       spaceComplexity: 'O(1) to O(N)'
     },
     mentalModel: 'Like a VIP bouncer at a club that only fits K people. If the club is full and someone cooler (larger/more frequent) shows up, the least cool person inside gets kicked out.',
+    reference: { name: 'Educative: Top K Elements', url: 'https://www.educative.io/courses/grokking-the-coding-interview/top-k-elements' },
     mermaidCode: `graph TD
     S[Stream/Array] -->|Push| H{Min-Heap size K}
     H -->|If size > K| P[Pop Smallest]
@@ -965,6 +977,7 @@ Install Redux. Order: JS, React, Redux.`,
       spaceComplexity: 'O(V)'
     },
     mentalModel: 'Like putting on clothes. You must put on socks before shoes, and underwear before pants. You look at all the clothes you can put on *right now* (0 prerequisites), put them on, and then check what new clothes that unlocks.',
+    reference: { name: 'GeeksforGeeks: Topological Sorting', url: 'https://www.geeksforgeeks.org/topological-sorting/' },
     mermaidCode: `graph LR
     A[Task A] --> C[Task C]
     B[Task B] --> C
@@ -1123,6 +1136,7 @@ Pop 2min -> Unified: [1min, 2min]...`,
       spaceComplexity: 'O(N)'
     },
     mentalModel: 'Like merging multiple lines of cars into a single lane. You look at the front car of every line, let the fastest one go, and then look at the new front car of that specific line.',
+    reference: { name: 'Educative: K-way Merge', url: 'https://www.educative.io/courses/grokking-the-coding-interview/k-way-merge' },
     mermaidCode: `graph TD
     L1[List 1: 1, 4, 5] --> H((Min-Heap))
     L2[List 2: 1, 3, 4] --> H
@@ -1266,6 +1280,7 @@ Match! Yes.`,
       spaceComplexity: 'O(V)'
     },
     mentalModel: 'Like tracking corporate acquisitions. If Company A buys Company B, Company B\'s CEO now reports to A. If you want to know if two employees work for the same parent company, you just follow the chain of bosses to the top.',
+    reference: { name: 'Princeton: Union-Find', url: 'https://algs4.cs.princeton.edu/15uf/' },
     mermaidCode: `graph TD
     1((User 1)) --> 2((User 2))
     2 --> 3((User 3 - Root))

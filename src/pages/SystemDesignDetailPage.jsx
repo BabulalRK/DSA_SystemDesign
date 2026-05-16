@@ -120,6 +120,24 @@ export default function SystemDesignDetailPage() {
               </ul>
             </div>
           </div>
+          
+          {/* External Reference */}
+          {concept.reference && (
+            <div className="pt-8 border-t border-slate-100">
+              <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Recommended Reading</h3>
+              <a 
+                href={concept.reference.url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-4 py-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-lg font-medium transition-colors border border-indigo-200"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                {concept.reference.name}
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>

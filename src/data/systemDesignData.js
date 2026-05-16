@@ -16,6 +16,7 @@ export const systemDesignConcepts = {
       pros: ['Guaranteed single instance', 'Global access point', 'Lazy initialization'],
       cons: ['Violates Single Responsibility Principle', 'Can mask bad design (acts as global variable)', 'Difficult to test in multi-threaded environments'],
       useCases: ['Logging systems', 'Database connection pools', 'Configuration managers', 'Thread pools'],
+      reference: { name: 'Refactoring Guru: Singleton', url: 'https://refactoring.guru/design-patterns/singleton' },
       mindMap: {
         analogy: 'The President of a Country. There can only be one at any given time, and there is a global way to reach them.',
         mermaidCode: `graph TD
@@ -37,6 +38,7 @@ export const systemDesignConcepts = {
       pros: ['Decouples client from concrete classes', 'Centralizes object creation logic'],
       cons: ['Can complicate code with many small subclasses', 'Might require creating a new creator class for every new product type'],
       useCases: ['UI components libraries (creating buttons, checkboxes)', 'Loggers (FileLogger, ConsoleLogger)', 'Payment gateways (PayPal, Stripe)'],
+      reference: { name: 'Refactoring Guru: Factory', url: 'https://refactoring.guru/design-patterns/factory-method' },
       mindMap: {
         analogy: 'A Logistics Company. You ask them to deliver a package. You don\'t care if they use a truck, a ship, or an airplane (the concrete products), you just care that the delivery service (the factory) handles the creation of the vehicle.',
         mermaidCode: `graph TD
@@ -59,6 +61,7 @@ export const systemDesignConcepts = {
       pros: ['Open/Closed Principle (can add new subscribers without altering publisher)', 'Establishes relations at runtime'],
       cons: ['Subscribers are notified in random order', 'Can cause memory leaks if observers aren\'t properly deregistered'],
       useCases: ['Event listeners in DOM (onClick)', 'React State (components re-rendering on state change)', 'Push notifications', 'Stock market tickers'],
+      reference: { name: 'Refactoring Guru: Observer', url: 'https://refactoring.guru/design-patterns/observer' },
       mindMap: {
         analogy: 'A YouTube Channel. When a creator (Subject) uploads a new video, all subscribers (Observers) get notified automatically. Subscribers don\'t constantly ask "is there a new video?" (polling).',
         mermaidCode: `graph LR
@@ -82,6 +85,7 @@ export const systemDesignConcepts = {
       pros: ['Swap algorithms at runtime', 'Isolate algorithm implementation from code that uses it', 'Replaces massive conditionals (if/else chains)'],
       cons: ['Clients must know the differences between strategies', 'Increases number of objects in the application'],
       useCases: ['Sorting algorithms (merge sort vs quick sort based on data size)', 'Payment processing (Credit Card, PayPal, Apple Pay)', 'Navigation apps (driving, walking, transit routes)'],
+      reference: { name: 'Refactoring Guru: Strategy', url: 'https://refactoring.guru/design-patterns/strategy' },
       mindMap: {
         analogy: 'Traveling to the Airport. The goal is to get there (Context). You can choose different strategies: Taxi, Bus, or Walk. You can switch strategies depending on your wallet or time.',
         mermaidCode: `graph TD
@@ -107,6 +111,7 @@ export const systemDesignConcepts = {
       pros: ['Highly maintainable code', 'Easy to test', 'Decoupled architecture'],
       cons: ['Can lead to over-engineering', 'Steep learning curve for beginners'],
       useCases: ['Designing enterprise-scale object-oriented systems', 'Refactoring legacy code', 'Building frameworks/libraries'],
+      reference: { name: 'FreeCodeCamp: SOLID Explained', url: 'https://www.freecodecamp.org/news/solid-principles-explained-in-plain-english/' },
       mindMap: {
         analogy: 'A well-organized restaurant. S: Chef cooks, waiter serves. O: Add new menu items without remodeling the kitchen. L: A junior chef can replace a senior chef for basic tasks. I: Don\'t force the dishwasher to learn how to host. D: The manager depends on the role "Cook", not on specifically "John".',
         mermaidCode: `mindmap
@@ -131,6 +136,7 @@ export const systemDesignConcepts = {
       pros: ['Prevents single points of failure', 'Improves application responsiveness and availability', 'Allows seamless horizontal scaling'],
       cons: ['Load balancer itself can become a single point of failure if not clustered', 'Adds network latency'],
       useCases: ['Distributing web traffic across multiple servers', 'API Gateways', 'Preventing DDoS attacks by absorbing traffic'],
+      reference: { name: 'NGINX: What is Load Balancing?', url: 'https://www.nginx.com/resources/glossary/load-balancing/' },
       mindMap: {
         analogy: 'A Traffic Cop at a busy intersection. The cop directs cars (requests) to the lanes (servers) that have the least amount of traffic, ensuring no single lane gets completely blocked.',
         mermaidCode: `graph TD
@@ -152,6 +158,7 @@ export const systemDesignConcepts = {
       pros: ['Drastically reduces latency', 'Reduces load on the primary database', 'Highly cost-effective for read-heavy workloads'],
       cons: ['Cache invalidation is notoriously difficult', 'Data staleness issues', 'Added infrastructure complexity'],
       useCases: ['Storing user sessions', 'Caching database queries (e.g., top 10 products)', 'CDNs for static assets (images, videos)'],
+      reference: { name: 'AWS: Caching Best Practices', url: 'https://aws.amazon.com/caching/' },
       mindMap: {
         analogy: 'Keeping a glass of water on your desk vs walking to the kitchen. The kitchen (Database) has infinite water, but walking there takes time. The glass on your desk (Cache) gives you instant access to a small amount of water.',
         mermaidCode: `graph LR
@@ -177,6 +184,7 @@ Partition ------- Availability
       pros: ['Provides a fundamental framework for evaluating distributed databases'],
       cons: ['Overly simplistic; modern databases offer tunable consistency models'],
       useCases: ['Choosing a database for a specific project (e.g., MongoDB vs Cassandra vs PostgreSQL)', 'Designing distributed systems that handle network failures'],
+      reference: { name: 'IBM: The CAP Theorem', url: 'https://www.ibm.com/topics/cap-theorem' },
       mindMap: {
         analogy: 'A group of friends trying to agree on a movie while standing in different rooms (Partition). You can either wait until everyone shouts their answer so you all agree (Consistency, but you might wait forever), or you just pick whatever the people in your room want right now (Availability, but others might be watching a different movie).',
         mermaidCode: `mindmap
@@ -195,6 +203,7 @@ Partition ------- Availability
       pros: ['Decouples system components', 'Provides buffering for traffic spikes (smooths load)', 'Guaranteed message delivery'],
       cons: ['Adds complexity to the architecture', 'Debugging asynchronous message flows can be difficult'],
       useCases: ['Processing background jobs (video rendering, email sending)', 'Decoupling microservices', 'Real-time analytics (Kafka)'],
+      reference: { name: 'AWS: What is a Message Queue?', url: 'https://aws.amazon.com/message-queue/' },
       mindMap: {
         analogy: 'An Email Inbox. You (Producer) send an email. The server holds it in an inbox (Queue). The recipient (Consumer) reads it whenever they have free time. You don\'t have to wait for them to read it before you send another one.',
         mermaidCode: `graph LR
@@ -215,6 +224,7 @@ Users N-Z ----> [Shard 2 Database]`,
       pros: ['Allows infinite horizontal scaling', 'Improves query response times', 'Increases overall system availability'],
       cons: ['Extremely complex to implement and maintain', 'Joining data across shards is slow and complex', 'Rebalancing shards when one gets too full is difficult'],
       useCases: ['Massive social media platforms (users on different shards)', 'Global SaaS products (EU data vs US data)', 'High-throughput trading platforms'],
+      reference: { name: 'DigitalOcean: Understanding Sharding', url: 'https://www.digitalocean.com/community/tutorials/understanding-database-sharding' },
       mindMap: {
         analogy: 'A Library getting too full. Instead of building one massive, impossibly tall bookshelf (scaling up), you buy 5 smaller bookshelves and put books A-E in the first, F-J in the second, etc. (scaling out / sharding).',
         mermaidCode: `graph TD
@@ -237,6 +247,7 @@ Users N-Z ----> [Shard 2 Database]`,
       pros: ['Independent deployment and scaling', 'Fault isolation', 'Technology diversity (use the best language for the job)'],
       cons: ['Distributed system complexity', 'Network latency between services', 'Complex data consistency (requires eventual consistency / Sagas)'],
       useCases: ['Complex enterprise applications (Netflix, Uber, Amazon)', 'Teams working independently on different features', 'Systems requiring independent scaling'],
+      reference: { name: 'Microservices.io', url: 'https://microservices.io/' },
       mindMap: {
         analogy: 'A Hospital. Instead of one doctor trying to treat every single disease (Monolith), you have specialized departments: Cardiology, Neurology, Pediatrics (Microservices). They communicate via the front desk (API Gateway).',
         mermaidCode: `graph TD
