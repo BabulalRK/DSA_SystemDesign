@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { dsaPatterns } from '../data/dsaPatterns';
 import { useProgress } from '../hooks/useProgress';
@@ -8,6 +8,11 @@ export default function DSADetailPage() {
   const { id } = useParams();
   const pattern = dsaPatterns.find(p => p.id === id);
   const { isCompleted, toggleItem } = useProgress('dsa-progress');
+  const [revealedAnswers, setRevealedAnswers] = useState({});
+
+  const toggleAnswer = (idx) => {
+    setRevealedAnswers(prev => ({...prev, [idx]: !prev[idx]}));
+  };
 
   if (!pattern) {
     return <Navigate to="/dsa" replace />;
@@ -52,13 +57,79 @@ export default function DSADetailPage() {
             </div>
           )}
 
-          {/* Real World Scenario */}
-          {pattern.realWorldProblem && (
-            <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-xl">
-              <h3 className="text-sm font-bold text-blue-800 uppercase tracking-wider mb-2">Real-World Scenario</h3>
-              <p className="text-slate-700 text-lg leading-relaxed italic">
-                "{pattern.realWorldProblem}"
-              </p>
+          {/* LeetCode Style Questions */}
+          {pattern.leetcodeQuestions && pattern.leetcodeQuestions.length > 0 && (
+            <div className="mt-12">
+              <div className="flex items-center mb-6 border-b border-slate-200 pb-4">
+                <svg className="w-8 h-8 text-orange-500 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125 2.222 5.204 5.204 0 0 0 2.247 3.32l9.043 5.42a2.82 2.82 0 0 0 2.85-.027 2.81 2.81 0 0 0 1.4-2.428V20.15l2.493-1.493a2.76 2.76 0 0 0 1.258-1.584 2.834 2.834 0 0 0 .048-1.954 2.793 2.793 0 0 0-1.125-1.564L15.932 9.8l.006-.004c.15-.098.307-.179.467-.24l1.37-.53a1.4 1.4 0 0 0 .867-1.748 1.408 1.408 0 0 0-1.767-.866l-1.428.552a4.34 4.34 0 0 0-2.316 2.05l-1.93 3.664-4.834-2.898L11.83 2.14a1.385 1.385 0 0 0 .22-1.52A1.376 1.376 0 0 0 11.026.042c-.084-.015-.17-.024-.256-.027h-.287zm-2.073 2.253l2.84 3.037-1.164 2.21-3.66-2.196 1.984-3.05zm5.54 8.78l3.195 1.916-2.227 1.334-1.638-.982L15.223 15l2.09 1.253-2.132 1.277-2.16-1.296L11.875 18l3.056 1.834a.974.974 0 0 1-.497.837.98.98 0 0 1-1.023.01L4.368 15.26c-.36-.216-.582-.596-.582-1.015s.222-.8.583-1.016L12.51 8.35a.86.86 0 0 1 .843.014c.264.155.434.426.467.728l-.004.032.004-.002zm-3.003 4.225l1.637.982-2.09-1.253 2.133-1.277-1.68-.99-3.055-1.835 1.144-2.17 4.887 2.93a1.642 1.642 0 0 1-.16 2.68l-2.818 1.687z"/>
+                </svg>
+                <h3 className="text-2xl font-bold text-slate-800">Practice Problems</h3>
+              </div>
+              
+              <div className="space-y-6">
+                {pattern.leetcodeQuestions.map((q, i) => {
+                  let difficultyColor = 'text-[#00b8a3]';
+                  let difficultyBg = 'bg-[#00b8a3]/10';
+                  if (q.level === 'Medium') {
+                    difficultyColor = 'text-[#ffc01e]';
+                    difficultyBg = 'bg-[#ffc01e]/10';
+                  } else if (q.level === 'Hard') {
+                    difficultyColor = 'text-[#ff375f]';
+                    difficultyBg = 'bg-[#ff375f]/10';
+                  }
+                  
+                  return (
+                    <div key={i} className="bg-[#282828] rounded-xl overflow-hidden shadow-lg border border-slate-700/50 transition-all duration-300 font-sans">
+                      {/* Header */}
+                      <div className="px-6 py-4 border-b border-[#3e3e42] flex items-center justify-between bg-[#1e1e1e]">
+                        <div className="flex items-center space-x-3">
+                          <span className="text-lg font-semibold text-gray-200">{q.id}. {q.title}</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <div className={`px-3 py-1 rounded-full text-xs font-semibold ${difficultyColor} ${difficultyBg}`}>
+                            {q.level}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Body */}
+                      <div className="p-6">
+                        <div className="prose prose-invert max-w-none mb-6">
+                          <p className="text-gray-300 text-lg leading-relaxed">{q.question}</p>
+                        </div>
+                        
+                        {/* Resolving Mechanism */}
+                        <div className="mt-4">
+                          <button 
+                            onClick={() => toggleAnswer(i)}
+                            className="flex items-center text-sm font-semibold text-[#3b82f6] hover:text-[#60a5fa] transition-colors bg-[#3b82f6]/10 px-4 py-2 rounded-md border border-[#3b82f6]/20"
+                          >
+                            <svg className={`w-4 h-4 mr-2 transform transition-transform duration-200 ${revealedAnswers[i] ? 'rotate-90' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                            {revealedAnswers[i] ? 'Hide Solution Approach' : 'View Solution Approach'}
+                          </button>
+                          
+                          <div className={`mt-4 overflow-hidden transition-all duration-300 ease-in-out ${revealedAnswers[i] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                            <div className="bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-5">
+                              <h4 className="text-gray-200 font-semibold mb-2 flex items-center">
+                                <svg className="w-5 h-5 mr-2 text-[#00b8a3]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Intuition & Approach
+                              </h4>
+                              <p className="text-gray-400 leading-relaxed whitespace-pre-line">
+                                {q.answer}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           )}
 

@@ -4,7 +4,22 @@ export const dsaPatterns = [
     id: 'two-pointers',
     name: '1. Two Pointers',
     summary: 'Iterating through a data structure with two pointers (usually left and right) to search for pairs or optimize space/time.',
-    realWorldProblem: 'Gift Card Match: Find two items in a price-sorted catalog that exactly exhaust a $100 gift card.',
+    leetcodeQuestions: [
+      {
+        id: 167,
+        title: 'Two Sum II - Input Array Is Sorted',
+        level: 'Easy',
+        question: 'Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number.',
+        answer: 'Place a left pointer at the start and a right pointer at the end. Calculate the sum. If the sum is too small, move the left pointer right. If too large, move the right pointer left. Continue until the pointers cross.'
+      },
+      {
+        id: 15,
+        title: '3Sum',
+        level: 'Medium',
+        question: 'Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.',
+        answer: 'First, sort the array. Then iterate through each element. For each element, use the Two Pointer technique on the remaining array to find pairs that sum to the negative of the current element. Be sure to skip duplicate elements to avoid duplicate triplets.'
+      }
+    ],
     code: `function findGiftCardMatch(prices, giftCardBalance) {
   let left = 0, right = prices.length - 1;
   
@@ -46,7 +61,22 @@ L=$20, R=$80 -> Cost=$100 (Perfect Match!)`,
     id: 'sliding-window',
     name: '2. Sliding Window',
     summary: 'A technique used to perform operations on a specific window size. The window moves over the data one step at a time, avoiding redundant calculations.',
-    realWorldProblem: 'E-Commerce: Find the highest revenue generated in any consecutive 3-day period.',
+    leetcodeQuestions: [
+      {
+        id: 643,
+        title: 'Maximum Average Subarray I',
+        level: 'Easy',
+        question: 'You are given an integer array nums consisting of n elements, and an integer k. Find a contiguous subarray whose length is equal to k that has the maximum average value.',
+        answer: 'Calculate the sum of the first K elements. Then, slide the window by one element at a time: subtract the element leaving the window and add the new element entering the window. Keep track of the maximum sum seen.'
+      },
+      {
+        id: 3,
+        title: 'Longest Substring Without Repeating Characters',
+        level: 'Medium',
+        question: 'Given a string s, find the length of the longest substring without repeating characters.',
+        answer: 'Use a dynamic sliding window with a HashMap to track characters and their indices. Expand the window to the right. If a duplicate character is found, shrink the window from the left until the duplicate is removed, updating the max length at each step.'
+      }
+    ],
     code: `function maxRevenue3Days(sales) {
   let maxRev = 0, currentWindowRev = 0;
   for (let i = 0; i < 3; i++) currentWindowRev += sales[i];
@@ -86,7 +116,22 @@ Window 2: Drop $200, Add $100 -> [$150, $500, $100] -> $750`,
     id: 'prefix-sum',
     name: '3. Prefix Sum',
     summary: 'Precomputing the cumulative sum of an array to answer range queries in O(1) time.',
-    realWorldProblem: 'Game Development: Calculating the exact total damage a player took between Level 4 and Level 12 instantly, without iterating through the levels every time.',
+    leetcodeQuestions: [
+      {
+        id: 303,
+        title: 'Range Sum Query - Immutable',
+        level: 'Easy',
+        question: 'Given an integer array nums, handle multiple queries of the following type: Calculate the sum of the elements of nums between indices left and right inclusive where left <= right.',
+        answer: 'Precompute a prefix sum array where prefix[k] stores the sum of elements from index 0 to k-1. To find the sum between i and j in O(1) time, calculate prefix[j+1] - prefix[i].'
+      },
+      {
+        id: 560,
+        title: 'Subarray Sum Equals K',
+        level: 'Medium',
+        question: 'Given an array of integers nums and an integer k, return the total number of continuous subarrays whose sum equals to k.',
+        answer: 'Keep a running sum while iterating. Use a HashMap to store the frequency of all seen running sums. At each step, check if (running sum - k) exists in the map. If it does, it means a subarray ending at the current index has a sum of k. Add the frequency to your total count.'
+      }
+    ],
     code: `class DamageTracker {
   constructor(damagePerLevel) {
     this.prefixSums = new Array(damagePerLevel.length + 1).fill(0);
@@ -126,7 +171,22 @@ PrefixSums[3] - PrefixSums[1] -> 35 - 10 = 25!`,
     id: 'fast-slow-pointers',
     name: '4. Fast & Slow Pointers',
     summary: 'Two pointers moving at different speeds. Often used to detect cycles.',
-    realWorldProblem: 'Network Routing: Detect if a network packet is trapped in an infinite routing loop between servers.',
+    leetcodeQuestions: [
+      {
+        id: 141,
+        title: 'Linked List Cycle',
+        level: 'Easy',
+        question: 'Given head, the head of a linked list, determine if the linked list has a cycle in it.',
+        answer: 'Initialize a slow pointer moving 1 step and a fast pointer moving 2 steps. If there is a cycle, the fast pointer will eventually lap and meet the slow pointer. If the fast pointer reaches null, there is no cycle.'
+      },
+      {
+        id: 142,
+        title: 'Linked List Cycle II',
+        level: 'Medium',
+        question: 'Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.',
+        answer: 'First, use fast and slow pointers to detect the cycle. Once they meet, reset the slow pointer to the head of the list. Move both pointers one step at a time. The node where they meet next is exactly the start of the cycle (based on Floyd\'s cycle-finding algorithm math).'
+      }
+    ],
     code: `function hasRoutingLoop(startRouter) {
   let slow = startRouter, fast = startRouter;
   while (fast !== null && fast.nextRouter !== null) {
@@ -171,7 +231,22 @@ Iter 3: Slow=C, Fast=C -> COLLISION!`,
     id: 'cyclic-sort',
     name: '5. Cyclic Sort',
     summary: 'Placing numbers in an array within a known range into their exact index positions.',
-    realWorldProblem: 'Warehouse Inventory: Find the missing box ID in a sequentially numbered shipment (1 to N) where boxes are entirely scrambled.',
+    leetcodeQuestions: [
+      {
+        id: 268,
+        title: 'Missing Number',
+        level: 'Easy',
+        question: 'Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.',
+        answer: 'Since numbers are exactly from 0 to N, we can place each number at its corresponding index (number `i` goes to index `i`). Then scan the array; the first index that doesn\'t match its value is the missing number.'
+      },
+      {
+        id: 41,
+        title: 'First Missing Positive',
+        level: 'Hard',
+        question: 'Given an unsorted integer array nums. Return the smallest positive integer that is not present in nums. You must implement an algorithm that runs in O(n) time and uses O(1) auxiliary space.',
+        answer: 'Ignore negatives and numbers larger than the array size. For valid numbers, swap them into their correct 0-indexed positions (e.g., number 1 goes to index 0, number 5 goes to index 4). Scan the array to find the first index that doesn\'t hold the correct number.'
+      }
+    ],
     code: `function findMissingBox(boxes) {
   let i = 0;
   while (i < boxes.length) {
@@ -216,7 +291,22 @@ Scan: Idx 1 is missing Box2!`,
     id: 'in-place-reversal-ll',
     name: '6. In-place Reversal of a Linked List',
     summary: 'Reversing links between nodes of a linked list in a single pass without using extra memory.',
-    realWorldProblem: 'Browser History: Reversing the chronological order of a forward-only navigation history chain so the user can traverse it backwards.',
+    leetcodeQuestions: [
+      {
+        id: 206,
+        title: 'Reverse Linked List',
+        level: 'Easy',
+        question: 'Given the head of a singly linked list, reverse the list, and return the reversed list.',
+        answer: 'Maintain three pointers: `prev` (initially null), `current` (head), and `next`. Iterate through the list, temporarily storing `current.next`, then updating `current.next` to point backwards to `prev`. Move `prev` and `current` one step forward.'
+      },
+      {
+        id: 25,
+        title: 'Reverse Nodes in k-Group',
+        level: 'Hard',
+        question: 'Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.',
+        answer: 'Count the nodes to see if there are at least k nodes left. If so, reverse just those k nodes using the standard in-place reversal logic. Keep track of the `tail` of the newly reversed section to connect it to the recursive call or the next k-group.'
+      }
+    ],
     code: `function reverseHistory(oldestPage) {
   let prevPage = null, currentPage = oldestPage;
   while (currentPage !== null) {
@@ -259,7 +349,22 @@ NULL <- Google <- Facebook   Amazon -> NULL
     id: 'bfs',
     name: '7. Tree Breadth-First Search (BFS)',
     summary: 'Traversing a tree level by level using a Queue.',
-    realWorldProblem: 'Social Network: Finding all 1st-degree friends, then all 2nd-degree friends (friends of friends) of a user.',
+    leetcodeQuestions: [
+      {
+        id: 102,
+        title: 'Binary Tree Level Order Traversal',
+        level: 'Medium',
+        question: 'Given the root of a binary tree, return the level order traversal of its nodes\' values. (i.e., from left to right, level by level).',
+        answer: 'Use a Queue. Start by pushing the root. In a while loop, check the queue\'s size (this is the number of nodes in the current level). Loop exactly that many times, popping a node, saving its value, and pushing its children. This isolates values by level.'
+      },
+      {
+        id: 994,
+        title: 'Rotting Oranges',
+        level: 'Medium',
+        question: 'You are given an m x n grid where each cell can have one of three values: 0 representing an empty cell, 1 representing a fresh orange, or 2 representing a rotten orange. Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten. Return the minimum number of minutes that must elapse until no cell has a fresh orange.',
+        answer: 'This is a multi-source BFS problem. Initially, push all rotten oranges into the queue and count fresh oranges. In a loop, pop rotten oranges, rot their fresh neighbors, push the newly rotten ones to the queue, and decrement the fresh count. Keep track of minutes.'
+      }
+    ],
     code: `function getConnectionsByDegree(userNode) {
   if (!userNode) return [];
   const result = [], queue = [userNode];
@@ -315,7 +420,22 @@ Q: [Alice, Bob] -> pop both, push Dave, Eve`,
     id: 'dfs',
     name: '8. Tree Depth-First Search (DFS)',
     summary: 'Going as deep as possible down one path before backtracking.',
-    realWorldProblem: 'File System Search: Searching for a specific file deeply nested inside folders and subfolders on a hard drive.',
+    leetcodeQuestions: [
+      {
+        id: 112,
+        title: 'Path Sum',
+        level: 'Easy',
+        question: 'Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.',
+        answer: 'Use recursive DFS. Subtract the current node\'s value from targetSum. If the node is a leaf, check if the remaining targetSum equals 0. Otherwise, recursively call DFS on the left and right children.'
+      },
+      {
+        id: 79,
+        title: 'Word Search',
+        level: 'Medium',
+        question: 'Given an m x n grid of characters board and a string word, return true if word exists in the grid.',
+        answer: 'Iterate through every cell. If a cell matches the first letter, trigger a recursive DFS. The DFS should check boundaries, track visited cells (by temporarily altering the cell value to `#`), and check all 4 directions for the next letter in the word. Backtrack by restoring the cell value.'
+      }
+    ],
     code: `function findFile(folder, targetFileName) {
   if (folder.type === 'file' && folder.name === targetFileName) {
     return folder.path;
@@ -359,7 +479,22 @@ Q: [Alice, Bob] -> pop both, push Dave, Eve`,
     id: 'modified-binary-search',
     name: '9. Modified Binary Search',
     summary: 'Finding elements in sorted or rotated arrays in O(log N) time.',
-    realWorldProblem: 'Log Analysis System: Finding an error log at an exact timestamp in a massive database of chronologically sorted server logs without scanning every line.',
+    leetcodeQuestions: [
+      {
+        id: 34,
+        title: 'Find First and Last Position of Element in Sorted Array',
+        level: 'Medium',
+        question: 'Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.',
+        answer: 'Run Binary Search twice. The first time, when you find the target, don\'t stop—instead, narrow the search to the left half to find the absolute first occurrence. The second time, narrow the search to the right half to find the last occurrence.'
+      },
+      {
+        id: 33,
+        title: 'Search in Rotated Sorted Array',
+        level: 'Medium',
+        question: 'Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.',
+        answer: 'In a rotated sorted array, one half is ALWAYS strictly sorted. Find the mid point. Check if the left half is perfectly sorted. If it is, check if the target falls within the left half\'s range. If so, search left; else, search right. Repeat this logic.'
+      }
+    ],
     code: `function findLogByTimestamp(logs, targetTime) {
   let left = 0, right = logs.length - 1;
   while (left <= right) {
@@ -402,7 +537,22 @@ Mid: 6PM. Match! Found in 2 steps instead of 6.`,
     id: 'merge-intervals',
     name: '10. Merge Intervals',
     summary: 'Sorting and merging overlapping segments/timespans.',
-    realWorldProblem: 'Calendar App: Condense a user\'s messy, overlapping meeting schedule into clean blocks of "Busy" time.',
+    leetcodeQuestions: [
+      {
+        id: 56,
+        title: 'Merge Intervals',
+        level: 'Medium',
+        question: 'Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.',
+        answer: 'First, sort the intervals based on the start time. Create an output array. Iterate through the intervals, and if the current interval\'s start time is less than or equal to the previous interval\'s end time, merge them by taking the maximum end time.'
+      },
+      {
+        id: 253,
+        title: 'Meeting Rooms II',
+        level: 'Medium',
+        question: 'Given an array of meeting time intervals intervals where intervals[i] = [starti, endi], return the minimum number of conference rooms required.',
+        answer: 'Extract all start times and all end times into two separate arrays, and sort both independently. Use two pointers: one for starts, one for ends. Iterate through starts. If a start time is before the current end time, you need a new room. If it\'s after, a room just freed up (move the end pointer).'
+      }
+    ],
     code: `function mergeBusyTimes(meetings) {
   if (meetings.length < 2) return meetings;
   meetings.sort((a, b) => a.start - b.start);
@@ -450,7 +600,22 @@ Result: Busy {1-5} and {6-7}`,
     id: 'trie',
     name: '11. Trie (Prefix Tree)',
     summary: 'A tree structure used to store strings, ideal for fast autocomplete.',
-    realWorldProblem: 'Google Search Autocomplete: Instantly suggesting words as a user types "how to cook...", navigating millions of possibilities in milliseconds.',
+    leetcodeQuestions: [
+      {
+        id: 208,
+        title: 'Implement Trie (Prefix Tree)',
+        level: 'Medium',
+        question: 'A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. Implement the Trie class.',
+        answer: 'Create a TrieNode class with a Hash Map for children and a boolean `isWord`. For insert, traverse/create nodes for each char. For search, traverse and check if the last node has `isWord == true`. For startsWith, just ensure the traversal doesn\'t hit a null node.'
+      },
+      {
+        id: 212,
+        title: 'Word Search II',
+        level: 'Hard',
+        question: 'Given an m x n board of characters and a list of strings words, return all words on the board.',
+        answer: 'Insert all words into a Trie. Iterate through each cell on the board. If the cell\'s character exists in the Trie\'s root, start a DFS. Pass the current TrieNode along the DFS to instantly know if the current path forms a valid prefix or a complete word.'
+      }
+    ],
     code: `class TrieNode {
   constructor() { this.chars = {}; this.isWord = false; }
 }
@@ -510,7 +675,22 @@ class SearchAutocomplete {
     id: 'top-k-elements',
     name: '12. Top K Elements',
     summary: 'Finding the top/most frequent items using a Heap.',
-    realWorldProblem: 'Twitter Trending Topics: Finding the Top 10 most frequently used hashtags out of millions of tweets in the last hour.',
+    leetcodeQuestions: [
+      {
+        id: 347,
+        title: 'Top K Frequent Elements',
+        level: 'Medium',
+        question: 'Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.',
+        answer: 'Count frequencies using a Hash Map. Then use a Min-Heap of size k, ordered by frequency. Push elements into the heap; if size exceeds k, pop the smallest. The elements left in the heap are the top k most frequent.'
+      },
+      {
+        id: 703,
+        title: 'Kth Largest Element in a Stream',
+        level: 'Easy',
+        question: 'Design a class to find the kth largest element in a stream. Note that it is the kth largest element in the sorted order, not the kth distinct element.',
+        answer: 'Maintain a Min-Heap of size K. For every new element in the stream, if the heap has fewer than K elements, push it. Otherwise, if the new element is larger than the root of the Min-Heap, pop the root and push the new element. The root is always the Kth largest.'
+      }
+    ],
     code: `function getTrendingHashtags(tweets, k) {
   let frequencyMap = new Map();
   for (let tweet of tweets) {
@@ -556,7 +736,22 @@ Heap: [#tech, #sports]`,
     id: 'subsets',
     name: '13. Subsets (Backtracking)',
     summary: 'Generating all possible combinations using Backtracking.',
-    realWorldProblem: 'Pizza Customization App: Generating every single possible topping combination a customer could order given a list of available toppings.',
+    leetcodeQuestions: [
+      {
+        id: 78,
+        title: 'Subsets',
+        level: 'Medium',
+        question: 'Given an integer array nums of unique elements, return all possible subsets (the power set). The solution set must not contain duplicate subsets.',
+        answer: 'Use a recursive function that takes the current index and a `currentSubset` array. At each step, push the `currentSubset` to the results. Loop from the current index to the end, adding `nums[i]` to `currentSubset`, recursing, and then popping `nums[i]` (backtracking).'
+      },
+      {
+        id: 40,
+        title: 'Combination Sum II',
+        level: 'Medium',
+        question: 'Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target. Each number in candidates may only be used once in the combination.',
+        answer: 'Sort the candidates first to easily handle duplicates. Use backtracking. If target == 0, add combo. If target < 0, return. In the loop, if `i > start` and `candidates[i] == candidates[i-1]`, skip to avoid duplicate combos. Backtrack with `target - candidates[i]`.'
+      }
+    ],
     code: `function generateToppingCombos(toppings) {
   let allCombos = [];
   function buildPizza(startIdx, currentPizza) {
@@ -603,7 +798,22 @@ Plain Cheese []
     id: 'topological-sort',
     name: '14. Topological Sort',
     summary: 'Finding a valid order of execution for tasks with dependencies.',
-    realWorldProblem: 'Package Manager (npm/yarn): Figuring out the exact installation order of libraries so that dependencies are installed before the packages that rely on them.',
+    leetcodeQuestions: [
+      {
+        id: 207,
+        title: 'Course Schedule',
+        level: 'Medium',
+        question: 'There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites. Return true if you can finish all courses. Otherwise, return false.',
+        answer: 'This is cycle detection in a Directed Graph. Build an adjacency list and an in-degree array. Push all nodes with in-degree 0 to a queue. BFS through them, reducing the in-degree of neighbors. If you processed `numCourses` nodes, return true (no cycle).'
+      },
+      {
+        id: 269,
+        title: 'Alien Dictionary',
+        level: 'Hard',
+        question: 'There is a new alien language that uses the English alphabet. However, the order among the letters is unknown to you. You are given a list of strings words from the alien language\'s dictionary, where the strings in words are sorted lexicographically by the rules of this new language. Return a string of the unique letters in the new alien language sorted in lexicographically increasing order.',
+        answer: 'Compare adjacent words to find the first differing character to establish a directed edge (e.g., "wrt" before "wrf" means t -> f). Build a graph. Run Topological Sort. If there\'s a cycle (e.g., a->b and b->a), or invalid input ("abc" before "ab"), return empty string.'
+      }
+    ],
     code: `function installOrder(packages, dependencies) {
   let order = [], inDegree = new Map(), adjList = new Map();
   packages.forEach(pkg => { inDegree.set(pkg, 0); adjList.set(pkg, []); });
@@ -659,7 +869,22 @@ Install Redux. Order: JS, React, Redux.`,
     id: 'two-heaps',
     name: '15. Two Heaps',
     summary: 'Maintains a Max Heap and a Min Heap to instantly find the median of a stream.',
-    realWorldProblem: 'Financial Dashboard: Real-time calculation of the median trading price of a stock during rapid market fluctuations.',
+    leetcodeQuestions: [
+      {
+        id: 295,
+        title: 'Find Median from Data Stream',
+        level: 'Hard',
+        question: 'The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values. Implement the MedianFinder class.',
+        answer: 'Maintain two heaps: a Max-Heap for the lower half of numbers, and a Min-Heap for the upper half. Keep their sizes balanced (Max-Heap size >= Min-Heap size). The median is the root of the Max-Heap (if odd) or the average of both roots (if even).'
+      },
+      {
+        id: 480,
+        title: 'Sliding Window Median',
+        level: 'Hard',
+        question: 'The median is the middle value in an ordered integer list. Given an integer array nums and an integer k, return the median array for each window in the original array.',
+        answer: 'Combine Two Heaps with a Sliding Window. Because removing an element from a heap is O(N), use "lazy deletion" by keeping a HashMap of elements that have fallen out of the window, and only actually popping them when they reach the root of either heap.'
+      }
+    ],
     code: `class RealTimeMedianPrice {
   constructor() {
     this.lowerHalf = new MaxHeap(); // Stores cheaper prices
@@ -716,7 +941,22 @@ Median: Top of Lower ($50)`,
     id: 'k-way-merge',
     name: '16. K-way Merge',
     summary: 'Merging K sorted arrays efficiently.',
-    realWorldProblem: 'Uber/Lyft Driver Matching: Merging ETA-sorted lists of available drivers from 5 different geographical zones into one unified sorted list for the rider.',
+    leetcodeQuestions: [
+      {
+        id: 23,
+        title: 'Merge k Sorted Lists',
+        level: 'Hard',
+        question: 'You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.',
+        answer: 'Put the head of each of the k lists into a Min-Heap. The heap orders them by value. Pop the smallest node, append it to your result list, and if that node has a `next`, push `node.next` into the heap. Repeat until the heap is empty.'
+      },
+      {
+        id: 378,
+        title: 'Kth Smallest Element in a Sorted Matrix',
+        level: 'Medium',
+        question: 'Given an n x n matrix where each of the rows and columns is sorted in ascending order, return the kth smallest element in the matrix.',
+        answer: 'Treat each row as a sorted list. Push the first element of each row into a Min-Heap (storing its value, row index, and col index). Pop k times. Every time you pop, if there is a next element in that same row, push it into the heap. The kth popped element is your answer.'
+      }
+    ],
     code: `// Conceptual MinHeap Implementation
 function mergeDriverLists(zones) {
   let unifiedDrivers = [], minHeap = new MinHeap(); 
@@ -770,7 +1010,22 @@ Pop 2min -> Unified: [1min, 2min]...`,
     id: 'monotonic-stack',
     name: '17. Monotonic Stack',
     summary: 'A stack whose elements are strictly increasing or decreasing. Solves "next greater element" problems.',
-    realWorldProblem: 'Stock Market Analytics: For every day in the market, find out how many days a trader has to wait until the stock price is strictly higher than today.',
+    leetcodeQuestions: [
+      {
+        id: 739,
+        title: 'Daily Temperatures',
+        level: 'Medium',
+        question: 'Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature.',
+        answer: 'Iterate through temperatures. Maintain a stack of indices. While the current temp is greater than the temp at the index at the top of the stack, pop the stack and calculate the difference in indices. Push the current index.'
+      },
+      {
+        id: 84,
+        title: 'Largest Rectangle in Histogram',
+        level: 'Hard',
+        question: 'Given an array of integers heights representing the histogram\'s bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.',
+        answer: 'Maintain an increasing Monotonic Stack of indices. If a smaller bar is encountered, it means the previous taller bars can\'t extend any further right. Pop them, calculate their maximum area (using the popped bar as height and the distance between the current index and the new stack top as width), and push the current index.'
+      }
+    ],
     code: `function daysUntilHigherPrice(prices) {
   let waitDays = Array(prices.length).fill(0);
   let stack = []; 
@@ -816,7 +1071,22 @@ Result: waitDays = [3, 2, 1, 0]`,
     id: 'union-find',
     name: '18. Disjoint Set (Union-Find)',
     summary: 'Tracks a set of elements partitioned into disjoint subsets. Great for graph connectivity.',
-    realWorldProblem: 'Social Network Connectivity: Determining if two users are indirectly connected through mutual friends, or finding isolated "cliques" in the network.',
+    leetcodeQuestions: [
+      {
+        id: 323,
+        title: 'Number of Connected Components in an Undirected Graph',
+        level: 'Medium',
+        question: 'You have a graph of n nodes. You are given an integer n and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph. Return the number of connected components in the graph.',
+        answer: 'Initialize a Union-Find structure with n independent sets. Iterate through all the edges. For each edge (u, v), perform a Union operation. Every successful Union reduces the total number of components by 1.'
+      },
+      {
+        id: 684,
+        title: 'Redundant Connection',
+        level: 'Medium',
+        question: 'In this problem, a tree is an undirected graph that is connected and has no cycles. You are given a graph that started as a tree with n nodes, with one additional edge added. Return an edge that can be removed so that the resulting graph is a tree of n nodes.',
+        answer: 'Iterate through the edges. For each edge (u, v), use the Find operation to check if they are already in the same set. If they are, this edge creates a cycle and is the redundant one. If not, Union them.'
+      }
+    ],
     code: `class UserNetwork {
   constructor(totalUsers) {
     this.boss = Array.from({length: totalUsers}, (_, i) => i); 
@@ -867,7 +1137,22 @@ Match! Yes.`,
     id: '01-knapsack',
     name: '19. 0/1 Knapsack (DP)',
     summary: 'Selecting items to maximize value without exceeding capacity.',
-    realWorldProblem: 'Cloud Computing: Packing tasks onto a virtual machine (VM). Each task has a RAM cost and a Priority Value. Maximize the priority without crashing the VM.',
+    leetcodeQuestions: [
+      {
+        id: 416,
+        title: 'Partition Equal Subset Sum',
+        level: 'Medium',
+        question: 'Given an integer array nums, return true if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or false otherwise.',
+        answer: 'This is a 0/1 Knapsack problem where the capacity is `sum(nums) / 2`. Create a DP array of size `capacity + 1`. For each number, iterate backwards through the DP array updating `dp[i] = dp[i] || dp[i - num]`. Check if `dp[capacity]` becomes true.'
+      },
+      {
+        id: 494,
+        title: 'Target Sum',
+        level: 'Medium',
+        question: 'You are given an integer array nums and an integer target. You want to build an expression out of nums by adding one of the symbols \'+\' and \'-\' before each integer in nums and then concatenate all the integers. Return the number of different expressions that you can build, which evaluates to target.',
+        answer: 'This reduces to partitioning the array into two subsets (P for positive, N for negative) such that `sum(P) - sum(N) = target`. Since `sum(P) + sum(N) = sum(nums)`, we find `sum(P) = (target + sum(nums)) / 2`. This is exactly 0/1 Knapsack: count subsets summing to `sum(P)`.'
+      }
+    ],
     code: `function maxVMPriority(tasks, maxRAM) {
   let dp = Array(maxRAM + 1).fill(0);
   for (let i = 0; i < tasks.length; i++) {
@@ -913,7 +1198,22 @@ At 5GB, optimal is T1+T2 = 25.`,
     id: 'sliding-window-max',
     name: '20. Sliding Window Maximum',
     summary: 'Finding the max element in a sliding window in O(N) time using a Deque.',
-    realWorldProblem: 'Video Streaming Buffer: Finding the maximum network latency spike that occurred in the last 10 seconds of a livestream buffer to adjust video quality.',
+    leetcodeQuestions: [
+      {
+        id: 239,
+        title: 'Sliding Window Maximum',
+        level: 'Hard',
+        question: 'You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.',
+        answer: 'Use a Deque (Double-ended Queue). Store indices. Maintain a monotonically decreasing Deque: before adding a new index, pop all indices from the back whose values are smaller than the new value. Then remove indices from the front that have fallen out of the window. The front is always the max.'
+      },
+      {
+        id: 1438,
+        title: 'Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit',
+        level: 'Medium',
+        question: 'Given an array of integers nums and an integer limit, return the size of the longest non-empty subarray such that the absolute difference between any two elements of this subarray is less than or equal to limit.',
+        answer: 'Maintain TWO Deques: one monotonically decreasing (for max) and one monotonically increasing (for min). Expand the window. If the difference between the max Deque\'s front and the min Deque\'s front exceeds `limit`, shrink the window from the left by popping out-of-bounds indices from the fronts.'
+      }
+    ],
     code: `function maxLatencyInWindows(latencies, windowSize) {
   let deque = [], result = [];
   for (let i = 0; i < latencies.length; i++) {
