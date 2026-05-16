@@ -24,7 +24,11 @@ L=$20, R=$80 -> Cost=$100 (Perfect Match!)`,
     spaceComplexity: 'O(1)',
     complexityExplanation: 'Each pointer moves strictly inward, ensuring we scan the list only once. No extra arrays are created.',
     pros: ['Eliminates the need for a nested loop to check all pairs'],
-    cons: ['Requires the array to be sorted first (which takes O(N log N))']
+    cons: ['Requires the array to be sorted first (which takes O(N log N))'],
+    whenToUse: 'When dealing with sorted arrays or linked lists and you need to find pairs, triplets, or subarrays that satisfy a condition.',
+    commonProblems: ['Two Sum II (sorted array)', '3Sum', 'Container With Most Water', 'Valid Palindrome'],
+    pitfalls: ['Forgetting that the array MUST be sorted for many two-pointer problems', 'Infinite loops if pointers are not updated correctly'],
+    mentalModel: 'Imagine two fingers scanning a line of text. They can start at opposite ends and move inward, or both start at the beginning. You move them based on what you are looking for (e.g., if the sum is too small, move the left finger right to get a bigger number).'
   },
   {
     id: 'sliding-window',
@@ -50,7 +54,11 @@ Window 2: Drop $200, Add $100 -> [$150, $500, $100] -> $750`,
     spaceComplexity: 'O(1)',
     complexityExplanation: 'We iterate through the sales data exactly once. We only keep track of two variables (maxRev and currentWindowRev), resulting in constant space.',
     pros: ['Reduces nested loops from O(N^2) to O(N)', 'Extremely memory efficient'],
-    cons: ['Only applicable to contiguous subarrays or sequences']
+    cons: ['Only applicable to contiguous subarrays or sequences'],
+    whenToUse: 'When you need to find the longest/shortest/optimal contiguous subarray or substring.',
+    commonProblems: ['Longest Substring Without Repeating Characters', 'Maximum Sum Subarray of Size K', 'Minimum Window Substring'],
+    pitfalls: ['Not shrinking the window correctly when the condition is violated', 'Off-by-one errors when calculating the window size (right - left + 1)'],
+    mentalModel: 'Think of a picture frame sliding over a panoramic photo. You only see what\'s inside the frame. Instead of repainting the whole picture every time you move the frame, you just add what entered the frame on the right and remove what left on the left.'
   },
   {
     id: 'prefix-sum',
@@ -77,7 +85,11 @@ PrefixSums[3] - PrefixSums[1] -> 35 - 10 = 25!`,
     spaceComplexity: 'O(N)',
     complexityExplanation: 'Initialization takes O(N) to build the prefix array, but every single query after that takes O(1) constant time.',
     pros: ['Transforms O(N) repetitive calculations into instant O(1) lookups'],
-    cons: ['Requires extra memory to store the prefix array', 'Array must be static']
+    cons: ['Requires extra memory to store the prefix array', 'Array must be static'],
+    whenToUse: 'When you have multiple queries asking for the sum of a contiguous subarray, or you need to compute cumulative sums.',
+    commonProblems: ['Range Sum Query - Immutable', 'Subarray Sum Equals K', 'Product of Array Except Self'],
+    pitfalls: ['Forgetting to initialize the prefix sum array with an extra 0 at the beginning to handle queries starting at index 0', 'Using it when the array is constantly being updated (use a Fenwick Tree or Segment Tree instead)'],
+    mentalModel: 'Like a running bank account balance. If you want to know how much you spent between March and June, you take your total spending up to June and subtract your total spending up to February.'
   },
   {
     id: 'fast-slow-pointers',
@@ -104,7 +116,11 @@ Iter 3: Slow=C, Fast=C -> COLLISION!`,
     spaceComplexity: 'O(1)',
     complexityExplanation: 'In the worst case, the fast packet loops around the cycle once before catching the slow one. No historical data is stored.',
     pros: ['Detects infinite loops without storing a history of visited nodes'],
-    cons: ['Only useful for cycle detection or finding the middle element']
+    cons: ['Only useful for cycle detection or finding the middle element'],
+    whenToUse: 'When dealing with linked lists or cyclic arrays and you need to detect cycles, find the middle element, or find the start of a cycle.',
+    commonProblems: ['Linked List Cycle', 'Find the Duplicate Number', 'Middle of the Linked List', 'Palindrome Linked List'],
+    pitfalls: ['Not checking for null pointers (e.g., fast.next might be null before checking fast.next.next)', 'Incorrectly calculating the start of the cycle after a collision'],
+    mentalModel: 'A track race where one runner is twice as fast as the other. If the track is a loop, the faster runner will eventually lap the slower runner. If it\'s a straight line, the faster runner will finish when the slower one is exactly halfway.'
   },
 
   // MEDIUM
@@ -138,7 +154,11 @@ Scan: Idx 1 is missing Box2!`,
     spaceComplexity: 'O(1)',
     complexityExplanation: 'Each box is swapped at most once into its correct position. We sort the array entirely in place, using zero extra memory.',
     pros: ['Achieves O(N) sort without extra memory', 'Perfect for finding missing/duplicate sequential data'],
-    cons: ['Highly specific to range-bounded arrays']
+    cons: ['Highly specific to range-bounded arrays'],
+    whenToUse: 'When dealing with arrays containing numbers in a given range (e.g., 1 to N) and you need to find missing or duplicate numbers.',
+    commonProblems: ['Missing Number', 'Find All Duplicates in an Array', 'First Missing Positive'],
+    pitfalls: ['Forgetting that the correct index for number X is X - 1 (for 1 to N arrays)', 'Infinite loops if you swap a number with itself or if duplicates aren\'t handled properly'],
+    mentalModel: 'Like a postman sorting mail into numbered P.O. boxes. You look at a letter, walk over to the P.O. box with that number, and swap it with whatever letter is currently sitting there. Repeat until every letter is in the right box.'
   },
   {
     id: 'in-place-reversal-ll',
@@ -166,7 +186,11 @@ NULL <- Google <- Facebook   Amazon -> NULL
     spaceComplexity: 'O(1)',
     complexityExplanation: 'One pass through the history chain. No extra page objects are created.',
     pros: ['Very efficient memory usage', 'Never duplicates objects in memory'],
-    cons: ['Requires careful pointer manipulation; easy to lose the rest of the list']
+    cons: ['Requires careful pointer manipulation; easy to lose the rest of the list'],
+    whenToUse: 'When you need to reverse the links between nodes of a linked list in a single pass without using extra memory.',
+    commonProblems: ['Reverse Linked List', 'Reverse Linked List II', 'Palindrome Linked List', 'Reverse Nodes in k-Group'],
+    pitfalls: ['Losing track of the "next" node before modifying the current node\'s pointer', 'Returning the wrong node as the new head (it should be the "prev" node)'],
+    mentalModel: 'Imagine turning a line of one-way signs to face the opposite direction. You have to walk down the line, and at each sign, remember where the next sign is, turn the current sign around, and then step to the next sign.'
   },
   {
     id: 'bfs',
@@ -205,7 +229,11 @@ Q: [Alice, Bob] -> pop both, push Dave, Eve`,
     spaceComplexity: 'O(V)',
     complexityExplanation: 'Visits every person (Vertex) and checks every friendship (Edge). The queue and visited set take up to O(V) space.',
     pros: ['Guarantees finding the shortest path between users', 'Explores connections evenly'],
-    cons: ['Uses a lot of memory if a person has thousands of friends']
+    cons: ['Uses a lot of memory if a person has thousands of friends'],
+    whenToUse: 'When finding the shortest path, searching level-by-level, or when you know the target is close to the starting node.',
+    commonProblems: ['Binary Tree Level Order Traversal', 'Rotting Oranges', 'Word Ladder', 'Shortest Path in Binary Matrix'],
+    pitfalls: ['Forgetting to use a queue (using a stack makes it DFS)', 'Not marking nodes as visited (in graphs) leading to infinite loops'],
+    mentalModel: 'Like ripples spreading outward when you drop a stone in a pond. You explore all options 1 step away, then all options 2 steps away, etc. Or like networking at a party: talk to all your friends first, then talk to their friends.'
   },
   {
     id: 'dfs',
@@ -234,7 +262,11 @@ Q: [Alice, Bob] -> pop both, push Dave, Eve`,
     spaceComplexity: 'O(D)',
     complexityExplanation: 'Visits every file. Space complexity is tied to the maximum Depth (D) of the nested folders due to the recursion stack.',
     pros: ['Very memory efficient for deep, narrow folder structures compared to BFS'],
-    cons: ['Can cause a stack overflow if folder structures are insanely deep']
+    cons: ['Can cause a stack overflow if folder structures are insanely deep'],
+    whenToUse: 'When you need to search deeply into a tree/graph, find all possible paths, or when memory is a concern (DFS uses less memory than BFS for wide trees).',
+    commonProblems: ['Number of Islands', 'Lowest Common Ancestor of a Binary Tree', 'Path Sum', 'Word Search'],
+    pitfalls: ['Stack overflow errors on extremely deep trees (if using recursion)', 'Failing to handle cyclic graphs by not keeping a "visited" set'],
+    mentalModel: 'Like solving a maze by keeping your hand on the left wall. You go as deep as possible down one path until you hit a dead end, then you backtrack to the last intersection and try the next path.'
   },
   {
     id: 'modified-binary-search',
@@ -263,7 +295,11 @@ Mid: 6PM. Match! Found in 2 steps instead of 6.`,
     spaceComplexity: 'O(1)',
     complexityExplanation: 'Halving the search space each step yields log N time. Iterative approach uses O(1) space.',
     pros: ['Can search databases of millions of items in a fraction of a millisecond'],
-    cons: ['Strict prerequisite: data MUST be perfectly sorted']
+    cons: ['Strict prerequisite: data MUST be perfectly sorted'],
+    whenToUse: 'When the input array is sorted (or partially sorted/rotated) and you need to find a target value or boundary efficiently (O(log N)).',
+    commonProblems: ['Search in Rotated Sorted Array', 'Find Minimum in Rotated Sorted Array', 'Search a 2D Matrix', 'Find Peak Element'],
+    pitfalls: ['Off-by-one errors in `while(left <= right)` vs `while(left < right)`', 'Calculating `mid` incorrectly, risking integer overflow (use `left + Math.floor((right - left) / 2)`)'],
+    mentalModel: 'Like looking up a word in a physical dictionary. You don\'t read every page; you open it to the middle, see if the word comes before or after, and then rip the book in half, keeping only the relevant half.'
   },
   {
     id: 'merge-intervals',
@@ -297,7 +333,11 @@ Result: Busy {1-5} and {6-7}`,
     spaceComplexity: 'O(N)',
     complexityExplanation: 'Sorting the meetings dominates the time complexity. Space complexity is O(N) to store the merged blocks array.',
     pros: ['Simplifies complex scheduling and overlapping resource allocations'],
-    cons: ['Sorting step can be a bottleneck for massive datasets']
+    cons: ['Sorting step can be a bottleneck for massive datasets'],
+    whenToUse: 'When dealing with overlapping intervals, scheduling, or merging timeframes.',
+    commonProblems: ['Merge Intervals', 'Insert Interval', 'Non-overlapping Intervals', 'Meeting Rooms II'],
+    pitfalls: ['Forgetting to sort the intervals based on their start times first', 'Incorrectly comparing the end time of the current merged interval with the start time of the next one'],
+    mentalModel: 'Like laying down strips of tape on a line. If a new strip overlaps an existing one, they become one continuous, longer strip of tape.'
   },
   {
     id: 'trie',
@@ -341,7 +381,11 @@ class SearchAutocomplete {
     spaceComplexity: 'O(N * L)',
     complexityExplanation: 'Extremely fast O(L) time because you only do as many lookups as the word is long. Takes a lot of space because every letter is an object.',
     pros: ['O(L) lookup is drastically faster than Hash Maps for prefix matching'],
-    cons: ['Extremely memory heavy for large datasets without compression techniques']
+    cons: ['Extremely memory heavy for large datasets without compression techniques'],
+    whenToUse: 'When you need to perform fast string matching, autocomplete, or prefix searches among a large set of strings.',
+    commonProblems: ['Implement Trie (Prefix Tree)', 'Design Add and Search Words Data Structure', 'Word Search II'],
+    pitfalls: ['Forgetting to mark the end of a valid word with a boolean flag `isWord`', 'High memory consumption if not optimized (every character creates a new node/object)'],
+    mentalModel: 'Like a physical card catalog in a library or a file cabinet. You open the "A" drawer, then the "P" section, then "P", then "L", then "E".'
   },
   {
     id: 'top-k-elements',
@@ -373,7 +417,11 @@ Heap: [#tech, #sports]`,
     spaceComplexity: 'O(N)',
     complexityExplanation: 'Counting takes O(N). Pushing into a heap of size K takes log K, done N times.',
     pros: ['Drastically faster than sorting the entire dataset, especially when K is very small'],
-    cons: ['Requires extra memory for the frequency map']
+    cons: ['Requires extra memory for the frequency map'],
+    whenToUse: 'When asked to find the top/smallest/most frequent K elements in an array or data stream.',
+    commonProblems: ['Top K Frequent Elements', 'Kth Largest Element in an Array', 'Find K Pairs with Smallest Sums'],
+    pitfalls: ['Using a Max-Heap to find the Top K largest elements (you should use a Min-Heap of size K instead!)', 'Sorting the entire array first, which takes O(N log N) instead of O(N log K)'],
+    mentalModel: 'Like a VIP bouncer at a club that only fits K people. If the club is full and someone cooler (larger/more frequent) shows up, the least cool person inside gets kicked out.'
   },
   {
     id: 'subsets',
@@ -405,7 +453,11 @@ Plain Cheese []
     spaceComplexity: 'O(N)',
     complexityExplanation: 'For N toppings, there are 2^N possible pizzas. We spend O(N) time copying the array to save it.',
     pros: ['Generates exhaustive combinations reliably'],
-    cons: ['Exponential time makes it crash if there are too many toppings (e.g. > 25)']
+    cons: ['Exponential time makes it crash if there are too many toppings (e.g. > 25)'],
+    whenToUse: 'When asked to generate all combinations, permutations, or subsets of a given set, or exploring all paths in a decision tree.',
+    commonProblems: ['Subsets', 'Permutations', 'Combination Sum', 'N-Queens'],
+    pitfalls: ['Forgetting to "backtrack" (remove the last added element) before exploring the next branch', 'Not passing a copy of the current combination to the result array (passing by reference will cause all results to mutate)'],
+    mentalModel: 'Like exploring a "Choose Your Own Adventure" book. You follow a path to the end, write down the ending, then flip back a few pages and make a different choice to see that ending.'
   },
   {
     id: 'topological-sort',
@@ -444,7 +496,11 @@ Install Redux. Order: JS, React, Redux.`,
     spaceComplexity: 'O(V + E)',
     complexityExplanation: 'We process every package (Vertex) and dependency link (Edge) exactly once.',
     pros: ['Automatically detects circular dependencies'],
-    cons: ['Only works on Directed Acyclic Graphs (DAGs)']
+    cons: ['Only works on Directed Acyclic Graphs (DAGs)'],
+    whenToUse: 'When dealing with directed graphs representing dependencies (e.g., scheduling tasks, course prerequisites) and you need to find a valid order.',
+    commonProblems: ['Course Schedule', 'Course Schedule II', 'Alien Dictionary'],
+    pitfalls: ['Forgetting to check if a valid topological sort is even possible (e.g., if there\'s a cycle, the resulting order length won\'t match the total nodes)', 'Not keeping track of in-degrees correctly'],
+    mentalModel: 'Like putting on clothes. You must put on socks before shoes, and underwear before pants. You look at all the clothes you can put on *right now* (0 prerequisites), put them on, and then check what new clothes that unlocks.'
   },
 
   // HARD
@@ -487,7 +543,11 @@ Median: Top of Lower ($50)`,
     spaceComplexity: 'O(N)',
     complexityExplanation: 'Pushing to heaps takes log N time. Finding the median is instant O(1).',
     pros: ['Instant O(1) access to the median of an infinitely growing stream of data'],
-    cons: ['Heaps are not natively built into JavaScript, requiring custom implementations']
+    cons: ['Heaps are not natively built into JavaScript, requiring custom implementations'],
+    whenToUse: 'When you need to dynamically find the median of a stream of numbers.',
+    commonProblems: ['Find Median from Data Stream', 'Sliding Window Median', 'IPO'],
+    pitfalls: ['Forgetting to rebalance the heaps when their size difference exceeds 1', 'Not handling cases where the total number of elements is even versus odd properly'],
+    mentalModel: 'Like balancing a seesaw. You put the lighter half of the kids on the left side (Max-Heap) and the heavier half on the right side (Min-Heap). The two kids closest to the middle (top of the heaps) are your medians.'
   },
   {
     id: 'k-way-merge',
@@ -526,7 +586,11 @@ Pop 2min -> Unified: [1min, 2min]...`,
     spaceComplexity: 'O(K)',
     complexityExplanation: 'N is total drivers. Heap size is never more than K (zones). Extract/Insert takes log K.',
     pros: ['Incredibly efficient for streaming data or massive distributed datasets'],
-    cons: ['Overhead is high if K is very small']
+    cons: ['Overhead is high if K is very small'],
+    whenToUse: 'When you need to merge K sorted arrays/linked lists into one sorted list.',
+    commonProblems: ['Merge k Sorted Lists', 'Kth Smallest Element in a Sorted Matrix', 'Smallest Range Covering Elements from K Lists'],
+    pitfalls: ['Pushing all elements into the heap at once instead of just the first element from each list', 'Forgetting to keep track of which list the popped element came from so you can push the next one'],
+    mentalModel: 'Like merging multiple lines of cars into a single lane. You look at the front car of every line, let the fastest one go, and then look at the new front car of that specific line.'
   },
   {
     id: 'monotonic-stack',
@@ -557,7 +621,11 @@ Result: waitDays = [3, 2, 1, 0]`,
     spaceComplexity: 'O(N)',
     complexityExplanation: 'Every day is pushed to the stack exactly once and popped exactly once. O(N) instead of O(N^2).',
     pros: ['Transforms terrible O(N^2) nested loop algorithms into hyper-efficient O(N) ones'],
-    cons: ['Very tricky to logic out when to pop versus push during an interview']
+    cons: ['Very tricky to logic out when to pop versus push during an interview'],
+    whenToUse: 'When you need to find the "next greater" or "next smaller" element for every item in an array in O(N) time.',
+    commonProblems: ['Daily Temperatures', 'Next Greater Element I', 'Largest Rectangle in Histogram', 'Trapping Rain Water'],
+    pitfalls: ['Pushing the actual value to the stack instead of its index (pushing indices is usually much more useful)', 'Confusing when to use a strictly increasing vs strictly decreasing stack'],
+    mentalModel: 'Like standing in a line of people and looking forward. A tall person (high value) will block your view of everyone shorter behind them. The stack keeps track of people whose view hasn\'t been blocked yet.'
   },
   {
     id: 'union-find',
@@ -593,7 +661,11 @@ Match! Yes.`,
     spaceComplexity: 'O(N)',
     complexityExplanation: 'Path compression flattens the hierarchy tree so much that lookups take almost constant time.',
     pros: ['The absolute fastest way to check connectivity or cycles in undirected graphs'],
-    cons: ['Cannot easily handle "unfriending" (removing edges is difficult)']
+    cons: ['Cannot easily handle "unfriending" (removing edges is difficult)'],
+    whenToUse: 'When you need to determine if two elements belong to the same group/set, or find the number of connected components in an undirected graph.',
+    commonProblems: ['Number of Connected Components in an Undirected Graph', 'Redundant Connection', 'Accounts Merge'],
+    pitfalls: ['Forgetting to implement "Path Compression" in the find method, which makes it incredibly fast', 'Not using "Union by Rank/Size", though path compression alone is usually enough'],
+    mentalModel: 'Like tracking corporate acquisitions. If Company A buys Company B, Company B\'s CEO now reports to A. If you want to know if two employees work for the same parent company, you just follow the chain of bosses to the top.'
   },
   {
     id: '01-knapsack',
@@ -624,7 +696,11 @@ At 5GB, optimal is T1+T2 = 25.`,
     spaceComplexity: 'O(Capacity)',
     complexityExplanation: 'We iterate over the capacity array for every single task. A 1D array keeps memory low.',
     pros: ['Solves complex resource allocation optimization perfectly'],
-    cons: ['Slows down dramatically if the capacity number is extremely high']
+    cons: ['Slows down dramatically if the capacity number is extremely high'],
+    whenToUse: 'When you are given a set of items, each with a weight and a value, and you need to determine the maximum value you can carry within a specific weight limit.',
+    commonProblems: ['Partition Equal Subset Sum', 'Target Sum', 'Ones and Zeroes'],
+    pitfalls: ['Iterating the capacity array forwards instead of backwards when using a 1D DP array (which accidentally reuses the same item multiple times)', 'Not identifying the "capacity" and the "items" correctly from the problem description'],
+    mentalModel: 'Like a burglar packing a bag with a strict weight limit. For every valuable item, you ask: "If I put this in my bag, will it force me to drop something else? Is the trade-off worth it?"'
   },
   {
     id: 'sliding-window-max',
@@ -653,6 +729,10 @@ i=3  (5): DQ[0] is out of bounds! Shift. DQ=[2(10ms), 3(5ms)] -> Max: 10`,
     spaceComplexity: 'O(K)',
     complexityExplanation: 'Every latency is added and removed from the deque at most once. Deque size is bounded by window size K.',
     pros: ['Astoundingly fast O(N) optimization for a problem that natively requires O(N*K)'],
-    cons: ['Extremely complex logic to visualize and implement correctly under interview pressure']
-  }
+    cons: ['Extremely complex logic to visualize and implement correctly under interview pressure'],
+    whenToUse: 'When you need to find the maximum (or minimum) element in every sliding window of size K in O(N) time.',
+    commonProblems: ['Sliding Window Maximum', 'Constrained Subsequence Sum', 'Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit'],
+    pitfalls: ['Pushing actual values into the deque instead of indices (you need indices to know when an element falls out of the window)', 'Not maintaining the monotonic decreasing property of the deque properly'],
+    mentalModel: 'Like a king\'s court. The oldest person (front of queue) is the current king. If a young, stronger person (larger value) arrives, they kick out all the weak people in front of them. When the king gets too old (falls out of the window), they step down.'
+  },
 ];

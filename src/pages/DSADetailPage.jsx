@@ -43,6 +43,14 @@ export default function DSADetailPage() {
         </div>
 
         <div className="p-6 md:p-8 space-y-10">
+          {/* When To Use */}
+          {pattern.whenToUse && (
+            <div>
+              <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">When to Use</h3>
+              <p className="text-slate-700 text-lg leading-relaxed">{pattern.whenToUse}</p>
+            </div>
+          )}
+
           {/* Real World Scenario */}
           {pattern.realWorldProblem && (
             <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-xl">
@@ -50,6 +58,30 @@ export default function DSADetailPage() {
               <p className="text-slate-700 text-lg leading-relaxed italic">
                 "{pattern.realWorldProblem}"
               </p>
+            </div>
+          )}
+
+          {/* Mental Model */}
+          {pattern.mentalModel && (
+            <div className="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-xl">
+              <h3 className="text-sm font-bold text-purple-800 uppercase tracking-wider mb-2">Mental Model</h3>
+              <p className="text-slate-700 text-lg leading-relaxed">
+                {pattern.mentalModel}
+              </p>
+            </div>
+          )}
+
+          {/* Common Problems */}
+          {pattern.commonProblems && pattern.commonProblems.length > 0 && (
+            <div>
+              <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Common Problems</h3>
+              <div className="flex flex-wrap gap-2">
+                {pattern.commonProblems.map((problem, i) => (
+                  <span key={i} className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm font-medium border border-slate-200">
+                    {problem}
+                  </span>
+                ))}
+              </div>
             </div>
           )}
 
@@ -119,6 +151,20 @@ export default function DSADetailPage() {
               </ul>
             </div>
           </div>
+
+          {/* Pitfalls */}
+          {pattern.pitfalls && pattern.pitfalls.length > 0 && (
+            <div className="bg-orange-50 rounded-xl p-5 border border-orange-200">
+              <h3 className="text-sm font-bold text-orange-800 uppercase tracking-wider mb-4 border-b border-orange-200 pb-2">Common Pitfalls & Gotchas</h3>
+              <ul className="space-y-3">
+                {pattern.pitfalls.map((pitfall, i) => (
+                  <li key={i} className="text-sm text-slate-700 flex items-start">
+                    <span className="text-orange-500 mr-3 text-lg leading-none mt-0.5">⚠️</span> {pitfall}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>
