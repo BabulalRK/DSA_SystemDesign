@@ -5,6 +5,16 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/DSA_SystemDesign/',
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-mermaid': ['mermaid']
+        }
+      }
+    }
+  },
   test: {
     globals: true,
     environment: 'happy-dom',

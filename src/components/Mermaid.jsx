@@ -1,21 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
-import mermaid from 'mermaid';
-
-// Initialize mermaid
-mermaid.initialize({
-  startOnLoad: false,
-  theme: 'default',
-  securityLevel: 'loose',
-});
 
 const Mermaid = ({ chart, id = 'mermaid-chart' }) => {
   const containerRef = useRef(null);
   const [svgContent, setSvgContent] = useState('');
 
   useEffect(() => {
+    let isMounted = true;
+
     if (chart && containerRef.current) {
       const renderChart = async () => {
         try {
+          // Dynamically import mermaid to avoid bundling its huge payload in the main chunk
+          const mermaidModule = await import('mermaid');
+          const mermaid = mermaidModule.default;
+
+          // Initialize mermaid once
+          mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default',
+            securityLevel: 'loose',
+          });
+
           // Clear any previous error states
           mermaid.mermaidAPI.reset();
           
@@ -23,17 +28,25 @@ const Mermaid = ({ chart, id = 'mermaid-chart' }) => {
           const uniqueId = `${id}-${Math.random().toString(36).substring(2, 9)}`;
           
           const { svg } = await mermaid.render(uniqueId, chart);
-          setSvgContent(svg);
+          if (isMounted) {
+            setSvgContent(svg);
+          }
         } catch (error) {
           console.error('Mermaid render error:', error);
-          setSvgContent(`<div class="text-red-500 bg-red-50 p-4 rounded-lg border border-red-200">
-            <strong>Error rendering diagram:</strong> ${error.message}
-          </div>`);
+          if (isMounted) {
+            setSvgContent(`<div class="text-red-500 bg-red-50 p-4 rounded-lg border border-red-200">
+              <strong>Error rendering diagram:</strong> ${error.message}
+            </div>`);
+          }
         }
       };
 
       renderChart();
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [chart, id]);
 
   return (
