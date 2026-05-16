@@ -47,13 +47,32 @@ export default function GenAIPage() {
             </div>
             
             <div className="p-6 md:p-8">
-              <h2 className="text-2xl font-bold text-white mb-2">{activeSession.title}</h2>
-              <div className="flex items-center text-sm text-indigo-400 font-medium mb-6">
-                <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                {activeSession.duration}
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold text-white mb-2">{activeSession.title}</h2>
+                  <div className="flex items-center text-sm text-indigo-400 font-medium">
+                    <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {activeSession.duration}
+                  </div>
+                </div>
+                
+                {activeSession.downloadUrl && (
+                  <a 
+                    href={activeSession.downloadUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors shadow-lg shadow-indigo-500/20 whitespace-nowrap"
+                  >
+                    <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    Download Video
+                  </a>
+                )}
               </div>
+              
               <div className="prose prose-invert max-w-none">
                 <p className="text-gray-300 text-lg leading-relaxed">
                   {activeSession.description}
