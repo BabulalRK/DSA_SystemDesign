@@ -99,6 +99,18 @@ export default function DSADetailPage() {
                           <p className="text-gray-300 text-lg leading-relaxed">{q.question}</p>
                         </div>
                         
+                        {/* Test Cases */}
+                        {q.testCases && q.testCases.length > 0 && (
+                          <div className="mb-6 space-y-3">
+                            {q.testCases.map((tc, idx) => (
+                              <div key={idx} className="bg-[#1e1e1e] border border-[#3e3e42] p-4 rounded-md font-mono text-sm">
+                                <p className="text-gray-400 mb-1"><strong className="text-gray-200">Input:</strong> {tc.input}</p>
+                                <p className="text-gray-400"><strong className="text-gray-200">Output:</strong> {tc.output}</p>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        
                         {/* Resolving Mechanism */}
                         <div className="mt-4">
                           <button 

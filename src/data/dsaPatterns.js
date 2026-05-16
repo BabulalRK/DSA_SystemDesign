@@ -10,14 +10,22 @@ export const dsaPatterns = [
         title: 'Two Sum II - Input Array Is Sorted',
         level: 'Easy',
         question: 'Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number.',
-        answer: 'Place a left pointer at the start and a right pointer at the end. Calculate the sum. If the sum is too small, move the left pointer right. If too large, move the right pointer left. Continue until the pointers cross.'
+        answer: 'Place a left pointer at the start and a right pointer at the end. Calculate the sum. If the sum is too small, move the left pointer right. If too large, move the right pointer left. Continue until the pointers cross.',
+        testCases: [
+          { input: 'numbers = [2,7,11,15], target = 9', output: '[1,2]' },
+          { input: 'numbers = [2,3,4], target = 6', output: '[1,3]' }
+        ]
       },
       {
         id: 15,
         title: '3Sum',
         level: 'Medium',
         question: 'Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.',
-        answer: 'First, sort the array. Then iterate through each element. For each element, use the Two Pointer technique on the remaining array to find pairs that sum to the negative of the current element. Be sure to skip duplicate elements to avoid duplicate triplets.'
+        answer: 'First, sort the array. Then iterate through each element. For each element, use the Two Pointer technique on the remaining array to find pairs that sum to the negative of the current element. Be sure to skip duplicate elements to avoid duplicate triplets.',
+        testCases: [
+          { input: 'nums = [-1,0,1,2,-1,-4]', output: '[[-1,-1,2],[-1,0,1]]' },
+          { input: 'nums = [0,1,1]', output: '[]' }
+        ]
       }
     ],
     code: `function findGiftCardMatch(prices, giftCardBalance) {
@@ -67,14 +75,22 @@ L=$20, R=$80 -> Cost=$100 (Perfect Match!)`,
         title: 'Maximum Average Subarray I',
         level: 'Easy',
         question: 'You are given an integer array nums consisting of n elements, and an integer k. Find a contiguous subarray whose length is equal to k that has the maximum average value.',
-        answer: 'Calculate the sum of the first K elements. Then, slide the window by one element at a time: subtract the element leaving the window and add the new element entering the window. Keep track of the maximum sum seen.'
+        answer: 'Calculate the sum of the first K elements. Then, slide the window by one element at a time: subtract the element leaving the window and add the new element entering the window. Keep track of the maximum sum seen.',
+        testCases: [
+          { input: 'nums = [1,12,-5,-6,50,3], k = 4', output: '12.75000' },
+          { input: 'nums = [5], k = 1', output: '5.00000' }
+        ]
       },
       {
         id: 3,
         title: 'Longest Substring Without Repeating Characters',
         level: 'Medium',
         question: 'Given a string s, find the length of the longest substring without repeating characters.',
-        answer: 'Use a dynamic sliding window with a HashMap to track characters and their indices. Expand the window to the right. If a duplicate character is found, shrink the window from the left until the duplicate is removed, updating the max length at each step.'
+        answer: 'Use a dynamic sliding window with a HashMap to track characters and their indices. Expand the window to the right. If a duplicate character is found, shrink the window from the left until the duplicate is removed, updating the max length at each step.',
+        testCases: [
+          { input: 's = "abcabcbb"', output: '3' },
+          { input: 's = "pwwkew"', output: '3' }
+        ]
       }
     ],
     code: `function maxRevenue3Days(sales) {
@@ -122,14 +138,21 @@ Window 2: Drop $200, Add $100 -> [$150, $500, $100] -> $750`,
         title: 'Range Sum Query - Immutable',
         level: 'Easy',
         question: 'Given an integer array nums, handle multiple queries of the following type: Calculate the sum of the elements of nums between indices left and right inclusive where left <= right.',
-        answer: 'Precompute a prefix sum array where prefix[k] stores the sum of elements from index 0 to k-1. To find the sum between i and j in O(1) time, calculate prefix[j+1] - prefix[i].'
+        answer: 'Precompute a prefix sum array where prefix[k] stores the sum of elements from index 0 to k-1. To find the sum between i and j in O(1) time, calculate prefix[j+1] - prefix[i].',
+        testCases: [
+          { input: '["NumArray", "sumRange", "sumRange"]\n[[[-2, 0, 3, -5, 2, -1]], [0, 2], [2, 5]]', output: '[null, 1, -1]' }
+        ]
       },
       {
         id: 560,
         title: 'Subarray Sum Equals K',
         level: 'Medium',
         question: 'Given an array of integers nums and an integer k, return the total number of continuous subarrays whose sum equals to k.',
-        answer: 'Keep a running sum while iterating. Use a HashMap to store the frequency of all seen running sums. At each step, check if (running sum - k) exists in the map. If it does, it means a subarray ending at the current index has a sum of k. Add the frequency to your total count.'
+        answer: 'Keep a running sum while iterating. Use a HashMap to store the frequency of all seen running sums. At each step, check if (running sum - k) exists in the map. If it does, it means a subarray ending at the current index has a sum of k. Add the frequency to your total count.',
+        testCases: [
+          { input: 'nums = [1,1,1], k = 2', output: '2' },
+          { input: 'nums = [1,2,3], k = 3', output: '2' }
+        ]
       }
     ],
     code: `class DamageTracker {
@@ -177,14 +200,22 @@ PrefixSums[3] - PrefixSums[1] -> 35 - 10 = 25!`,
         title: 'Linked List Cycle',
         level: 'Easy',
         question: 'Given head, the head of a linked list, determine if the linked list has a cycle in it.',
-        answer: 'Initialize a slow pointer moving 1 step and a fast pointer moving 2 steps. If there is a cycle, the fast pointer will eventually lap and meet the slow pointer. If the fast pointer reaches null, there is no cycle.'
+        answer: 'Initialize a slow pointer moving 1 step and a fast pointer moving 2 steps. If there is a cycle, the fast pointer will eventually lap and meet the slow pointer. If the fast pointer reaches null, there is no cycle.',
+        testCases: [
+          { input: 'head = [3,2,0,-4], pos = 1 (cycle exists)', output: 'true' },
+          { input: 'head = [1], pos = -1 (no cycle)', output: 'false' }
+        ]
       },
       {
         id: 142,
         title: 'Linked List Cycle II',
         level: 'Medium',
         question: 'Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.',
-        answer: 'First, use fast and slow pointers to detect the cycle. Once they meet, reset the slow pointer to the head of the list. Move both pointers one step at a time. The node where they meet next is exactly the start of the cycle (based on Floyd\'s cycle-finding algorithm math).'
+        answer: 'First, use fast and slow pointers to detect the cycle. Once they meet, reset the slow pointer to the head of the list. Move both pointers one step at a time. The node where they meet next is exactly the start of the cycle (based on Floyd\'s cycle-finding algorithm math).',
+        testCases: [
+          { input: 'head = [3,2,0,-4], pos = 1', output: 'tail connects to node index 1' },
+          { input: 'head = [1,2], pos = 0', output: 'tail connects to node index 0' }
+        ]
       }
     ],
     code: `function hasRoutingLoop(startRouter) {
@@ -237,14 +268,22 @@ Iter 3: Slow=C, Fast=C -> COLLISION!`,
         title: 'Missing Number',
         level: 'Easy',
         question: 'Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.',
-        answer: 'Since numbers are exactly from 0 to N, we can place each number at its corresponding index (number `i` goes to index `i`). Then scan the array; the first index that doesn\'t match its value is the missing number.'
+        answer: 'Since numbers are exactly from 0 to N, we can place each number at its corresponding index (number `i` goes to index `i`). Then scan the array; the first index that doesn\'t match its value is the missing number.',
+        testCases: [
+          { input: 'nums = [3,0,1]', output: '2' },
+          { input: 'nums = [9,6,4,2,3,5,7,0,1]', output: '8' }
+        ]
       },
       {
         id: 41,
         title: 'First Missing Positive',
         level: 'Hard',
         question: 'Given an unsorted integer array nums. Return the smallest positive integer that is not present in nums. You must implement an algorithm that runs in O(n) time and uses O(1) auxiliary space.',
-        answer: 'Ignore negatives and numbers larger than the array size. For valid numbers, swap them into their correct 0-indexed positions (e.g., number 1 goes to index 0, number 5 goes to index 4). Scan the array to find the first index that doesn\'t hold the correct number.'
+        answer: 'Ignore negatives and numbers larger than the array size. For valid numbers, swap them into their correct 0-indexed positions (e.g., number 1 goes to index 0, number 5 goes to index 4). Scan the array to find the first index that doesn\'t hold the correct number.',
+        testCases: [
+          { input: 'nums = [1,2,0]', output: '3' },
+          { input: 'nums = [3,4,-1,1]', output: '2' }
+        ]
       }
     ],
     code: `function findMissingBox(boxes) {
@@ -297,14 +336,22 @@ Scan: Idx 1 is missing Box2!`,
         title: 'Reverse Linked List',
         level: 'Easy',
         question: 'Given the head of a singly linked list, reverse the list, and return the reversed list.',
-        answer: 'Maintain three pointers: `prev` (initially null), `current` (head), and `next`. Iterate through the list, temporarily storing `current.next`, then updating `current.next` to point backwards to `prev`. Move `prev` and `current` one step forward.'
+        answer: 'Maintain three pointers: `prev` (initially null), `current` (head), and `next`. Iterate through the list, temporarily storing `current.next`, then updating `current.next` to point backwards to `prev`. Move `prev` and `current` one step forward.',
+        testCases: [
+          { input: 'head = [1,2,3,4,5]', output: '[5,4,3,2,1]' },
+          { input: 'head = [1,2]', output: '[2,1]' }
+        ]
       },
       {
         id: 25,
         title: 'Reverse Nodes in k-Group',
         level: 'Hard',
         question: 'Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.',
-        answer: 'Count the nodes to see if there are at least k nodes left. If so, reverse just those k nodes using the standard in-place reversal logic. Keep track of the `tail` of the newly reversed section to connect it to the recursive call or the next k-group.'
+        answer: 'Count the nodes to see if there are at least k nodes left. If so, reverse just those k nodes using the standard in-place reversal logic. Keep track of the `tail` of the newly reversed section to connect it to the recursive call or the next k-group.',
+        testCases: [
+          { input: 'head = [1,2,3,4,5], k = 2', output: '[2,1,4,3,5]' },
+          { input: 'head = [1,2,3,4,5], k = 3', output: '[3,2,1,4,5]' }
+        ]
       }
     ],
     code: `function reverseHistory(oldestPage) {
@@ -355,14 +402,22 @@ NULL <- Google <- Facebook   Amazon -> NULL
         title: 'Binary Tree Level Order Traversal',
         level: 'Medium',
         question: 'Given the root of a binary tree, return the level order traversal of its nodes\' values. (i.e., from left to right, level by level).',
-        answer: 'Use a Queue. Start by pushing the root. In a while loop, check the queue\'s size (this is the number of nodes in the current level). Loop exactly that many times, popping a node, saving its value, and pushing its children. This isolates values by level.'
+        answer: 'Use a Queue. Start by pushing the root. In a while loop, check the queue\'s size (this is the number of nodes in the current level). Loop exactly that many times, popping a node, saving its value, and pushing its children. This isolates values by level.',
+        testCases: [
+          { input: 'root = [3,9,20,null,null,15,7]', output: '[[3],[9,20],[15,7]]' },
+          { input: 'root = [1]', output: '[[1]]' }
+        ]
       },
       {
         id: 994,
         title: 'Rotting Oranges',
         level: 'Medium',
         question: 'You are given an m x n grid where each cell can have one of three values: 0 representing an empty cell, 1 representing a fresh orange, or 2 representing a rotten orange. Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten. Return the minimum number of minutes that must elapse until no cell has a fresh orange.',
-        answer: 'This is a multi-source BFS problem. Initially, push all rotten oranges into the queue and count fresh oranges. In a loop, pop rotten oranges, rot their fresh neighbors, push the newly rotten ones to the queue, and decrement the fresh count. Keep track of minutes.'
+        answer: 'This is a multi-source BFS problem. Initially, push all rotten oranges into the queue and count fresh oranges. In a loop, pop rotten oranges, rot their fresh neighbors, push the newly rotten ones to the queue, and decrement the fresh count. Keep track of minutes.',
+        testCases: [
+          { input: 'grid = [[2,1,1],[1,1,0],[0,1,1]]', output: '4' },
+          { input: 'grid = [[2,1,1],[0,1,1],[1,0,1]]', output: '-1 (not all oranges can rot)' }
+        ]
       }
     ],
     code: `function getConnectionsByDegree(userNode) {
@@ -426,14 +481,22 @@ Q: [Alice, Bob] -> pop both, push Dave, Eve`,
         title: 'Path Sum',
         level: 'Easy',
         question: 'Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.',
-        answer: 'Use recursive DFS. Subtract the current node\'s value from targetSum. If the node is a leaf, check if the remaining targetSum equals 0. Otherwise, recursively call DFS on the left and right children.'
+        answer: 'Use recursive DFS. Subtract the current node\'s value from targetSum. If the node is a leaf, check if the remaining targetSum equals 0. Otherwise, recursively call DFS on the left and right children.',
+        testCases: [
+          { input: 'root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22', output: 'true' },
+          { input: 'root = [1,2,3], targetSum = 5', output: 'false' }
+        ]
       },
       {
         id: 79,
         title: 'Word Search',
         level: 'Medium',
         question: 'Given an m x n grid of characters board and a string word, return true if word exists in the grid.',
-        answer: 'Iterate through every cell. If a cell matches the first letter, trigger a recursive DFS. The DFS should check boundaries, track visited cells (by temporarily altering the cell value to `#`), and check all 4 directions for the next letter in the word. Backtrack by restoring the cell value.'
+        answer: 'Iterate through every cell. If a cell matches the first letter, trigger a recursive DFS. The DFS should check boundaries, track visited cells (by temporarily altering the cell value to `#`), and check all 4 directions for the next letter in the word. Backtrack by restoring the cell value.',
+        testCases: [
+          { input: 'board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"', output: 'true' },
+          { input: 'board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCB"', output: 'false' }
+        ]
       }
     ],
     code: `function findFile(folder, targetFileName) {
@@ -485,14 +548,22 @@ Q: [Alice, Bob] -> pop both, push Dave, Eve`,
         title: 'Find First and Last Position of Element in Sorted Array',
         level: 'Medium',
         question: 'Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.',
-        answer: 'Run Binary Search twice. The first time, when you find the target, don\'t stop—instead, narrow the search to the left half to find the absolute first occurrence. The second time, narrow the search to the right half to find the last occurrence.'
+        answer: 'Run Binary Search twice. The first time, when you find the target, don\'t stop—instead, narrow the search to the left half to find the absolute first occurrence. The second time, narrow the search to the right half to find the last occurrence.',
+        testCases: [
+          { input: 'nums = [5,7,7,8,8,10], target = 8', output: '[3,4]' },
+          { input: 'nums = [5,7,7,8,8,10], target = 6', output: '[-1,-1]' }
+        ]
       },
       {
         id: 33,
         title: 'Search in Rotated Sorted Array',
         level: 'Medium',
         question: 'Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.',
-        answer: 'In a rotated sorted array, one half is ALWAYS strictly sorted. Find the mid point. Check if the left half is perfectly sorted. If it is, check if the target falls within the left half\'s range. If so, search left; else, search right. Repeat this logic.'
+        answer: 'In a rotated sorted array, one half is ALWAYS strictly sorted. Find the mid point. Check if the left half is perfectly sorted. If it is, check if the target falls within the left half\'s range. If so, search left; else, search right. Repeat this logic.',
+        testCases: [
+          { input: 'nums = [4,5,6,7,0,1,2], target = 0', output: '4' },
+          { input: 'nums = [4,5,6,7,0,1,2], target = 3', output: '-1' }
+        ]
       }
     ],
     code: `function findLogByTimestamp(logs, targetTime) {
@@ -543,14 +614,22 @@ Mid: 6PM. Match! Found in 2 steps instead of 6.`,
         title: 'Merge Intervals',
         level: 'Medium',
         question: 'Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.',
-        answer: 'First, sort the intervals based on the start time. Create an output array. Iterate through the intervals, and if the current interval\'s start time is less than or equal to the previous interval\'s end time, merge them by taking the maximum end time.'
+        answer: 'First, sort the intervals based on the start time. Create an output array. Iterate through the intervals, and if the current interval\'s start time is less than or equal to the previous interval\'s end time, merge them by taking the maximum end time.',
+        testCases: [
+          { input: 'intervals = [[1,3],[2,6],[8,10],[15,18]]', output: '[[1,6],[8,10],[15,18]]' },
+          { input: 'intervals = [[1,4],[4,5]]', output: '[[1,5]]' }
+        ]
       },
       {
         id: 253,
         title: 'Meeting Rooms II',
         level: 'Medium',
         question: 'Given an array of meeting time intervals intervals where intervals[i] = [starti, endi], return the minimum number of conference rooms required.',
-        answer: 'Extract all start times and all end times into two separate arrays, and sort both independently. Use two pointers: one for starts, one for ends. Iterate through starts. If a start time is before the current end time, you need a new room. If it\'s after, a room just freed up (move the end pointer).'
+        answer: 'Extract all start times and all end times into two separate arrays, and sort both independently. Use two pointers: one for starts, one for ends. Iterate through starts. If a start time is before the current end time, you need a new room. If it\'s after, a room just freed up (move the end pointer).',
+        testCases: [
+          { input: 'intervals = [[0,30],[5,10],[15,20]]', output: '2' },
+          { input: 'intervals = [[7,10],[2,4]]', output: '1' }
+        ]
       }
     ],
     code: `function mergeBusyTimes(meetings) {
@@ -606,14 +685,21 @@ Result: Busy {1-5} and {6-7}`,
         title: 'Implement Trie (Prefix Tree)',
         level: 'Medium',
         question: 'A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. Implement the Trie class.',
-        answer: 'Create a TrieNode class with a Hash Map for children and a boolean `isWord`. For insert, traverse/create nodes for each char. For search, traverse and check if the last node has `isWord == true`. For startsWith, just ensure the traversal doesn\'t hit a null node.'
+        answer: 'Create a TrieNode class with a Hash Map for children and a boolean `isWord`. For insert, traverse/create nodes for each char. For search, traverse and check if the last node has `isWord == true`. For startsWith, just ensure the traversal doesn\'t hit a null node.',
+        testCases: [
+          { input: '["Trie", "insert", "search", "search", "startsWith", "insert", "search"]\n[[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]', output: '[null, null, true, false, true, null, true]' }
+        ]
       },
       {
         id: 212,
         title: 'Word Search II',
         level: 'Hard',
         question: 'Given an m x n board of characters and a list of strings words, return all words on the board.',
-        answer: 'Insert all words into a Trie. Iterate through each cell on the board. If the cell\'s character exists in the Trie\'s root, start a DFS. Pass the current TrieNode along the DFS to instantly know if the current path forms a valid prefix or a complete word.'
+        answer: 'Insert all words into a Trie. Iterate through each cell on the board. If the cell\'s character exists in the Trie\'s root, start a DFS. Pass the current TrieNode along the DFS to instantly know if the current path forms a valid prefix or a complete word.',
+        testCases: [
+          { input: 'board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], words = ["oath","pea","eat","rain"]', output: '["eat","oath"]' },
+          { input: 'board = [["a","b"],["c","d"]], words = ["abcb"]', output: '[]' }
+        ]
       }
     ],
     code: `class TrieNode {
@@ -681,14 +767,21 @@ class SearchAutocomplete {
         title: 'Top K Frequent Elements',
         level: 'Medium',
         question: 'Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.',
-        answer: 'Count frequencies using a Hash Map. Then use a Min-Heap of size k, ordered by frequency. Push elements into the heap; if size exceeds k, pop the smallest. The elements left in the heap are the top k most frequent.'
+        answer: 'Count frequencies using a Hash Map. Then use a Min-Heap of size k, ordered by frequency. Push elements into the heap; if size exceeds k, pop the smallest. The elements left in the heap are the top k most frequent.',
+        testCases: [
+          { input: 'nums = [1,1,1,2,2,3], k = 2', output: '[1,2]' },
+          { input: 'nums = [1], k = 1', output: '[1]' }
+        ]
       },
       {
         id: 703,
         title: 'Kth Largest Element in a Stream',
         level: 'Easy',
         question: 'Design a class to find the kth largest element in a stream. Note that it is the kth largest element in the sorted order, not the kth distinct element.',
-        answer: 'Maintain a Min-Heap of size K. For every new element in the stream, if the heap has fewer than K elements, push it. Otherwise, if the new element is larger than the root of the Min-Heap, pop the root and push the new element. The root is always the Kth largest.'
+        answer: 'Maintain a Min-Heap of size K. For every new element in the stream, if the heap has fewer than K elements, push it. Otherwise, if the new element is larger than the root of the Min-Heap, pop the root and push the new element. The root is always the Kth largest.',
+        testCases: [
+          { input: '["KthLargest", "add", "add", "add", "add", "add"]\n[[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]', output: '[null, 4, 5, 5, 8, 8]' }
+        ]
       }
     ],
     code: `function getTrendingHashtags(tweets, k) {
@@ -742,14 +835,22 @@ Heap: [#tech, #sports]`,
         title: 'Subsets',
         level: 'Medium',
         question: 'Given an integer array nums of unique elements, return all possible subsets (the power set). The solution set must not contain duplicate subsets.',
-        answer: 'Use a recursive function that takes the current index and a `currentSubset` array. At each step, push the `currentSubset` to the results. Loop from the current index to the end, adding `nums[i]` to `currentSubset`, recursing, and then popping `nums[i]` (backtracking).'
+        answer: 'Use a recursive function that takes the current index and a `currentSubset` array. At each step, push the `currentSubset` to the results. Loop from the current index to the end, adding `nums[i]` to `currentSubset`, recursing, and then popping `nums[i]` (backtracking).',
+        testCases: [
+          { input: 'nums = [1,2,3]', output: '[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]' },
+          { input: 'nums = [0]', output: '[[],[0]]' }
+        ]
       },
       {
         id: 40,
         title: 'Combination Sum II',
         level: 'Medium',
         question: 'Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target. Each number in candidates may only be used once in the combination.',
-        answer: 'Sort the candidates first to easily handle duplicates. Use backtracking. If target == 0, add combo. If target < 0, return. In the loop, if `i > start` and `candidates[i] == candidates[i-1]`, skip to avoid duplicate combos. Backtrack with `target - candidates[i]`.'
+        answer: 'Sort the candidates first to easily handle duplicates. Use backtracking. If target == 0, add combo. If target < 0, return. In the loop, if `i > start` and `candidates[i] == candidates[i-1]`, skip to avoid duplicate combos. Backtrack with `target - candidates[i]`.',
+        testCases: [
+          { input: 'candidates = [10,1,2,7,6,1,5], target = 8', output: '[[1,1,6], [1,2,5], [1,7], [2,6]]' },
+          { input: 'candidates = [2,5,2,1,2], target = 5', output: '[[1,2,2], [5]]' }
+        ]
       }
     ],
     code: `function generateToppingCombos(toppings) {
@@ -804,14 +905,22 @@ Plain Cheese []
         title: 'Course Schedule',
         level: 'Medium',
         question: 'There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites. Return true if you can finish all courses. Otherwise, return false.',
-        answer: 'This is cycle detection in a Directed Graph. Build an adjacency list and an in-degree array. Push all nodes with in-degree 0 to a queue. BFS through them, reducing the in-degree of neighbors. If you processed `numCourses` nodes, return true (no cycle).'
+        answer: 'This is cycle detection in a Directed Graph. Build an adjacency list and an in-degree array. Push all nodes with in-degree 0 to a queue. BFS through them, reducing the in-degree of neighbors. If you processed `numCourses` nodes, return true (no cycle).',
+        testCases: [
+          { input: 'numCourses = 2, prerequisites = [[1,0]]', output: 'true' },
+          { input: 'numCourses = 2, prerequisites = [[1,0],[0,1]]', output: 'false' }
+        ]
       },
       {
         id: 269,
         title: 'Alien Dictionary',
         level: 'Hard',
         question: 'There is a new alien language that uses the English alphabet. However, the order among the letters is unknown to you. You are given a list of strings words from the alien language\'s dictionary, where the strings in words are sorted lexicographically by the rules of this new language. Return a string of the unique letters in the new alien language sorted in lexicographically increasing order.',
-        answer: 'Compare adjacent words to find the first differing character to establish a directed edge (e.g., "wrt" before "wrf" means t -> f). Build a graph. Run Topological Sort. If there\'s a cycle (e.g., a->b and b->a), or invalid input ("abc" before "ab"), return empty string.'
+        answer: 'Compare adjacent words to find the first differing character to establish a directed edge (e.g., "wrt" before "wrf" means t -> f). Build a graph. Run Topological Sort. If there\'s a cycle (e.g., a->b and b->a), or invalid input ("abc" before "ab"), return empty string.',
+        testCases: [
+          { input: 'words = ["wrt","wrf","er","ett","rftt"]', output: '"wertf"' },
+          { input: 'words = ["z","x","z"]', output: '"" (cycle exists)' }
+        ]
       }
     ],
     code: `function installOrder(packages, dependencies) {
@@ -875,14 +984,21 @@ Install Redux. Order: JS, React, Redux.`,
         title: 'Find Median from Data Stream',
         level: 'Hard',
         question: 'The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values. Implement the MedianFinder class.',
-        answer: 'Maintain two heaps: a Max-Heap for the lower half of numbers, and a Min-Heap for the upper half. Keep their sizes balanced (Max-Heap size >= Min-Heap size). The median is the root of the Max-Heap (if odd) or the average of both roots (if even).'
+        answer: 'Maintain two heaps: a Max-Heap for the lower half of numbers, and a Min-Heap for the upper half. Keep their sizes balanced (Max-Heap size >= Min-Heap size). The median is the root of the Max-Heap (if odd) or the average of both roots (if even).',
+        testCases: [
+          { input: '["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]\n[[], [1], [2], [], [3], []]', output: '[null, null, null, 1.5, null, 2.0]' }
+        ]
       },
       {
         id: 480,
         title: 'Sliding Window Median',
         level: 'Hard',
         question: 'The median is the middle value in an ordered integer list. Given an integer array nums and an integer k, return the median array for each window in the original array.',
-        answer: 'Combine Two Heaps with a Sliding Window. Because removing an element from a heap is O(N), use "lazy deletion" by keeping a HashMap of elements that have fallen out of the window, and only actually popping them when they reach the root of either heap.'
+        answer: 'Combine Two Heaps with a Sliding Window. Because removing an element from a heap is O(N), use "lazy deletion" by keeping a HashMap of elements that have fallen out of the window, and only actually popping them when they reach the root of either heap.',
+        testCases: [
+          { input: 'nums = [1,3,-1,-3,5,3,6,7], k = 3', output: '[1.00000,-1.00000,-1.00000,3.00000,5.00000,6.00000]' },
+          { input: 'nums = [1,2,3,4,2,3,1,4,2], k = 3', output: '[2.00000,3.00000,3.00000,3.00000,2.00000,3.00000,2.00000]' }
+        ]
       }
     ],
     code: `class RealTimeMedianPrice {
@@ -947,14 +1063,22 @@ Median: Top of Lower ($50)`,
         title: 'Merge k Sorted Lists',
         level: 'Hard',
         question: 'You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.',
-        answer: 'Put the head of each of the k lists into a Min-Heap. The heap orders them by value. Pop the smallest node, append it to your result list, and if that node has a `next`, push `node.next` into the heap. Repeat until the heap is empty.'
+        answer: 'Put the head of each of the k lists into a Min-Heap. The heap orders them by value. Pop the smallest node, append it to your result list, and if that node has a `next`, push `node.next` into the heap. Repeat until the heap is empty.',
+        testCases: [
+          { input: 'lists = [[1,4,5],[1,3,4],[2,6]]', output: '[1,1,2,3,4,4,5,6]' },
+          { input: 'lists = []', output: '[]' }
+        ]
       },
       {
         id: 378,
         title: 'Kth Smallest Element in a Sorted Matrix',
         level: 'Medium',
         question: 'Given an n x n matrix where each of the rows and columns is sorted in ascending order, return the kth smallest element in the matrix.',
-        answer: 'Treat each row as a sorted list. Push the first element of each row into a Min-Heap (storing its value, row index, and col index). Pop k times. Every time you pop, if there is a next element in that same row, push it into the heap. The kth popped element is your answer.'
+        answer: 'Treat each row as a sorted list. Push the first element of each row into a Min-Heap (storing its value, row index, and col index). Pop k times. Every time you pop, if there is a next element in that same row, push it into the heap. The kth popped element is your answer.',
+        testCases: [
+          { input: 'matrix = [[1,5,9],[10,11,13],[12,13,15]], k = 8', output: '13' },
+          { input: 'matrix = [[-5]], k = 1', output: '-5' }
+        ]
       }
     ],
     code: `// Conceptual MinHeap Implementation
@@ -1016,14 +1140,22 @@ Pop 2min -> Unified: [1min, 2min]...`,
         title: 'Daily Temperatures',
         level: 'Medium',
         question: 'Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature.',
-        answer: 'Iterate through temperatures. Maintain a stack of indices. While the current temp is greater than the temp at the index at the top of the stack, pop the stack and calculate the difference in indices. Push the current index.'
+        answer: 'Iterate through temperatures. Maintain a stack of indices. While the current temp is greater than the temp at the index at the top of the stack, pop the stack and calculate the difference in indices. Push the current index.',
+        testCases: [
+          { input: 'temperatures = [73,74,75,71,69,72,76,73]', output: '[1,1,4,2,1,1,0,0]' },
+          { input: 'temperatures = [30,40,50,60]', output: '[1,1,1,0]' }
+        ]
       },
       {
         id: 84,
         title: 'Largest Rectangle in Histogram',
         level: 'Hard',
         question: 'Given an array of integers heights representing the histogram\'s bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.',
-        answer: 'Maintain an increasing Monotonic Stack of indices. If a smaller bar is encountered, it means the previous taller bars can\'t extend any further right. Pop them, calculate their maximum area (using the popped bar as height and the distance between the current index and the new stack top as width), and push the current index.'
+        answer: 'Maintain an increasing Monotonic Stack of indices. If a smaller bar is encountered, it means the previous taller bars can\'t extend any further right. Pop them, calculate their maximum area (using the popped bar as height and the distance between the current index and the new stack top as width), and push the current index.',
+        testCases: [
+          { input: 'heights = [2,1,5,6,2,3]', output: '10' },
+          { input: 'heights = [2,4]', output: '4' }
+        ]
       }
     ],
     code: `function daysUntilHigherPrice(prices) {
@@ -1077,14 +1209,22 @@ Result: waitDays = [3, 2, 1, 0]`,
         title: 'Number of Connected Components in an Undirected Graph',
         level: 'Medium',
         question: 'You have a graph of n nodes. You are given an integer n and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph. Return the number of connected components in the graph.',
-        answer: 'Initialize a Union-Find structure with n independent sets. Iterate through all the edges. For each edge (u, v), perform a Union operation. Every successful Union reduces the total number of components by 1.'
+        answer: 'Initialize a Union-Find structure with n independent sets. Iterate through all the edges. For each edge (u, v), perform a Union operation. Every successful Union reduces the total number of components by 1.',
+        testCases: [
+          { input: 'n = 5, edges = [[0,1],[1,2],[3,4]]', output: '2' },
+          { input: 'n = 5, edges = [[0,1],[1,2],[2,3],[3,4]]', output: '1' }
+        ]
       },
       {
         id: 684,
         title: 'Redundant Connection',
         level: 'Medium',
         question: 'In this problem, a tree is an undirected graph that is connected and has no cycles. You are given a graph that started as a tree with n nodes, with one additional edge added. Return an edge that can be removed so that the resulting graph is a tree of n nodes.',
-        answer: 'Iterate through the edges. For each edge (u, v), use the Find operation to check if they are already in the same set. If they are, this edge creates a cycle and is the redundant one. If not, Union them.'
+        answer: 'Iterate through the edges. For each edge (u, v), use the Find operation to check if they are already in the same set. If they are, this edge creates a cycle and is the redundant one. If not, Union them.',
+        testCases: [
+          { input: 'edges = [[1,2],[1,3],[2,3]]', output: '[2,3]' },
+          { input: 'edges = [[1,2],[2,3],[3,4],[1,4],[1,5]]', output: '[1,4]' }
+        ]
       }
     ],
     code: `class UserNetwork {
@@ -1143,14 +1283,22 @@ Match! Yes.`,
         title: 'Partition Equal Subset Sum',
         level: 'Medium',
         question: 'Given an integer array nums, return true if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or false otherwise.',
-        answer: 'This is a 0/1 Knapsack problem where the capacity is `sum(nums) / 2`. Create a DP array of size `capacity + 1`. For each number, iterate backwards through the DP array updating `dp[i] = dp[i] || dp[i - num]`. Check if `dp[capacity]` becomes true.'
+        answer: 'This is a 0/1 Knapsack problem where the capacity is `sum(nums) / 2`. Create a DP array of size `capacity + 1`. For each number, iterate backwards through the DP array updating `dp[i] = dp[i] || dp[i - num]`. Check if `dp[capacity]` becomes true.',
+        testCases: [
+          { input: 'nums = [1,5,11,5]', output: 'true' },
+          { input: 'nums = [1,2,3,5]', output: 'false' }
+        ]
       },
       {
         id: 494,
         title: 'Target Sum',
         level: 'Medium',
         question: 'You are given an integer array nums and an integer target. You want to build an expression out of nums by adding one of the symbols \'+\' and \'-\' before each integer in nums and then concatenate all the integers. Return the number of different expressions that you can build, which evaluates to target.',
-        answer: 'This reduces to partitioning the array into two subsets (P for positive, N for negative) such that `sum(P) - sum(N) = target`. Since `sum(P) + sum(N) = sum(nums)`, we find `sum(P) = (target + sum(nums)) / 2`. This is exactly 0/1 Knapsack: count subsets summing to `sum(P)`.'
+        answer: 'This reduces to partitioning the array into two subsets (P for positive, N for negative) such that `sum(P) - sum(N) = target`. Since `sum(P) + sum(N) = sum(nums)`, we find `sum(P) = (target + sum(nums)) / 2`. This is exactly 0/1 Knapsack: count subsets summing to `sum(P)`.',
+        testCases: [
+          { input: 'nums = [1,1,1,1,1], target = 3', output: '5' },
+          { input: 'nums = [1], target = 1', output: '1' }
+        ]
       }
     ],
     code: `function maxVMPriority(tasks, maxRAM) {
@@ -1204,14 +1352,22 @@ At 5GB, optimal is T1+T2 = 25.`,
         title: 'Sliding Window Maximum',
         level: 'Hard',
         question: 'You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.',
-        answer: 'Use a Deque (Double-ended Queue). Store indices. Maintain a monotonically decreasing Deque: before adding a new index, pop all indices from the back whose values are smaller than the new value. Then remove indices from the front that have fallen out of the window. The front is always the max.'
+        answer: 'Use a Deque (Double-ended Queue). Store indices. Maintain a monotonically decreasing Deque: before adding a new index, pop all indices from the back whose values are smaller than the new value. Then remove indices from the front that have fallen out of the window. The front is always the max.',
+        testCases: [
+          { input: 'nums = [1,3,-1,-3,5,3,6,7], k = 3', output: '[3,3,5,5,6,7]' },
+          { input: 'nums = [1], k = 1', output: '[1]' }
+        ]
       },
       {
         id: 1438,
         title: 'Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit',
         level: 'Medium',
         question: 'Given an array of integers nums and an integer limit, return the size of the longest non-empty subarray such that the absolute difference between any two elements of this subarray is less than or equal to limit.',
-        answer: 'Maintain TWO Deques: one monotonically decreasing (for max) and one monotonically increasing (for min). Expand the window. If the difference between the max Deque\'s front and the min Deque\'s front exceeds `limit`, shrink the window from the left by popping out-of-bounds indices from the fronts.'
+        answer: 'Maintain TWO Deques: one monotonically decreasing (for max) and one monotonically increasing (for min). Expand the window. If the difference between the max Deque\'s front and the min Deque\'s front exceeds `limit`, shrink the window from the left by popping out-of-bounds indices from the fronts.',
+        testCases: [
+          { input: 'nums = [8,2,4,7], limit = 4', output: '2' },
+          { input: 'nums = [10,1,2,4,7,2], limit = 5', output: '4' }
+        ]
       }
     ],
     code: `function maxLatencyInWindows(latencies, windowSize) {
