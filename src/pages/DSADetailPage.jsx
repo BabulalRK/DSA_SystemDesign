@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { dsaPatterns } from '../data/dsaPatterns';
 import { useProgress } from '../hooks/useProgress';
+import Mermaid from '../components/Mermaid';
 
 export default function DSADetailPage() {
   const { id } = useParams();
@@ -61,13 +62,22 @@ export default function DSADetailPage() {
             </div>
           )}
 
-          {/* Mental Model */}
-          {pattern.mentalModel && (
+          {/* Mental Model & Mermaid */}
+          {(pattern.mentalModel || pattern.mermaidCode) && (
             <div className="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-xl">
-              <h3 className="text-sm font-bold text-purple-800 uppercase tracking-wider mb-2">Mental Model</h3>
-              <p className="text-slate-700 text-lg leading-relaxed">
-                {pattern.mentalModel}
-              </p>
+              <h3 className="text-sm font-bold text-purple-800 uppercase tracking-wider mb-3">Mental Model & Mind Map</h3>
+              
+              {pattern.mentalModel && (
+                <p className="text-slate-800 text-lg leading-relaxed mb-6 italic">
+                  "{pattern.mentalModel}"
+                </p>
+              )}
+              
+              {pattern.mermaidCode && (
+                <div className="bg-white rounded-lg p-4 border border-purple-100 overflow-hidden mt-4">
+                  <Mermaid chart={pattern.mermaidCode} id={`mermaid-${pattern.id}`} />
+                </div>
+              )}
             </div>
           )}
 
@@ -81,6 +91,29 @@ export default function DSADetailPage() {
                     {problem}
                   </span>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {/* Brute Force */}
+          {pattern.bruteForce && (
+            <div className="bg-rose-50 border border-rose-200 p-6 rounded-xl shadow-sm">
+              <h3 className="text-sm font-bold text-rose-800 uppercase tracking-wider mb-3 flex items-center">
+                <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                The Naive / Brute Force Approach
+              </h3>
+              <p className="text-slate-700 text-lg leading-relaxed mb-4">
+                {pattern.bruteForce.explanation}
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-rose-100 text-rose-800">
+                  <span className="font-bold mr-2">Time:</span> {pattern.bruteForce.timeComplexity}
+                </span>
+                <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-rose-100 text-rose-800">
+                  <span className="font-bold mr-2">Space:</span> {pattern.bruteForce.spaceComplexity}
+                </span>
               </div>
             </div>
           )}

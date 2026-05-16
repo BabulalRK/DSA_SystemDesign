@@ -28,7 +28,19 @@ L=$20, R=$80 -> Cost=$100 (Perfect Match!)`,
     whenToUse: 'When dealing with sorted arrays or linked lists and you need to find pairs, triplets, or subarrays that satisfy a condition.',
     commonProblems: ['Two Sum II (sorted array)', '3Sum', 'Container With Most Water', 'Valid Palindrome'],
     pitfalls: ['Forgetting that the array MUST be sorted for many two-pointer problems', 'Infinite loops if pointers are not updated correctly'],
-    mentalModel: 'Imagine two fingers scanning a line of text. They can start at opposite ends and move inward, or both start at the beginning. You move them based on what you are looking for (e.g., if the sum is too small, move the left finger right to get a bigger number).'
+    bruteForce: {
+      explanation: 'Using two nested loops to check every possible pair of elements in the array.',
+      timeComplexity: 'O(N^2)',
+      spaceComplexity: 'O(1)'
+    },
+    mentalModel: 'Imagine two fingers scanning a line of text. They can start at opposite ends and move inward, or both start at the beginning. You move them based on what you are looking for (e.g., if the sum is too small, move the left finger right to get a bigger number).',
+    mermaidCode: `graph LR
+    A[Array] --> L(Left Pointer)
+    A --> R(Right Pointer)
+    L -->|Moves Right| M{Condition}
+    R -->|Moves Left| M
+    style L fill:#bbf,stroke:#333
+    style R fill:#fbb,stroke:#333`
   },
   {
     id: 'sliding-window',
@@ -58,7 +70,17 @@ Window 2: Drop $200, Add $100 -> [$150, $500, $100] -> $750`,
     whenToUse: 'When you need to find the longest/shortest/optimal contiguous subarray or substring.',
     commonProblems: ['Longest Substring Without Repeating Characters', 'Maximum Sum Subarray of Size K', 'Minimum Window Substring'],
     pitfalls: ['Not shrinking the window correctly when the condition is violated', 'Off-by-one errors when calculating the window size (right - left + 1)'],
-    mentalModel: 'Think of a picture frame sliding over a panoramic photo. You only see what\'s inside the frame. Instead of repainting the whole picture every time you move the frame, you just add what entered the frame on the right and remove what left on the left.'
+    bruteForce: {
+      explanation: 'Using nested loops to compute the sum or condition for every possible contiguous subarray from scratch.',
+      timeComplexity: 'O(N^2) or O(N^3)',
+      spaceComplexity: 'O(1)'
+    },
+    mentalModel: 'Think of a picture frame sliding over a panoramic photo. You only see what\'s inside the frame. Instead of repainting the whole picture every time you move the frame, you just add what entered the frame on the right and remove what left on the left.',
+    mermaidCode: `graph LR
+    A[Data Stream/Array] --> W{Window}
+    W -->|Expand Right| In(Add to Window)
+    W -->|Shrink Left| Out(Remove from Window)
+    style W fill:#bfb,stroke:#333`
   },
   {
     id: 'prefix-sum',
@@ -89,7 +111,16 @@ PrefixSums[3] - PrefixSums[1] -> 35 - 10 = 25!`,
     whenToUse: 'When you have multiple queries asking for the sum of a contiguous subarray, or you need to compute cumulative sums.',
     commonProblems: ['Range Sum Query - Immutable', 'Subarray Sum Equals K', 'Product of Array Except Self'],
     pitfalls: ['Forgetting to initialize the prefix sum array with an extra 0 at the beginning to handle queries starting at index 0', 'Using it when the array is constantly being updated (use a Fenwick Tree or Segment Tree instead)'],
-    mentalModel: 'Like a running bank account balance. If you want to know how much you spent between March and June, you take your total spending up to June and subtract your total spending up to February.'
+    bruteForce: {
+      explanation: 'Iterating from index i to index j and summing the elements every single time a query is made.',
+      timeComplexity: 'O(N) per query, O(N * Q) for Q queries',
+      spaceComplexity: 'O(1)'
+    },
+    mentalModel: 'Like a running bank account balance. If you want to know how much you spent between March and June, you take your total spending up to June and subtract your total spending up to February.',
+    mermaidCode: `graph TD
+    A[Original Array: 1, 2, 3] --> B[Prefix Sum Array: 1, 3, 6]
+    B --> C{Sum of Range i to j}
+    C -->|Calculation| D(Prefix[j] - Prefix[i-1])`
   },
   {
     id: 'fast-slow-pointers',
@@ -120,7 +151,19 @@ Iter 3: Slow=C, Fast=C -> COLLISION!`,
     whenToUse: 'When dealing with linked lists or cyclic arrays and you need to detect cycles, find the middle element, or find the start of a cycle.',
     commonProblems: ['Linked List Cycle', 'Find the Duplicate Number', 'Middle of the Linked List', 'Palindrome Linked List'],
     pitfalls: ['Not checking for null pointers (e.g., fast.next might be null before checking fast.next.next)', 'Incorrectly calculating the start of the cycle after a collision'],
-    mentalModel: 'A track race where one runner is twice as fast as the other. If the track is a loop, the faster runner will eventually lap the slower runner. If it\'s a straight line, the faster runner will finish when the slower one is exactly halfway.'
+    bruteForce: {
+      explanation: 'Keeping track of every visited node in a HashSet to see if you encounter a node you have already seen.',
+      timeComplexity: 'O(N)',
+      spaceComplexity: 'O(N)'
+    },
+    mentalModel: 'A track race where one runner is twice as fast as the other. If the track is a loop, the faster runner will eventually lap the slower runner. If it\'s a straight line, the faster runner will finish when the slower one is exactly halfway.',
+    mermaidCode: `graph LR
+    A((Start)) --> S(Slow: 1 step)
+    A --> F(Fast: 2 steps)
+    S --> C{Cycle?}
+    F --> C
+    C -->|Yes| Col((Collision!))
+    style Col fill:#f99,stroke:#333`
   },
 
   // MEDIUM
@@ -158,7 +201,16 @@ Scan: Idx 1 is missing Box2!`,
     whenToUse: 'When dealing with arrays containing numbers in a given range (e.g., 1 to N) and you need to find missing or duplicate numbers.',
     commonProblems: ['Missing Number', 'Find All Duplicates in an Array', 'First Missing Positive'],
     pitfalls: ['Forgetting that the correct index for number X is X - 1 (for 1 to N arrays)', 'Infinite loops if you swap a number with itself or if duplicates aren\'t handled properly'],
-    mentalModel: 'Like a postman sorting mail into numbered P.O. boxes. You look at a letter, walk over to the P.O. box with that number, and swap it with whatever letter is currently sitting there. Repeat until every letter is in the right box.'
+    bruteForce: {
+      explanation: 'Using a standard sorting algorithm like Quicksort or Mergesort to sort the array first.',
+      timeComplexity: 'O(N log N)',
+      spaceComplexity: 'O(1) to O(N)'
+    },
+    mentalModel: 'Like a postman sorting mail into numbered P.O. boxes. You look at a letter, walk over to the P.O. box with that number, and swap it with whatever letter is currently sitting there. Repeat until every letter is in the right box.',
+    mermaidCode: `graph TD
+    A[Box 3 at Index 0] -->|Swap to Index 2| B[Box 4 at Index 0]
+    B -->|Swap to Index 3| C[Box 1 at Index 0]
+    C -->|Swap to Index 0| D[Correct Position!]`
   },
   {
     id: 'in-place-reversal-ll',
@@ -190,7 +242,18 @@ NULL <- Google <- Facebook   Amazon -> NULL
     whenToUse: 'When you need to reverse the links between nodes of a linked list in a single pass without using extra memory.',
     commonProblems: ['Reverse Linked List', 'Reverse Linked List II', 'Palindrome Linked List', 'Reverse Nodes in k-Group'],
     pitfalls: ['Losing track of the "next" node before modifying the current node\'s pointer', 'Returning the wrong node as the new head (it should be the "prev" node)'],
-    mentalModel: 'Imagine turning a line of one-way signs to face the opposite direction. You have to walk down the line, and at each sign, remember where the next sign is, turn the current sign around, and then step to the next sign.'
+    bruteForce: {
+      explanation: 'Storing all the values of the linked list in an array, reversing the array, and then creating a brand new linked list.',
+      timeComplexity: 'O(N)',
+      spaceComplexity: 'O(N) - Extra space for the array'
+    },
+    mentalModel: 'Imagine turning a line of one-way signs to face the opposite direction. You have to walk down the line, and at each sign, remember where the next sign is, turn the current sign around, and then step to the next sign.',
+    mermaidCode: `graph LR
+    P[Prev] -->|Null initially| C[Current]
+    C -->|Points to| N[Next]
+    C -.->|New Link| P
+    P -.->|Moves to| C
+    C -.->|Moves to| N`
   },
   {
     id: 'bfs',
@@ -233,7 +296,20 @@ Q: [Alice, Bob] -> pop both, push Dave, Eve`,
     whenToUse: 'When finding the shortest path, searching level-by-level, or when you know the target is close to the starting node.',
     commonProblems: ['Binary Tree Level Order Traversal', 'Rotting Oranges', 'Word Ladder', 'Shortest Path in Binary Matrix'],
     pitfalls: ['Forgetting to use a queue (using a stack makes it DFS)', 'Not marking nodes as visited (in graphs) leading to infinite loops'],
-    mentalModel: 'Like ripples spreading outward when you drop a stone in a pond. You explore all options 1 step away, then all options 2 steps away, etc. Or like networking at a party: talk to all your friends first, then talk to their friends.'
+    bruteForce: {
+      explanation: 'Trying to find the shortest path by randomly walking through the graph or using DFS, which might explore extremely long useless paths first.',
+      timeComplexity: 'O(V!) in worst case (without tracking visited)',
+      spaceComplexity: 'O(V)'
+    },
+    mentalModel: 'Like ripples spreading outward when you drop a stone in a pond. You explore all options 1 step away, then all options 2 steps away, etc. Or like networking at a party: talk to all your friends first, then talk to their friends.',
+    mermaidCode: `graph TD
+    A[Start Node] --> B[Level 1]
+    A --> C[Level 1]
+    B --> D[Level 2]
+    C --> E[Level 2]
+    style A fill:#f9f,stroke:#333
+    style B fill:#bbf,stroke:#333
+    style C fill:#bbf,stroke:#333`
   },
   {
     id: 'dfs',
@@ -266,7 +342,18 @@ Q: [Alice, Bob] -> pop both, push Dave, Eve`,
     whenToUse: 'When you need to search deeply into a tree/graph, find all possible paths, or when memory is a concern (DFS uses less memory than BFS for wide trees).',
     commonProblems: ['Number of Islands', 'Lowest Common Ancestor of a Binary Tree', 'Path Sum', 'Word Search'],
     pitfalls: ['Stack overflow errors on extremely deep trees (if using recursion)', 'Failing to handle cyclic graphs by not keeping a "visited" set'],
-    mentalModel: 'Like solving a maze by keeping your hand on the left wall. You go as deep as possible down one path until you hit a dead end, then you backtrack to the last intersection and try the next path.'
+    bruteForce: {
+      explanation: 'Randomly jumping between nodes without a systematic stack or recursion tracking, risking missing nodes or getting stuck in loops.',
+      timeComplexity: 'O(V + E) but functionally worse if disorganized',
+      spaceComplexity: 'O(V)'
+    },
+    mentalModel: 'Like solving a maze by keeping your hand on the left wall. You go as deep as possible down one path until you hit a dead end, then you backtrack to the last intersection and try the next path.',
+    mermaidCode: `graph TD
+    A[Root] -->|1| B[Child 1]
+    B -->|2| C[Grandchild 1]
+    C -.->|Backtrack| B
+    B -->|3| D[Grandchild 2]
+    A -->|4| E[Child 2]`
   },
   {
     id: 'modified-binary-search',
@@ -299,7 +386,17 @@ Mid: 6PM. Match! Found in 2 steps instead of 6.`,
     whenToUse: 'When the input array is sorted (or partially sorted/rotated) and you need to find a target value or boundary efficiently (O(log N)).',
     commonProblems: ['Search in Rotated Sorted Array', 'Find Minimum in Rotated Sorted Array', 'Search a 2D Matrix', 'Find Peak Element'],
     pitfalls: ['Off-by-one errors in `while(left <= right)` vs `while(left < right)`', 'Calculating `mid` incorrectly, risking integer overflow (use `left + Math.floor((right - left) / 2)`)'],
-    mentalModel: 'Like looking up a word in a physical dictionary. You don\'t read every page; you open it to the middle, see if the word comes before or after, and then rip the book in half, keeping only the relevant half.'
+    bruteForce: {
+      explanation: 'Scanning the array element by element from left to right (Linear Search) until you find the target.',
+      timeComplexity: 'O(N)',
+      spaceComplexity: 'O(1)'
+    },
+    mentalModel: 'Like looking up a word in a physical dictionary. You don\'t read every page; you open it to the middle, see if the word comes before or after, and then rip the book in half, keeping only the relevant half.',
+    mermaidCode: `graph TD
+    A[Sorted Array] --> M{Midpoint}
+    M -->|Target > Mid| R[Search Right Half]
+    M -->|Target < Mid| L[Search Left Half]
+    M -->|Target == Mid| F((Found!))`
   },
   {
     id: 'merge-intervals',
@@ -337,7 +434,17 @@ Result: Busy {1-5} and {6-7}`,
     whenToUse: 'When dealing with overlapping intervals, scheduling, or merging timeframes.',
     commonProblems: ['Merge Intervals', 'Insert Interval', 'Non-overlapping Intervals', 'Meeting Rooms II'],
     pitfalls: ['Forgetting to sort the intervals based on their start times first', 'Incorrectly comparing the end time of the current merged interval with the start time of the next one'],
-    mentalModel: 'Like laying down strips of tape on a line. If a new strip overlaps an existing one, they become one continuous, longer strip of tape.'
+    bruteForce: {
+      explanation: 'For each interval, check every other interval to see if they overlap, merge them if they do, and repeat until no more merges can happen.',
+      timeComplexity: 'O(N^2)',
+      spaceComplexity: 'O(1)'
+    },
+    mentalModel: 'Like laying down strips of tape on a line. If a new strip overlaps an existing one, they become one continuous, longer strip of tape.',
+    mermaidCode: `graph TD
+    A[Interval 1] -->|Overlaps| B[Interval 2]
+    B --> C{Merge}
+    C --> D[New Interval: Min Start, Max End]
+    A2[Interval 3] -->|No Overlap| C2[Keep Separate]`
   },
   {
     id: 'trie',
@@ -385,7 +492,19 @@ class SearchAutocomplete {
     whenToUse: 'When you need to perform fast string matching, autocomplete, or prefix searches among a large set of strings.',
     commonProblems: ['Implement Trie (Prefix Tree)', 'Design Add and Search Words Data Structure', 'Word Search II'],
     pitfalls: ['Forgetting to mark the end of a valid word with a boolean flag `isWord`', 'High memory consumption if not optimized (every character creates a new node/object)'],
-    mentalModel: 'Like a physical card catalog in a library or a file cabinet. You open the "A" drawer, then the "P" section, then "P", then "L", then "E".'
+    bruteForce: {
+      explanation: 'Storing all strings in a list and doing a linear scan using string matching (e.g. `startsWith()`) for every prefix query.',
+      timeComplexity: 'O(N * M) where N is number of words, M is max word length',
+      spaceComplexity: 'O(N * M)'
+    },
+    mentalModel: 'Like a physical card catalog in a library or a file cabinet. You open the "A" drawer, then the "P" section, then "P", then "L", then "E".',
+    mermaidCode: `graph TD
+    Root(( )) --> C(c)
+    C --> A(a)
+    A --> R(r)
+    A --> T(t)
+    style R fill:#bfb,stroke:#333
+    style T fill:#bfb,stroke:#333`
   },
   {
     id: 'top-k-elements',
@@ -421,7 +540,17 @@ Heap: [#tech, #sports]`,
     whenToUse: 'When asked to find the top/smallest/most frequent K elements in an array or data stream.',
     commonProblems: ['Top K Frequent Elements', 'Kth Largest Element in an Array', 'Find K Pairs with Smallest Sums'],
     pitfalls: ['Using a Max-Heap to find the Top K largest elements (you should use a Min-Heap of size K instead!)', 'Sorting the entire array first, which takes O(N log N) instead of O(N log K)'],
-    mentalModel: 'Like a VIP bouncer at a club that only fits K people. If the club is full and someone cooler (larger/more frequent) shows up, the least cool person inside gets kicked out.'
+    bruteForce: {
+      explanation: 'Sorting the entire array/stream every time you want to know the top K elements, or repeatedly finding the max K times.',
+      timeComplexity: 'O(N log N) or O(N * K)',
+      spaceComplexity: 'O(1) to O(N)'
+    },
+    mentalModel: 'Like a VIP bouncer at a club that only fits K people. If the club is full and someone cooler (larger/more frequent) shows up, the least cool person inside gets kicked out.',
+    mermaidCode: `graph TD
+    S[Stream/Array] -->|Push| H{Min-Heap size K}
+    H -->|If size > K| P[Pop Smallest]
+    P -.->|Discard| D((🗑️))
+    H -.->|Result| R[Top K Largest elements]`
   },
   {
     id: 'subsets',
@@ -457,7 +586,18 @@ Plain Cheese []
     whenToUse: 'When asked to generate all combinations, permutations, or subsets of a given set, or exploring all paths in a decision tree.',
     commonProblems: ['Subsets', 'Permutations', 'Combination Sum', 'N-Queens'],
     pitfalls: ['Forgetting to "backtrack" (remove the last added element) before exploring the next branch', 'Not passing a copy of the current combination to the result array (passing by reference will cause all results to mutate)'],
-    mentalModel: 'Like exploring a "Choose Your Own Adventure" book. You follow a path to the end, write down the ending, then flip back a few pages and make a different choice to see that ending.'
+    bruteForce: {
+      explanation: 'Using bit manipulation to generate all possible states (from 0 to 2^N - 1) which is a valid approach but less flexible for complex combinations than backtracking.',
+      timeComplexity: 'O(N * 2^N)',
+      spaceComplexity: 'O(N * 2^N) to store results'
+    },
+    mentalModel: 'Like exploring a "Choose Your Own Adventure" book. You follow a path to the end, write down the ending, then flip back a few pages and make a different choice to see that ending.',
+    mermaidCode: `graph TD
+    A[Empty Set] -->|+1| B[Set 1]
+    A -->|+2| C[Set 2]
+    B -->|+2| D[Set 1, 2]
+    B -.->|-1 Backtrack| A
+    C -.->|-2 Backtrack| A`
   },
   {
     id: 'topological-sort',
@@ -500,7 +640,18 @@ Install Redux. Order: JS, React, Redux.`,
     whenToUse: 'When dealing with directed graphs representing dependencies (e.g., scheduling tasks, course prerequisites) and you need to find a valid order.',
     commonProblems: ['Course Schedule', 'Course Schedule II', 'Alien Dictionary'],
     pitfalls: ['Forgetting to check if a valid topological sort is even possible (e.g., if there\'s a cycle, the resulting order length won\'t match the total nodes)', 'Not keeping track of in-degrees correctly'],
-    mentalModel: 'Like putting on clothes. You must put on socks before shoes, and underwear before pants. You look at all the clothes you can put on *right now* (0 prerequisites), put them on, and then check what new clothes that unlocks.'
+    bruteForce: {
+      explanation: 'Randomly picking tasks and repeatedly checking if all their prerequisites are met by iterating through the entire dependency list.',
+      timeComplexity: 'O(V!)',
+      spaceComplexity: 'O(V)'
+    },
+    mentalModel: 'Like putting on clothes. You must put on socks before shoes, and underwear before pants. You look at all the clothes you can put on *right now* (0 prerequisites), put them on, and then check what new clothes that unlocks.',
+    mermaidCode: `graph LR
+    A[Task A] --> C[Task C]
+    B[Task B] --> C
+    C --> D[Task D]
+    style C fill:#f99,stroke:#333
+    %% A & B must finish before C. C before D.`
   },
 
   // HARD
@@ -547,7 +698,19 @@ Median: Top of Lower ($50)`,
     whenToUse: 'When you need to dynamically find the median of a stream of numbers.',
     commonProblems: ['Find Median from Data Stream', 'Sliding Window Median', 'IPO'],
     pitfalls: ['Forgetting to rebalance the heaps when their size difference exceeds 1', 'Not handling cases where the total number of elements is even versus odd properly'],
-    mentalModel: 'Like balancing a seesaw. You put the lighter half of the kids on the left side (Max-Heap) and the heavier half on the right side (Min-Heap). The two kids closest to the middle (top of the heaps) are your medians.'
+    bruteForce: {
+      explanation: 'Keeping all numbers in a simple array, and every time you need the median, you sort the array and pick the middle element.',
+      timeComplexity: 'O(N log N) per insertion',
+      spaceComplexity: 'O(N)'
+    },
+    mentalModel: 'Like balancing a seesaw. You put the lighter half of the kids on the left side (Max-Heap) and the heavier half on the right side (Min-Heap). The two kids closest to the middle (top of the heaps) are your medians.',
+    mermaidCode: `graph TD
+    S[Data Stream] -->|Insert| D{Compare with Heaps}
+    D -->|<= Max-Heap Top| L[Max-Heap: Lower Half]
+    D -->|> Max-Heap Top| U[Min-Heap: Upper Half]
+    L <-.->|Rebalance if sizes diff > 1| U
+    style L fill:#fbb,stroke:#333
+    style U fill:#bbf,stroke:#333`
   },
   {
     id: 'k-way-merge',
@@ -590,7 +753,18 @@ Pop 2min -> Unified: [1min, 2min]...`,
     whenToUse: 'When you need to merge K sorted arrays/linked lists into one sorted list.',
     commonProblems: ['Merge k Sorted Lists', 'Kth Smallest Element in a Sorted Matrix', 'Smallest Range Covering Elements from K Lists'],
     pitfalls: ['Pushing all elements into the heap at once instead of just the first element from each list', 'Forgetting to keep track of which list the popped element came from so you can push the next one'],
-    mentalModel: 'Like merging multiple lines of cars into a single lane. You look at the front car of every line, let the fastest one go, and then look at the new front car of that specific line.'
+    bruteForce: {
+      explanation: 'Concatenating all K arrays/lists into one massive array, and then sorting it using a standard sorting algorithm.',
+      timeComplexity: 'O(N log N) where N is total elements',
+      spaceComplexity: 'O(N)'
+    },
+    mentalModel: 'Like merging multiple lines of cars into a single lane. You look at the front car of every line, let the fastest one go, and then look at the new front car of that specific line.',
+    mermaidCode: `graph TD
+    L1[List 1: 1, 4, 5] --> H((Min-Heap))
+    L2[List 2: 1, 3, 4] --> H
+    L3[List 3: 2, 6] --> H
+    H -->|Pop Smallest| R[Result Array]
+    R -.->|Push Next from same list| H`
   },
   {
     id: 'monotonic-stack',
@@ -625,7 +799,18 @@ Result: waitDays = [3, 2, 1, 0]`,
     whenToUse: 'When you need to find the "next greater" or "next smaller" element for every item in an array in O(N) time.',
     commonProblems: ['Daily Temperatures', 'Next Greater Element I', 'Largest Rectangle in Histogram', 'Trapping Rain Water'],
     pitfalls: ['Pushing the actual value to the stack instead of its index (pushing indices is usually much more useful)', 'Confusing when to use a strictly increasing vs strictly decreasing stack'],
-    mentalModel: 'Like standing in a line of people and looking forward. A tall person (high value) will block your view of everyone shorter behind them. The stack keeps track of people whose view hasn\'t been blocked yet.'
+    bruteForce: {
+      explanation: 'For every single element, running an inner loop that scans to the right until it finds the next greater/smaller element.',
+      timeComplexity: 'O(N^2)',
+      spaceComplexity: 'O(1)'
+    },
+    mentalModel: 'Like standing in a line of people and looking forward. A tall person (high value) will block your view of everyone shorter behind them. The stack keeps track of people whose view hasn\'t been blocked yet.',
+    mermaidCode: `graph TD
+    S[Stack: waiting for higher price] -->|New Price $110 arrives| C{Price > Stack Top?}
+    C -->|Yes| P[Pop Stack Top]
+    P -->|Calculate Wait Days| W[Result]
+    C -->|No| Push[Push New Price Index]
+    P -.->|Repeat until False| C`
   },
   {
     id: 'union-find',
@@ -665,7 +850,18 @@ Match! Yes.`,
     whenToUse: 'When you need to determine if two elements belong to the same group/set, or find the number of connected components in an undirected graph.',
     commonProblems: ['Number of Connected Components in an Undirected Graph', 'Redundant Connection', 'Accounts Merge'],
     pitfalls: ['Forgetting to implement "Path Compression" in the find method, which makes it incredibly fast', 'Not using "Union by Rank/Size", though path compression alone is usually enough'],
-    mentalModel: 'Like tracking corporate acquisitions. If Company A buys Company B, Company B\'s CEO now reports to A. If you want to know if two employees work for the same parent company, you just follow the chain of bosses to the top.'
+    bruteForce: {
+      explanation: 'Running a full Breadth-First Search (BFS) or Depth-First Search (DFS) on the graph every single time you want to check if two nodes are connected.',
+      timeComplexity: 'O(V + E) per query',
+      spaceComplexity: 'O(V)'
+    },
+    mentalModel: 'Like tracking corporate acquisitions. If Company A buys Company B, Company B\'s CEO now reports to A. If you want to know if two employees work for the same parent company, you just follow the chain of bosses to the top.',
+    mermaidCode: `graph TD
+    1((User 1)) --> 2((User 2))
+    2 --> 3((User 3 - Root))
+    4((User 4)) --> 3
+    style 3 fill:#bfb,stroke:#333
+    %% 1, 2, 3, 4 are in the same component`
   },
   {
     id: '01-knapsack',
@@ -700,7 +896,18 @@ At 5GB, optimal is T1+T2 = 25.`,
     whenToUse: 'When you are given a set of items, each with a weight and a value, and you need to determine the maximum value you can carry within a specific weight limit.',
     commonProblems: ['Partition Equal Subset Sum', 'Target Sum', 'Ones and Zeroes'],
     pitfalls: ['Iterating the capacity array forwards instead of backwards when using a 1D DP array (which accidentally reuses the same item multiple times)', 'Not identifying the "capacity" and the "items" correctly from the problem description'],
-    mentalModel: 'Like a burglar packing a bag with a strict weight limit. For every valuable item, you ask: "If I put this in my bag, will it force me to drop something else? Is the trade-off worth it?"'
+    bruteForce: {
+      explanation: 'Using basic recursion to try every possible combination of including or excluding an item (generating all subsets).',
+      timeComplexity: 'O(2^N)',
+      spaceComplexity: 'O(N) for call stack'
+    },
+    mentalModel: 'Like a burglar packing a bag with a strict weight limit. For every valuable item, you ask: "If I put this in my bag, will it force me to drop something else? Is the trade-off worth it?"',
+    mermaidCode: `graph TD
+    A[Item 1: 2kg, $10] --> B{Include?}
+    B -->|Yes| C[Capacity: Max - 2kg, Val: +$10]
+    B -->|No| D[Capacity: Max, Val: +$0]
+    C --> E[Item 2...]
+    D --> E`
   },
   {
     id: 'sliding-window-max',
@@ -733,6 +940,21 @@ i=3  (5): DQ[0] is out of bounds! Shift. DQ=[2(10ms), 3(5ms)] -> Max: 10`,
     whenToUse: 'When you need to find the maximum (or minimum) element in every sliding window of size K in O(N) time.',
     commonProblems: ['Sliding Window Maximum', 'Constrained Subsequence Sum', 'Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit'],
     pitfalls: ['Pushing actual values into the deque instead of indices (you need indices to know when an element falls out of the window)', 'Not maintaining the monotonic decreasing property of the deque properly'],
-    mentalModel: 'Like a king\'s court. The oldest person (front of queue) is the current king. If a young, stronger person (larger value) arrives, they kick out all the weak people in front of them. When the king gets too old (falls out of the window), they step down.'
+    bruteForce: {
+      explanation: 'For every single window of size K, iterating through all K elements to find the maximum.',
+      timeComplexity: 'O(N * K)',
+      spaceComplexity: 'O(1)'
+    },
+    mentalModel: 'Like a king\'s court. The oldest person (front of queue) is the current king. If a young, stronger person (larger value) arrives, they kick out all the weak people in front of them. When the king gets too old (falls out of the window), they step down.',
+    mermaidCode: `graph TD
+    A[New Element] --> B{Deque Empty?}
+    B -->|No| C{New > Deque Back?}
+    C -->|Yes| D[Pop Deque Back]
+    D -.->|Repeat| C
+    C -->|No| E[Push New to Back]
+    B -->|Yes| E
+    E --> F{Front Out of Window?}
+    F -->|Yes| G[Shift Deque Front]
+    F -->|No| H[Front is Max!]`
   },
 ];
