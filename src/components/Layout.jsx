@@ -8,7 +8,8 @@ export default function Layout() {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'DSA', path: '/dsa' },
-    { name: 'System Design', path: '/system-design' }
+    { name: 'System Design', path: '/system-design' },
+    { name: 'Gen AI', path: '/gen-ai' }
   ];
 
   const isActive = (path) => {

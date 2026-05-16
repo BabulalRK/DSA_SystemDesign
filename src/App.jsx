@@ -6,6 +6,7 @@ import DSAPage from './pages/DSAPage';
 import DSADetailPage from './pages/DSADetailPage';
 import SystemDesignPage from './pages/SystemDesignPage';
 import SystemDesignDetailPage from './pages/SystemDesignDetailPage';
+import GenAIPage from './pages/GenAIPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="dsa/:id" element={<DSADetailPage />} />
           <Route path="system-design" element={<SystemDesignPage />} />
           <Route path="system-design/:id" element={<SystemDesignDetailPage />} />
+          <Route path="gen-ai" element={<GenAIPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
