@@ -251,7 +251,7 @@ Iter 3: Slow=C, Fast=C -> COLLISION!`,
       spaceComplexity: 'O(N)'
     },
     mentalModel: 'A track race where one runner is twice as fast as the other. If the track is a loop, the faster runner will eventually lap the slower runner. If it\'s a straight line, the faster runner will finish when the slower one is exactly halfway.',
-    reference: { name: 'Educative: Fast & Slow Pointers', url: 'https://www.educative.io/courses/grokking-the-coding-interview/fast-and-slow-pointers' },
+    reference: { name: 'GeeksforGeeks: Fast and Slow Pointers', url: 'https://www.geeksforgeeks.org/how-does-floyds-slow-and-fast-pointers-approach-work/' },
     mermaidCode: `graph LR
     A((Start)) --> S(Slow: 1 step)
     A --> F(Fast: 2 steps)
@@ -325,7 +325,7 @@ Scan: Idx 1 is missing Box2!`,
       spaceComplexity: 'O(1) to O(N)'
     },
     mentalModel: 'Like a postman sorting mail into numbered P.O. boxes. You look at a letter, walk over to the P.O. box with that number, and swap it with whatever letter is currently sitting there. Repeat until every letter is in the right box.',
-    reference: { name: 'Educative: Cyclic Sort', url: 'https://www.educative.io/courses/grokking-the-coding-interview/cyclic-sort' },
+    reference: { name: 'Emre.me: Cyclic Sort Pattern', url: 'https://emre.me/coding-patterns/cyclic-sort/' },
     mermaidCode: `graph TD
     A[Box 3 at Index 0] -->|Swap to Index 2| B[Box 4 at Index 0]
     B -->|Swap to Index 3| C[Box 1 at Index 0]
@@ -390,7 +390,7 @@ NULL <- Google <- Facebook   Amazon -> NULL
       spaceComplexity: 'O(N) - Extra space for the array'
     },
     mentalModel: 'Imagine turning a line of one-way signs to face the opposite direction. You have to walk down the line, and at each sign, remember where the next sign is, turn the current sign around, and then step to the next sign.',
-    reference: { name: 'Educative: In-place Reversal of a Linked List', url: 'https://www.educative.io/courses/grokking-the-coding-interview/in-place-reversal-of-a-linked-list' },
+    reference: { name: 'GeeksforGeeks: Reverse a Linked List', url: 'https://www.geeksforgeeks.org/reverse-a-linked-list/' },
     mermaidCode: `graph LR
     P[Prev] -->|Null initially| C[Current]
     C -->|Points to| N[Next]
@@ -678,7 +678,7 @@ Result: Busy {1-5} and {6-7}`,
       spaceComplexity: 'O(1)'
     },
     mentalModel: 'Like laying down strips of tape on a line. If a new strip overlaps an existing one, they become one continuous, longer strip of tape.',
-    reference: { name: 'Educative: Merge Intervals', url: 'https://www.educative.io/courses/grokking-the-coding-interview/merge-intervals' },
+    reference: { name: 'GeeksforGeeks: Merging Intervals', url: 'https://www.geeksforgeeks.org/merging-intervals/' },
     mermaidCode: `graph TD
     A[Interval 1] -->|Overlaps| B[Interval 2]
     B --> C{Merge}
@@ -830,7 +830,7 @@ Heap: [#tech, #sports]`,
       spaceComplexity: 'O(1) to O(N)'
     },
     mentalModel: 'Like a VIP bouncer at a club that only fits K people. If the club is full and someone cooler (larger/more frequent) shows up, the least cool person inside gets kicked out.',
-    reference: { name: 'Educative: Top K Elements', url: 'https://www.educative.io/courses/grokking-the-coding-interview/top-k-elements' },
+    reference: { name: 'GeeksforGeeks: K Largest Elements', url: 'https://www.geeksforgeeks.org/k-largestor-smallest-elements-in-an-array/' },
     mermaidCode: `graph TD
     S[Stream/Array] -->|Push| H{Min-Heap size K}
     H -->|If size > K| P[Pop Smallest]
@@ -1136,7 +1136,7 @@ Pop 2min -> Unified: [1min, 2min]...`,
       spaceComplexity: 'O(N)'
     },
     mentalModel: 'Like merging multiple lines of cars into a single lane. You look at the front car of every line, let the fastest one go, and then look at the new front car of that specific line.',
-    reference: { name: 'Educative: K-way Merge', url: 'https://www.educative.io/courses/grokking-the-coding-interview/k-way-merge' },
+    reference: { name: 'GeeksforGeeks: Merge K Sorted Arrays', url: 'https://www.geeksforgeeks.org/merge-k-sorted-arrays/' },
     mermaidCode: `graph TD
     L1[List 1: 1, 4, 5] --> H((Min-Heap))
     L2[List 2: 1, 3, 4] --> H
