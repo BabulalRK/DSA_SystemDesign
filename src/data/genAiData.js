@@ -32,6 +32,14 @@ export const genAiSessions = [
     duration: '1h 50m'
   },
   {
+    id: 'session-5',
+    title: 'Session 5: Retrieval-Augmented Generation (RAG)',
+    description: 'Building systems that can query your own data and generate context-aware responses.',
+    videoUrl: 'https://drive.google.com/file/d/1RxLMDE6TpyS10Fm7FaT3Ki722V0yByYj/preview',
+    downloadUrl: 'https://drive.google.com/uc?export=download&id=1RxLMDE6TpyS10Fm7FaT3Ki722V0yByYj',
+    duration: '1h 10m'
+  },
+  {
     id: 'session-6',
     title: 'Session 6: Advanced Gen AI Topics',
     description: 'Exploring agents, fine-tuning, and the future of Generative AI.',
