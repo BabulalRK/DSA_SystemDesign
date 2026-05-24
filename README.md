@@ -94,10 +94,12 @@ DSA & system design/
 │   │   ├── DSAPage.jsx
 │   │   ├── DSADetailPage.jsx
 │   │   ├── SystemDesignPage.jsx
-│   │   └── SystemDesignDetailPage.jsx
+│   │   ├── SystemDesignDetailPage.jsx
+│   │   └── GenAIPage.jsx
 │   ├── data/
 │   │   ├── dsaPatterns.js
-│   │   └── systemDesignData.js
+│   │   ├── systemDesignData.js
+│   │   └── genAiData.js
 │   ├── hooks/
 │   │   └── useProgress.js
 │   ├── assets/
@@ -125,7 +127,8 @@ App
 │           ├── DSAPage (/dsa)
 │           ├── DSADetailPage (/dsa/:id)
 │           ├── SystemDesignPage (/system-design)
-│           └── SystemDesignDetailPage (/system-design/:id)
+│           ├── SystemDesignDetailPage (/system-design/:id)
+│           └── GenAIPage (/gen-ai)
 ```
 
 #### Key Components
@@ -136,6 +139,7 @@ App
 - `DSADetailPage.jsx`: DSA pattern detail page
 - `SystemDesignPage.jsx`: System design topics listing page
 - `SystemDesignDetailPage.jsx`: System design detail page
+- `GenAIPage.jsx`: Gen AI masterclass and video sessions page
 
 ### Data Structure
 
@@ -168,11 +172,13 @@ Each DSA pattern contains:
 | `/dsa/:id` | DSADetailPage | View pattern details |
 | `/system-design` | SystemDesignPage | Browse system design topics |
 | `/system-design/:id` | SystemDesignDetailPage | View topic details |
+| `/gen-ai` | GenAIPage | Browse Generative AI masterclass sessions |
 
 ### Features
 
 - Comprehensive DSA patterns
 - System design resource pages
+- Exclusive Generative AI masterclass
 - Responsive Tailwind CSS UI
 - Routing with React Router
 

@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
 export default function Layout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  const navLinks = [
+  const navLinks = useMemo(() => [
     { name: 'Home', path: '/' },
     { name: 'DSA', path: '/dsa' },
     { name: 'System Design', path: '/system-design' },
     { name: 'Gen AI', path: '/gen-ai' }
-  ];
+  ], []);
 
-  const isActive = (path) => {
+  const isActive = useCallback((path) => {
     if (path === '/' && location.pathname !== '/') return false;
     return location.pathname.startsWith(path);
-  };
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen flex flex-col">

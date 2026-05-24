@@ -1,8 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { genAiSessions } from '../data/genAiData';
+import { genAiSessions } from '../data/genAiData';
+
+const SessionItem = memo(({ session, index, isActive, onSelect }) => {
+  return (
+    <button
+      onClick={() => onSelect(session)}
+      className={`w-full text-left p-4 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all duration-200 flex items-start space-x-4 ${
+        isActive ? 'bg-indigo-50 dark:bg-indigo-900/30 border-l-4 border-indigo-500' : 'border-l-4 border-transparent'
+      }`}
+    >
+      <div className="flex-shrink-0 mt-1">
+        {isActive ? (
+          <div className="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center shadow-md shadow-indigo-500/30">
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+            </svg>
+          </div>
+        ) : (
+          <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 flex items-center justify-center font-bold text-sm border border-slate-200 dark:border-slate-700">
+            {index + 1}
+          </div>
+        )}
+      </div>
+      <div className="flex-1 min-w-0">
+        <h4 className={`text-sm font-bold truncate ${isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-800 dark:text-slate-200'}`}>
+          {session.title}
+        </h4>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center">
+          <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {session.duration}
+        </p>
+      </div>
+    </button>
+  );
+});
 
 export default function GenAIPage() {
   const [activeSession, setActiveSession] = useState(genAiSessions[0]);
+
+  const handleSelectSession = useCallback((session) => {
+    setActiveSession(session);
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">
@@ -96,44 +137,15 @@ export default function GenAIPage() {
             </div>
             
             <div className="divide-y divide-slate-100 dark:divide-slate-800/50 max-h-[600px] overflow-y-auto custom-scrollbar">
-              {genAiSessions.map((session, index) => {
-                const isActive = activeSession.id === session.id;
-                
-                return (
-                  <button
-                    key={session.id}
-                    onClick={() => setActiveSession(session)}
-                    className={`w-full text-left p-4 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all duration-200 flex items-start space-x-4 ${
-                      isActive ? 'bg-indigo-50 dark:bg-indigo-900/30 border-l-4 border-indigo-500' : 'border-l-4 border-transparent'
-                    }`}
-                  >
-                    <div className="flex-shrink-0 mt-1">
-                      {isActive ? (
-                        <div className="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center shadow-md shadow-indigo-500/30">
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                      ) : (
-                        <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 flex items-center justify-center font-bold text-sm border border-slate-200 dark:border-slate-700">
-                          {index + 1}
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h4 className={`text-sm font-bold truncate ${isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-800 dark:text-slate-200'}`}>
-                        {session.title}
-                      </h4>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center">
-                        <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        {session.duration}
-                      </p>
-                    </div>
-                  </button>
-                );
-              })}
+              {genAiSessions.map((session, index) => (
+                <SessionItem
+                  key={session.id}
+                  session={session}
+                  index={index}
+                  isActive={activeSession.id === session.id}
+                  onSelect={handleSelectSession}
+                />
+              ))}
             </div>
           </div>
         </div>
