@@ -1,6 +1,5 @@
 import React, { useState, useCallback, memo } from 'react';
 import { genAiSessions } from '../data/genAiData';
-import { genAiSessions } from '../data/genAiData';
 
 const SessionItem = memo(({ session, index, isActive, onSelect }) => {
   return (
