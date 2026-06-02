@@ -7,6 +7,8 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
 const LoginPage = lazy(() => import('./pages/LoginPage'));
+const SignupPage = lazy(() => import('./pages/SignupPage'));
+const VerifyEmailPage = lazy(() => import('./pages/VerifyEmailPage'));
 const Home = lazy(() => import('./pages/Home'));
 const DSAPage = lazy(() => import('./pages/DSAPage'));
 const DSADetailPage = lazy(() => import('./pages/DSADetailPage'));
@@ -22,6 +24,16 @@ function App() {
           <Route path="/login" element={
             <Suspense fallback={<LoadingSpinner />}>
               <LoginPage />
+            </Suspense>
+          } />
+          <Route path="/signup" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <SignupPage />
+            </Suspense>
+          } />
+          <Route path="/verify-email" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <VerifyEmailPage />
             </Suspense>
           } />
           <Route path="/" element={
