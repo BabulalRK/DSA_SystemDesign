@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
+import { CheckIcon } from './Icons';
 
 const PatternCard = memo(({ pattern, isCompleted, basePath = '/dsa', studyText = 'Study Pattern', reviewText = 'Review Pattern' }) => {
   const completed = isCompleted(pattern.id);
@@ -13,9 +14,7 @@ const PatternCard = memo(({ pattern, isCompleted, basePath = '/dsa', studyText =
           </h2>
           {completed && (
             <span className="bg-green-100 text-green-700 p-1 rounded-full" title="Completed">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+              <CheckIcon className="w-5 h-5" />
             </span>
           )}
         </div>

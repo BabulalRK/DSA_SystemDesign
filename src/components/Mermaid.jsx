@@ -1,5 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+let mermaidInstance = null;
+
+const getMermaid = async () => {
+  if (!mermaidInstance) {
+    const mermaidModule = await import('mermaid');
+    mermaidInstance = mermaidModule.default;
+    mermaidInstance.initialize({
+      startOnLoad: false,
+      theme: 'default',
+      securityLevel: 'loose',
+    });
+  }
+  return mermaidInstance;
+};
+
 const Mermaid = ({ chart, id = 'mermaid-chart' }) => {
   const containerRef = useRef(null);
   const [svgContent, setSvgContent] = useState('');
@@ -10,21 +25,9 @@ const Mermaid = ({ chart, id = 'mermaid-chart' }) => {
     if (chart && containerRef.current) {
       const renderChart = async () => {
         try {
-          // Dynamically import mermaid to avoid bundling its huge payload in the main chunk
-          const mermaidModule = await import('mermaid');
-          const mermaid = mermaidModule.default;
-
-          // Initialize mermaid once
-          mermaid.initialize({
-            startOnLoad: false,
-            theme: 'default',
-            securityLevel: 'loose',
-          });
-
-          // Clear any previous error states
+          const mermaid = await getMermaid();
           mermaid.mermaidAPI.reset();
           
-          // Generate a unique ID for this specific render to prevent conflicts
           const uniqueId = `${id}-${Math.random().toString(36).substring(2, 9)}`;
           
           const { svg } = await mermaid.render(uniqueId, chart);

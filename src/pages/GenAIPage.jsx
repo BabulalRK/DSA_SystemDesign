@@ -1,5 +1,6 @@
 import React, { useState, useCallback, memo } from 'react';
 import { genAiSessions } from '../data/genAiData';
+import { PlayIcon, ClockIcon, DownloadIcon, ListIcon } from '../components/Icons';
 
 const SessionItem = memo(({ session, index, isActive, onSelect }) => {
   return (
@@ -10,11 +11,9 @@ const SessionItem = memo(({ session, index, isActive, onSelect }) => {
       }`}
     >
       <div className="flex-shrink-0 mt-1">
-        {isActive ? (
+          {isActive ? (
           <div className="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center shadow-md shadow-indigo-500/30">
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-            </svg>
+            <PlayIcon className="w-4 h-4" />
           </div>
         ) : (
           <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 flex items-center justify-center font-bold text-sm border border-slate-200 dark:border-slate-700">
@@ -26,12 +25,10 @@ const SessionItem = memo(({ session, index, isActive, onSelect }) => {
         <h4 className={`text-sm font-bold truncate ${isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-800 dark:text-slate-200'}`}>
           {session.title}
         </h4>
-        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center">
-          <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          {session.duration}
-        </p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center">
+            <ClockIcon className="w-3 h-3 mr-1" />
+            {session.duration}
+          </p>
       </div>
     </button>
   );
@@ -91,9 +88,7 @@ export default function GenAIPage() {
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-2">{activeSession.title}</h2>
                   <div className="flex items-center text-sm text-indigo-400 font-medium">
-                    <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+                    <ClockIcon className="w-5 h-5 mr-2" />
                     {activeSession.duration}
                   </div>
                 </div>
@@ -105,9 +100,7 @@ export default function GenAIPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-colors shadow-lg shadow-indigo-500/20 whitespace-nowrap"
                   >
-                    <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                    </svg>
+                    <DownloadIcon className="w-5 h-5 mr-2" />
                     Download Video
                   </a>
                 )}
@@ -127,9 +120,7 @@ export default function GenAIPage() {
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 overflow-hidden sticky top-24">
             <div className="p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
               <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center">
-                <svg className="w-5 h-5 mr-2 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                </svg>
+                <ListIcon className="w-5 h-5 mr-2 text-indigo-500" />
                 Course Content
               </h3>
               <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{genAiSessions.length} Sessions Available</p>

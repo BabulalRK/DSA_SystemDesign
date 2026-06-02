@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { dsaPatterns } from '../data/dsaPatterns';
 import { useProgress } from '../hooks/useProgress';
 import PatternCard from '../components/PatternCard';
+import { SearchIcon } from '../components/Icons';
 
 export default function DSAPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const { isCompleted, getProgressPercentage } = useProgress('dsa-progress');
 
-  const filteredPatterns = dsaPatterns.filter(pattern => 
-    pattern.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    pattern.summary.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredPatterns = useMemo(() =>
+    dsaPatterns.filter(pattern => 
+      pattern.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      pattern.summary.toLowerCase().includes(searchTerm.toLowerCase())
+    ),
+    [searchTerm]
   );
 
   const progress = getProgressPercentage(dsaPatterns.length);
@@ -43,9 +47,7 @@ export default function DSAPage() {
       {/* Search Bar */}
       <div className="relative max-w-xl mx-auto md:mx-0">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <svg className="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+          <SearchIcon className="h-5 w-5 text-slate-400" />
         </div>
         <input
           type="text"

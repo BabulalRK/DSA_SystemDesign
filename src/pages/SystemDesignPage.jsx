@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useMemo } from 'react';
 import { systemDesignConcepts } from '../data/systemDesignData';
 import { useProgress } from '../hooks/useProgress';
 import PatternCard from '../components/PatternCard';
+import { SearchIcon, CodeIcon, CubeIcon } from '../components/Icons';
 
 export default function SystemDesignPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const { isCompleted, getProgressPercentage } = useProgress('sd-progress');
 
-  const filterConcepts = (concepts) => {
-    return concepts.filter(concept => 
+  const filteredLLD = useMemo(() =>
+    systemDesignConcepts.lld.filter(concept => 
       concept.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       concept.summary.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  };
+    ),
+    [searchTerm]
+  );
 
-  const filteredLLD = filterConcepts(systemDesignConcepts.lld);
-  const filteredHLD = filterConcepts(systemDesignConcepts.hld);
+  const filteredHLD = useMemo(() =>
+    systemDesignConcepts.hld.filter(concept => 
+      concept.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      concept.summary.toLowerCase().includes(searchTerm.toLowerCase())
+    ),
+    [searchTerm]
+  );
   
   const totalConcepts = systemDesignConcepts.lld.length + systemDesignConcepts.hld.length;
   const progress = getProgressPercentage(totalConcepts);
@@ -60,9 +66,7 @@ export default function SystemDesignPage() {
       {/* Search Bar */}
       <div className="relative max-w-xl mx-auto md:mx-0">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <svg className="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+          <SearchIcon className="h-5 w-5 text-slate-400" />
         </div>
         <input
           type="text"
@@ -83,9 +87,7 @@ export default function SystemDesignPage() {
         <div className="mt-8">
           <div className="flex items-center space-x-3 mb-6">
             <div className="bg-indigo-100 p-2 rounded-lg">
-              <svg className="w-6 h-6 text-indigo-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-              </svg>
+              <CodeIcon className="w-6 h-6 text-indigo-700" />
             </div>
             <h2 className="text-3xl font-bold text-slate-800">Low-Level Design (LLD)</h2>
           </div>
@@ -100,9 +102,7 @@ export default function SystemDesignPage() {
         <div className={`mt-16 ${filteredLLD.length > 0 ? 'pt-8 border-t border-slate-200' : ''}`}>
           <div className="flex items-center space-x-3 mb-6">
             <div className="bg-blue-100 p-2 rounded-lg">
-              <svg className="w-6 h-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-              </svg>
+              <CubeIcon className="w-6 h-6 text-blue-700" />
             </div>
             <h2 className="text-3xl font-bold text-slate-800">High-Level Design (HLD)</h2>
           </div>

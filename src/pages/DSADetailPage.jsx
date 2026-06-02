@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { dsaPatterns } from '../data/dsaPatterns';
 import { useProgress } from '../hooks/useProgress';
 import Mermaid from '../components/Mermaid';
+import { ArrowLeftIcon, CheckIcon, ExternalLinkIcon } from '../components/Icons';
 
 export default function DSADetailPage() {
   const { id } = useParams();
@@ -10,9 +11,9 @@ export default function DSADetailPage() {
   const { isCompleted, toggleItem } = useProgress('dsa-progress');
   const [revealedAnswers, setRevealedAnswers] = useState({});
 
-  const toggleAnswer = (idx) => {
+  const toggleAnswer = useCallback((idx) => {
     setRevealedAnswers(prev => ({...prev, [idx]: !prev[idx]}));
-  };
+  }, []);
 
   if (!pattern) {
     return <Navigate to="/dsa" replace />;
@@ -21,9 +22,7 @@ export default function DSADetailPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       <Link to="/dsa" className="text-blue-600 hover:text-blue-800 flex items-center text-sm font-medium">
-        <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
+        <ArrowLeftIcon className="w-4 h-4 mr-1" />
         Back to DSA Patterns
       </Link>
 
@@ -39,9 +38,7 @@ export default function DSADetailPage() {
                   : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
               }`}
             >
-              <svg className="w-5 h-5 mr-2" fill={isCompleted(pattern.id) ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+              <CheckIcon className="w-5 h-5 mr-2" fill={isCompleted(pattern.id) ? "currentColor" : "none"} />
               {isCompleted(pattern.id) ? 'Completed' : 'Mark as Complete'}
             </button>
           </div>
@@ -292,9 +289,7 @@ export default function DSADetailPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-4 py-3 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg font-medium transition-colors border border-blue-200"
               >
-                <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
+                <ExternalLinkIcon className="w-5 h-5 mr-2" />
                 {pattern.reference.name}
               </a>
             </div>
