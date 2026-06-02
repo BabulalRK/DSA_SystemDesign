@@ -191,7 +191,7 @@ PrefixSums[3] - PrefixSums[1] -> 35 - 10 = 25!`,
     mermaidCode: `graph TD
     A[Original Array: 1, 2, 3] --> B[Prefix Sum Array: 1, 3, 6]
     B --> C{Sum of Range i to j}
-    C -->|Calculation| D(Prefix[j] - Prefix[i-1])`
+    C -->|Calculation| D("Prefix[j] - Prefix[i-1]")`
   },
   {
     id: 'fast-slow-pointers',

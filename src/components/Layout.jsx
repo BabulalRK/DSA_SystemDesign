@@ -1,10 +1,24 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { MenuIcon, CloseIcon } from './Icons';
+import { useAuth } from '../context/AuthContext';
 
 export default function Layout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout, isAuthenticated } = useAuth();
+
+  const handleLogoutClick = () => {
+    setShowLogoutModal(true);
+  };
+
+  const handleConfirmLogout = () => {
+    setShowLogoutModal(false);
+    logout();
+    navigate('/login');
+  };
 
   const navLinks = useMemo(() => [
     { name: 'Home', path: '/' },
@@ -45,6 +59,14 @@ export default function Layout() {
                   {link.name}
                 </Link>
               ))}
+              {isAuthenticated && (
+                <button
+                  onClick={handleLogoutClick}
+                  className="px-3 py-2 rounded-md text-sm font-medium text-red-400 hover:bg-slate-800 hover:text-red-300 transition-colors"
+                >
+                  Logout
+                </button>
+              )}
             </div>
 
             {/* Mobile menu button */}
@@ -82,6 +104,17 @@ export default function Layout() {
                   {link.name}
                 </Link>
               ))}
+              {isAuthenticated && (
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    handleLogoutClick();
+                  }}
+                  className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-400 hover:bg-slate-700 hover:text-red-300"
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </div>
         )}
@@ -98,6 +131,30 @@ export default function Layout() {
           &copy; {new Date().getFullYear()} StudyHub. Built for mastering DSA and System Design.
         </p>
       </footer>
+
+      {/* Logout Confirmation Modal */}
+      {showLogoutModal && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity">
+          <div className="bg-slate-800 rounded-xl p-6 max-w-sm w-full mx-4 shadow-2xl border border-slate-700 transform transition-all">
+            <h3 className="text-xl font-bold text-white mb-2">Confirm Logout</h3>
+            <p className="text-gray-300 mb-6 text-sm">Are you sure you want to log out of your account?</p>
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={() => setShowLogoutModal(false)}
+                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 bg-slate-700 hover:text-white hover:bg-slate-600 transition-colors"
+              >
+                No, Cancel
+              </button>
+              <button
+                onClick={handleConfirmLogout}
+                className="px-4 py-2 rounded-lg text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-sm shadow-red-900/50 transition-colors"
+              >
+                Yes, Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

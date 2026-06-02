@@ -3,7 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import LoadingSpinner from './components/LoadingSpinner';
 import ErrorBoundary from './components/ErrorBoundary';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 
+const LoginPage = lazy(() => import('./pages/LoginPage'));
 const Home = lazy(() => import('./pages/Home'));
 const DSAPage = lazy(() => import('./pages/DSAPage'));
 const DSADetailPage = lazy(() => import('./pages/DSADetailPage'));
@@ -13,9 +16,19 @@ const GenAIPage = lazy(() => import('./pages/GenAIPage'));
 
 function App() {
   return (
-    <BrowserRouter basename="/DSA_SystemDesign">
-      <Routes>
-        <Route path="/" element={<Layout />}>
+    <AuthProvider>
+      <BrowserRouter basename="/DSA_SystemDesign">
+        <Routes>
+          <Route path="/login" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <LoginPage />
+            </Suspense>
+          } />
+          <Route path="/" element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }>
           <Route index element={
             <Suspense fallback={<LoadingSpinner />}>
               <ErrorBoundary><Home /></ErrorBoundary>
@@ -49,6 +62,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 
