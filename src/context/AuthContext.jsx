@@ -1,61 +1,44 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { SignJWT, jwtVerify } from 'jose';
-import credentials from '../data/credentials.json';
+import { signInWithEmailAndPassword, signOut as firebaseSignOut, onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../lib/firebase';
 
 const AuthContext = createContext(null);
-const SECRET_KEY = new TextEncoder().encode('my-super-secret-dummy-key-for-client-side-auth');
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem('jwt_token'));
+  const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const verifyToken = async () => {
-      if (!token) {
-        setIsAuthenticated(false);
-        setIsLoading(false);
-        return;
-      }
-      try {
-        await jwtVerify(token, SECRET_KEY);
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.error('Invalid token', error);
-        setIsAuthenticated(false);
-        localStorage.removeItem('jwt_token');
-        setToken(null);
-      }
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setIsAuthenticated(!!currentUser);
       setIsLoading(false);
-    };
+    });
 
-    verifyToken();
-  }, [token]);
+    return () => unsubscribe();
+  }, []);
 
   const login = async (email, password) => {
-    if (email === credentials.email && password === credentials.password) {
-      const jwt = await new SignJWT({ email })
-        .setProtectedHeader({ alg: 'HS256' })
-        .setIssuedAt()
-        .setExpirationTime('2h')
-        .sign(SECRET_KEY);
-      
-      localStorage.setItem('jwt_token', jwt);
-      setToken(jwt);
-      setIsAuthenticated(true);
-      return true;
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      return { success: true };
+    } catch (error) {
+      console.error('Login error:', error);
+      return { success: false, error: error.message };
     }
-    return false;
   };
 
-  const logout = () => {
-    localStorage.removeItem('jwt_token');
-    setToken(null);
-    setIsAuthenticated(false);
+  const logout = async () => {
+    try {
+      await firebaseSignOut(auth);
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ token, isAuthenticated, isLoading, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, isLoading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,23 +1,28 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { dsaPatterns } from '../data/dsaPatterns';
+import { useData } from '../hooks/useData';
 import { useProgress } from '../hooks/useProgress';
+import LoadingSpinner from '../components/LoadingSpinner';
 import PatternCard from '../components/PatternCard';
 import { SearchIcon } from '../components/Icons';
 
 export default function DSAPage() {
   const [searchTerm, setSearchTerm] = useState('');
+  const { data: dsaPatterns, isLoading } = useData('dsaPatterns');
   const { isCompleted, getProgressPercentage } = useProgress('dsa-progress');
 
-  const filteredPatterns = useMemo(() =>
-    dsaPatterns.filter(pattern => 
+  const filteredPatterns = useMemo(() => {
+    if (!dsaPatterns) return [];
+    return dsaPatterns.filter(pattern => 
       pattern.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       pattern.summary.toLowerCase().includes(searchTerm.toLowerCase())
-    ),
-    [searchTerm]
-  );
+    );
+  }, [searchTerm, dsaPatterns]);
 
-  const progress = getProgressPercentage(dsaPatterns.length);
+  const progress = dsaPatterns ? getProgressPercentage(dsaPatterns.length) : 0;
+
+  if (isLoading) return <LoadingSpinner />;
+  if (!dsaPatterns) return <div className="text-center py-12 text-red-500">Failed to load patterns.</div>;
 
   return (
     <div className="space-y-10">

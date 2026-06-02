@@ -1,31 +1,36 @@
 import React, { useState, useMemo } from 'react';
-import { systemDesignConcepts } from '../data/systemDesignData';
+import { useData } from '../hooks/useData';
 import { useProgress } from '../hooks/useProgress';
+import LoadingSpinner from '../components/LoadingSpinner';
 import PatternCard from '../components/PatternCard';
 import { SearchIcon, CodeIcon, CubeIcon } from '../components/Icons';
 
 export default function SystemDesignPage() {
   const [searchTerm, setSearchTerm] = useState('');
+  const { data: systemDesignConcepts, isLoading } = useData('systemDesignConcepts');
   const { isCompleted, getProgressPercentage } = useProgress('sd-progress');
 
-  const filteredLLD = useMemo(() =>
-    systemDesignConcepts.lld.filter(concept => 
+  const filteredLLD = useMemo(() => {
+    if (!systemDesignConcepts?.lld) return [];
+    return systemDesignConcepts.lld.filter(concept => 
       concept.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       concept.summary.toLowerCase().includes(searchTerm.toLowerCase())
-    ),
-    [searchTerm]
-  );
+    )
+  }, [searchTerm, systemDesignConcepts]);
 
-  const filteredHLD = useMemo(() =>
-    systemDesignConcepts.hld.filter(concept => 
+  const filteredHLD = useMemo(() => {
+    if (!systemDesignConcepts?.hld) return [];
+    return systemDesignConcepts.hld.filter(concept => 
       concept.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       concept.summary.toLowerCase().includes(searchTerm.toLowerCase())
-    ),
-    [searchTerm]
-  );
+    )
+  }, [searchTerm, systemDesignConcepts]);
   
-  const totalConcepts = systemDesignConcepts.lld.length + systemDesignConcepts.hld.length;
-  const progress = getProgressPercentage(totalConcepts);
+  const totalConcepts = systemDesignConcepts ? (systemDesignConcepts.lld.length + systemDesignConcepts.hld.length) : 0;
+  const progress = systemDesignConcepts ? getProgressPercentage(totalConcepts) : 0;
+
+  if (isLoading) return <LoadingSpinner />;
+  if (!systemDesignConcepts) return <div className="text-center py-12 text-red-500">Failed to load system design concepts.</div>;
 
   const renderConceptCard = (concept) => (
     <PatternCard 

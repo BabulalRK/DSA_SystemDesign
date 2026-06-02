@@ -1,19 +1,23 @@
 import React, { useState, useCallback } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { dsaPatterns } from '../data/dsaPatterns';
+import { useData } from '../hooks/useData';
 import { useProgress } from '../hooks/useProgress';
 import Mermaid from '../components/Mermaid';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { ArrowLeftIcon, CheckIcon, ExternalLinkIcon } from '../components/Icons';
 
 export default function DSADetailPage() {
   const { id } = useParams();
-  const pattern = dsaPatterns.find(p => p.id === id);
+  const { data: dsaPatterns, isLoading } = useData('dsaPatterns');
+  const pattern = dsaPatterns ? dsaPatterns.find(p => p.id === id) : null;
   const { isCompleted, toggleItem } = useProgress('dsa-progress');
   const [revealedAnswers, setRevealedAnswers] = useState({});
 
   const toggleAnswer = useCallback((idx) => {
     setRevealedAnswers(prev => ({...prev, [idx]: !prev[idx]}));
   }, []);
+
+  if (isLoading) return <LoadingSpinner />;
 
   if (!pattern) {
     return <Navigate to="/dsa" replace />;

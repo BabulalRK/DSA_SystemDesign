@@ -1,6 +1,7 @@
 import React, { useState, useCallback, memo } from 'react';
-import { genAiSessions } from '../data/genAiData';
+import { useData } from '../hooks/useData';
 import { PlayIcon, ClockIcon, DownloadIcon, ListIcon } from '../components/Icons';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const SessionItem = memo(({ session, index, isActive, onSelect }) => {
   return (
@@ -35,11 +36,23 @@ const SessionItem = memo(({ session, index, isActive, onSelect }) => {
 });
 
 export default function GenAIPage() {
-  const [activeSession, setActiveSession] = useState(genAiSessions[0]);
+  const { data: genAiSessions, isLoading } = useData('genAiSessions');
+  const [activeSession, setActiveSession] = useState(null);
+
+  // Set initial active session once data loads
+  React.useEffect(() => {
+    if (genAiSessions && genAiSessions.length > 0 && !activeSession) {
+      setActiveSession(genAiSessions[0]);
+    }
+  }, [genAiSessions, activeSession]);
 
   const handleSelectSession = useCallback((session) => {
     setActiveSession(session);
   }, []);
+
+  if (isLoading) return <LoadingSpinner />;
+  if (!genAiSessions || genAiSessions.length === 0) return <div className="text-center py-12 text-red-500">Failed to load GenAI sessions.</div>;
+  if (!activeSession) return null;
 
   return (
     <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">

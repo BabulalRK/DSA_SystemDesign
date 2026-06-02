@@ -1,18 +1,24 @@
 import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { systemDesignConcepts } from '../data/systemDesignData';
+import { useData } from '../hooks/useData';
 import { useProgress } from '../hooks/useProgress';
 import Mermaid from '../components/Mermaid';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { ArrowLeftIcon, CheckIcon, ExternalLinkIcon } from '../components/Icons';
 
 export default function SystemDesignDetailPage() {
   const { id } = useParams();
+  const { data: systemDesignConcepts, isLoading } = useData('systemDesignConcepts');
   
   // Search both LLD and HLD concepts for the matching ID
-  const concept = systemDesignConcepts.lld.find(c => c.id === id) || 
-                  systemDesignConcepts.hld.find(c => c.id === id);
+  const concept = systemDesignConcepts ? 
+                  (systemDesignConcepts.lld.find(c => c.id === id) || 
+                   systemDesignConcepts.hld.find(c => c.id === id)) 
+                  : null;
   
   const { isCompleted, toggleItem } = useProgress('sd-progress');
+
+  if (isLoading) return <LoadingSpinner />;
 
   if (!concept) {
     return <Navigate to="/system-design" replace />;
