@@ -3,7 +3,23 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: 'redirect-plugin',
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          if (req.url === '/DSA_SystemDesign') {
+            res.statusCode = 301;
+            res.setHeader('Location', '/DSA_SystemDesign/');
+            res.end();
+          } else {
+            next();
+          }
+        });
+      }
+    }
+  ],
   base: '/DSA_SystemDesign/',
   build: {
     rollupOptions: {
