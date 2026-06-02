@@ -19,7 +19,13 @@ const GenAIPage = lazy(() => import('./pages/GenAIPage'));
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter basename="/DSA_SystemDesign">
+      <BrowserRouter 
+        basename="/DSA_SystemDesign"
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+      >
         <Routes>
           <Route path="/login" element={
             <Suspense fallback={<LoadingSpinner />}>
