@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import {  useState, useMemo  } from 'react';
+
 import { useData } from '../hooks/useData';
 import { useProgress } from '../hooks/useProgress';
 import LoadingSpinner from '../components/LoadingSpinner';

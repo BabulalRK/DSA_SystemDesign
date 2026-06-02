@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo } from 'react';
+import { useState, useCallback, memo, useEffect } from 'react';
 import { useData } from '../hooks/useData';
 import { PlayIcon, ClockIcon, DownloadIcon, ListIcon } from '../components/Icons';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -40,7 +40,7 @@ export default function GenAIPage() {
   const [activeSession, setActiveSession] = useState(null);
 
   // Set initial active session once data loads
-  React.useEffect(() => {
+  useEffect(() => {
     if (genAiSessions && genAiSessions.length > 0 && !activeSession) {
       setActiveSession(genAiSessions[0]);
     }
