@@ -1,28 +1,43 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { render, screen, act } from '@testing-library/react';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { onAuthStateChanged } from 'firebase/auth';
 import App from '../src/App';
 
-describe('App Integration', () => {
+describe('App Integration & Routing', () => {
   beforeEach(() => {
-    // Set up the initial path to match the BrowserRouter basename
+    // Reset path
     window.history.pushState({}, 'Test page', '/DSA_SystemDesign/');
+    vi.clearAllMocks();
   });
 
-  it('renders home page and navigates to DSA page', async () => {
-    render(<App />);
+  it('redirects unauthenticated users to the login page', async () => {
+    // Mock onAuthStateChanged to simulate an unauthenticated user
+    onAuthStateChanged.mockImplementationOnce((auth, callback) => {
+      callback(null); // Not logged in
+      return () => {};
+    });
 
-    // Check Home page content
-    expect(screen.getByRole('heading', { name: /Master DSA & System Design/i })).toBeInTheDocument();
-    
-    // Find the DSA card/link text
-    const dsaLink = screen.getByText('Data Structures & Algorithms');
-    expect(dsaLink).toBeInTheDocument();
+    await act(async () => {
+      render(<App />);
+    });
 
-    // Simulate clicking the link
-    fireEvent.click(dsaLink);
+    // Check that we are on the login page by looking for the "Sign in to StudyHub" heading
+    expect(await screen.findByRole('heading', { name: /Sign in to StudyHub/i })).toBeInTheDocument();
+  });
 
-    // After clicking, it should navigate and show the DSA page content
-    expect(await screen.findByText('Top 20 DSA Patterns')).toBeInTheDocument();
+  it('allows authenticated and verified users to view the Home page', async () => {
+    // Mock onAuthStateChanged to simulate a verified user
+    onAuthStateChanged.mockImplementationOnce((auth, callback) => {
+      callback({ uid: 'test-user-123', emailVerified: true });
+      return () => {};
+    });
+
+    await act(async () => {
+      render(<App />);
+    });
+
+    // Check Home page content is rendered successfully
+    expect(await screen.findByRole('heading', { name: /Master DSA & System Design/i })).toBeInTheDocument();
   });
 });

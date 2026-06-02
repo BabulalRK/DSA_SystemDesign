@@ -1,205 +1,108 @@
 # DSA & System Design StudyHub
 
-A React + Vite application for learning Data Structures & Algorithms patterns and System Design concepts.
+A highly optimized React + Vite application for learning Data Structures & Algorithms patterns and System Design concepts. Features real-time progress tracking, secure authentication, and cloud data storage.
 
 ## Live Demo
 Your app is available at:
 
 https://BabulalRK.github.io/DSA_SystemDesign/
 
-## Getting Started
+---
 
-### Install dependencies
+## 🚀 Features
 
+- **Comprehensive Learning Content:** Browse and study DSA patterns, System Design topics, and GenAI concepts.
+- **Secure Authentication (Firebase):** 
+  - Complete Sign-up and Sign-in flows.
+  - Mandatory Email Verification for new users.
+  - Admin bypass for specific registered users via Firestore roles.
+- **Cloud Database (Firestore):** 
+  - All content is fetched dynamically from Firebase Firestore.
+  - User progress (checkboxes) is saved securely to the cloud and synced across devices.
+- **High Performance:** 
+  - In-memory data caching to minimize database read costs and achieve 0ms load times on returning page visits.
+  - Manual chunk splitting (Vite) to separate the heavy Firebase SDK from the main application bundle.
+- **Modern CI/CD:** Fully automated deployments to GitHub pages via GitHub Actions, with secure Environment Variables injection.
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend Framework
+- **React 18.2.0**: UI library for building interactive components
+- **React Router DOM 6.30.3**: Client-side routing with v7 future flags enabled
+
+### Backend & Cloud Services (Firebase)
+- **Firebase Authentication**: Secure JWT-based user session management and email verification.
+- **Cloud Firestore**: NoSQL document database for application content and user progress tracking.
+
+### Build Tool & Styling
+- **Vite 5.0.0**: High-speed build tool and dev server (Optimized for Node 18 compatibility)
+- **Tailwind CSS 3.4.19**: Utility-first CSS framework for responsive design
+
+---
+
+## 💻 Getting Started (Local Development)
+
+### 1. Prerequisites
+- **Node.js** (v18.16.0 or higher recommended)
+
+### 2. Install dependencies
 ```bash
 npm install
 ```
 
-### Run locally
+### 3. Environment Variables
+You **must** create a `.env` file in the root of the project to connect to Firebase. Do not commit this file.
 
+```env
+VITE_FIREBASE_API_KEY="your-api-key"
+VITE_FIREBASE_AUTH_DOMAIN="your-auth-domain"
+VITE_FIREBASE_DATABASE_URL="your-database-url"
+VITE_FIREBASE_PROJECT_ID="your-project-id"
+VITE_FIREBASE_STORAGE_BUCKET="your-storage-bucket"
+VITE_FIREBASE_MESSAGING_SENDER_ID="your-sender-id"
+VITE_FIREBASE_APP_ID="your-app-id"
+```
+
+### 4. Run locally
 ```bash
 npm run dev
 ```
+Visit `http://localhost:5173/DSA_SystemDesign/`.
 
-Visit `http://localhost:5173`.
+---
 
-## Build for Production
+## 🌐 Deployment (GitHub Actions)
 
-```bash
-npm run build
-```
+This project is configured for automated deployment to GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`).
 
-This creates the `dist/` folder for static deployment.
+### Important Configuration Note:
+Because the `.env` file is excluded from version control, you must configure **GitHub Secrets** for the pipeline to build successfully:
 
-## Deployment
+1. Go to your GitHub Repository -> **Settings** -> **Environments**.
+2. Create an environment named exactly **`Firebase Config`**.
+3. Add all 7 Firebase environment variables (e.g., `VITE_FIREBASE_API_KEY`) as **Environment Secrets**.
 
-### GitHub Pages
+When you push to the `main` branch, the GitHub Action will automatically inject these secrets during the `npm run build` step and deploy the optimized bundle to GitHub Pages.
 
-The app is configured to run under the repository path `/DSA_SystemDesign/`.
+---
 
-To deploy manually:
-
-1. Build the app:
-   ```bash
-   npm run build
-   ```
-2. Commit and push your changes.
-3. Ensure GitHub Pages is configured to use the `gh-pages` branch (or GitHub Actions deployment).
-
-### Local preview of production build
-
-```bash
-npm run preview
-```
-
-## Notes
-
-- `vite.config.js` sets `base: '/DSA_SystemDesign/'`
-- `src/App.jsx` uses `BrowserRouter basename="/DSA_SystemDesign"`
-
-This ensures routing works correctly when the app is served from GitHub Pages.
-
-## Project Documentation
-
-### Overview
-
-**StudyHub** is a modern web application designed to help developers master Data Structures & Algorithms (DSA) patterns and System Design concepts. The platform provides interactive learning resources with real-world problem examples, code explanations, and visual diagrams.
-
-### Tech Stack
-
-#### Frontend Framework
-- **React 18.2.0**: UI library for building interactive components
-- **React Router DOM 6.30.3**: Client-side routing for multi-page navigation
-
-#### Build Tool
-- **Vite 4.4.5**: Fast build tool and development server with Hot Module Replacement (HMR)
-
-#### Styling
-- **Tailwind CSS 3.4.19**: Utility-first CSS framework for responsive design
-- **PostCSS 8.5.14**: CSS transformation tool
-- **Autoprefixer 10.5.0**: Automatically adds vendor prefixes to CSS
-
-#### Development Tools
-- **ESLint 8.45.0**: Code quality and style linting
-
-### Project Structure
+## 📁 Project Structure
 
 ```
 DSA & system design/
+├── .github/workflows/     # CI/CD deployment pipeline
 ├── src/
-│   ├── components/
-│   │   └── Layout.jsx
-│   ├── pages/
-│   │   ├── Home.jsx
-│   │   ├── DSAPage.jsx
-│   │   ├── DSADetailPage.jsx
-│   │   ├── SystemDesignPage.jsx
-│   │   ├── SystemDesignDetailPage.jsx
-│   │   └── GenAIPage.jsx
-│   ├── data/
-│   │   ├── dsaPatterns.js
-│   │   ├── systemDesignData.js
-│   │   └── genAiData.js
-│   ├── hooks/
-│   │   └── useProgress.js
-│   ├── assets/
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── index.css
-├── public/
-├── package.json
-├── vite.config.js
-├── tailwind.config.js
-├── postcss.config.js
-└── index.html
+│   ├── components/        # Reusable UI components & Layouts
+│   ├── context/           # React Context (AuthContext.jsx)
+│   ├── hooks/             # Custom hooks (useData.js, useProgress.js)
+│   ├── lib/               # Utility libraries (firebase.js)
+│   ├── pages/             # Route-level components (Login, DSA, SystemDesign)
+│   ├── App.jsx            # Main router configuration
+│   └── main.jsx           # Application entry point
+├── .env                   # Local Firebase credentials (Git ignored)
+├── package.json           # Dependencies and scripts
+├── tailwind.config.js     # Tailwind design system config
+└── vite.config.js         # Build optimization and chunking configuration
 ```
-
-### Project Architecture
-
-#### Component Hierarchy
-
-```
-App
-├── BrowserRouter (React Router)
-│   └── Routes
-│       └── Layout (Shared component)
-│           ├── Home (/)
-│           ├── DSAPage (/dsa)
-│           ├── DSADetailPage (/dsa/:id)
-│           ├── SystemDesignPage (/system-design)
-│           ├── SystemDesignDetailPage (/system-design/:id)
-│           └── GenAIPage (/gen-ai)
-```
-
-#### Key Components
-
-- `Layout.jsx`: Main layout wrapper with navbar, mobile menu, footer, and `Outlet`
-- `Home.jsx`: Landing page
-- `DSAPage.jsx`: DSA patterns listing page
-- `DSADetailPage.jsx`: DSA pattern detail page
-- `SystemDesignPage.jsx`: System design topics listing page
-- `SystemDesignDetailPage.jsx`: System design detail page
-- `GenAIPage.jsx`: Gen AI masterclass and video sessions page
-
-### Data Structure
-
-#### DSA Patterns Format
-Each DSA pattern contains:
-
-```javascript
-{
-  id: 'pattern-id',
-  name: 'Pattern Name',
-  summary: 'Brief description',
-  realWorldProblem: 'Practical application',
-  code: 'Code example',
-  codeExplanation: 'How the code works',
-  diagram: 'Visual representation',
-  timeComplexity: 'O(n)',
-  spaceComplexity: 'O(1)',
-  complexityExplanation: 'Why this complexity',
-  pros: ['Advantage 1', 'Advantage 2'],
-  cons: ['Disadvantage 1']
-}
-```
-
-### Routing
-
-| Route | Component | Purpose |
-|-------|-----------|---------|
-| `/` | Home | Landing page |
-| `/dsa` | DSAPage | Browse DSA patterns |
-| `/dsa/:id` | DSADetailPage | View pattern details |
-| `/system-design` | SystemDesignPage | Browse system design topics |
-| `/system-design/:id` | SystemDesignDetailPage | View topic details |
-| `/gen-ai` | GenAIPage | Browse Generative AI masterclass sessions |
-
-### Features
-
-- Comprehensive DSA patterns
-- System design resource pages
-- Exclusive Generative AI masterclass
-- Responsive Tailwind CSS UI
-- Routing with React Router
-
-### Deployment Notes
-
-- `npm run dev` starts the development server
-- `npm run build` creates the production-ready `dist/` folder
-- `npm run preview` serves the built `dist/` locally
-- `vite.config.js` uses `base: '/DSA_SystemDesign/'`
-- `src/App.jsx` uses `BrowserRouter basename="/DSA_SystemDesign"`
-
-### Live App URL
-
-https://BabulalRK.github.io/DSA_SystemDesign/
-
-### Common Commands
-
-| Command | Purpose |
-|---------|---------|
-| `npm install` | Install dependencies |
-| `npm run dev` | Start development server |
-| `npm run build` | Build production files |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint checks |
