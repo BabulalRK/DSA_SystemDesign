@@ -16,6 +16,8 @@ const DSADetailPage = lazy(() => import('./pages/DSADetailPage'));
 const SystemDesignPage = lazy(() => import('./pages/SystemDesignPage'));
 const SystemDesignDetailPage = lazy(() => import('./pages/SystemDesignDetailPage'));
 const GenAIPage = lazy(() => import('./pages/GenAIPage'));
+const BlogsPage = lazy(() => import('./pages/BlogsPage'));
+const BlogDetailPage = lazy(() => import('./pages/BlogDetailPage'));
 
 function App() {
   return (
@@ -77,6 +79,16 @@ function App() {
           <Route path="gen-ai" element={
             <Suspense fallback={<LoadingSpinner />}>
               <ErrorBoundary><GenAIPage /></ErrorBoundary>
+            </Suspense>
+          } />
+          <Route path="blogs" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <ErrorBoundary><BlogsPage /></ErrorBoundary>
+            </Suspense>
+          } />
+          <Route path="blogs/:id" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <ErrorBoundary><BlogDetailPage /></ErrorBoundary>
             </Suspense>
           } />
         </Route>
