@@ -16,7 +16,7 @@ export const blogsData = [
   },
   {
     id: 'child_process_guide',
-    title: 'Mastering Child Processes',
+    title: 'Node.js child_process Explained (with Programs)',
     description: 'A deep dive into exec, spawn, and fork for managing external processes in Node.js.'
   },
   {
