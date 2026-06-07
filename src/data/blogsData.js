@@ -63,5 +63,20 @@ export const blogsData = [
     id: 'express_advanced_part_3',
     title: 'Express.js Advanced Interview (Part 3/3)',
     description: 'Learn Clean Architecture, Redis Background Jobs, API Idempotency, and Supertest.'
+  },
+  {
+    id: 'system_design_patterns',
+    title: 'System Design in Practice (With Code)',
+    description: 'Master core System Design concepts like Rate Limiting, Distributed Locking, and Circuit Breakers through actual Node.js code.'
+  },
+  {
+    id: 'elasticsearch_vs_redis',
+    title: 'Elasticsearch vs. Redis: The Ultimate Comparison',
+    description: 'Understand exactly when to use an In-Memory Key-Value store versus a Distributed Search Engine.'
+  },
+  {
+    id: 'databases_comparison',
+    title: 'The Big 4: Postgres vs MySQL vs MongoDB vs Cassandra',
+    description: 'A deep architectural dive into the structural differences and perfect use-cases for the top 4 databases.'
   }
 ];
