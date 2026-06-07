@@ -33,5 +33,35 @@ export const blogsData = [
     id: 'mongodb_transactions_guide',
     title: 'MongoDB ACID Transactions',
     description: 'Learn how to implement bulletproof multi-document transactions, and when to use them vs. schema embedding.'
+  },
+  {
+    id: 'angular_advanced_part_1',
+    title: 'Angular Advanced Interview (Part 1/3)',
+    description: 'Master Change Detection, Hierarchical Dependency Injection, and RxJS optimizations with practical code.'
+  },
+  {
+    id: 'angular_advanced_part_2',
+    title: 'Angular Advanced Interview (Part 2/3)',
+    description: 'Deep dive into Signals, Standalone Components, Content Projection, and HTTP Interceptors.'
+  },
+  {
+    id: 'angular_advanced_part_3',
+    title: 'Angular Advanced Interview (Part 3/3)',
+    description: 'Learn SSR Hydration, Custom State Management, Custom Preloading, and Dynamic Component Loading.'
+  },
+  {
+    id: 'express_advanced_part_1',
+    title: 'Express.js Advanced Interview (Part 1/3)',
+    description: 'Master Global Error Handling, Async Wrappers, Memory Leaks, and Multi-Core Clustering.'
+  },
+  {
+    id: 'express_advanced_part_2',
+    title: 'Express.js Advanced Interview (Part 2/3)',
+    description: 'Deep dive into Security Headers, Streaming large datasets, Graceful Shutdowns, and Stateless JWTs.'
+  },
+  {
+    id: 'express_advanced_part_3',
+    title: 'Express.js Advanced Interview (Part 3/3)',
+    description: 'Learn Clean Architecture, Redis Background Jobs, API Idempotency, and Supertest.'
   }
 ];
