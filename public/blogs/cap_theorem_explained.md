@@ -28,7 +28,7 @@ The ATM is "Node A". The Bank's central database is "Node B".
 Suddenly, the network cable connecting the ATM to the bank is cut (a Partition).
 
 *   **The Choice:** You insert your card and ask for $500. The ATM cannot check your balance. 
-*   **The CP Action:** The ATM spits your card out and says *"Out of Service. Try again later."* 
+*   **The CP Action:** The ATM ejects your card and says *"Out of Service. Try again later."* 
 *   **Why?** A bank cannot risk giving you money you don't have. It chooses to completely shut down (**loses Availability**) in order to guarantee that nobody's bank balance is ever inaccurate (**maintains Consistency**).
 
 **Classic CP Databases:** MongoDB (with strict settings), PostgreSQL, Redis (Single Node), HBase.
@@ -54,14 +54,19 @@ This leads to a concept called **Eventual Consistency**. Once the underwater cab
 
 The CAP theorem is famous, but it has a massive blind spot: *What happens when the network is perfectly fine?*
 
-In 2010, the **PACELC Theorem** was created to address this exact corner case. It states:
-> If there is a Partition (P), how does the system trade off Availability and Consistency (A and C)? 
-> **Else (E)**, when the network is running normally, how does the system trade off **Latency (L)** and **Consistency (C)**?
+In 2010, the **PACELC Theorem** was created to address this exact corner case. It breaks down into two parts:
 
-### The Latency Corner Case
-Even without a network crash, if you force **Strong Consistency**, you are forcing "Server A" to pause and ask "Server B" and "Server C" if they agree before responding to the user. This coordination takes time, increasing **Latency** (making your app slower).
+### 1. PAC (When things go wrong)
+If there is a **Partition (P)**, the system must trade off between:
+* **Availability (A):** Keep servers running, but they might give out-of-date answers.
+* **Consistency (C):** Shut down access to protect data, causing some users to get errors.
 
-If you want extremely low latency (a lightning-fast app), you have to accept that different servers might momentarily hold different data. 
+### 2. ELC (When things are perfectly fine)
+**Else (E)**, when the network is running normally, the system must trade off between:
+* **Latency (L):** Answer instantly for a lightning-fast app, accepting that data might momentarily be stale.
+* **Consistency (C):** Double-check with all servers before responding. It is perfectly accurate but takes longer.
+
+If you want extremely low latency, you have to accept that different servers might momentarily hold different data. 
 
 ### Summary
 *   **Financial / Healthcare System?** Choose **CP**. It is better for the system to crash than to process an incorrect transaction.
