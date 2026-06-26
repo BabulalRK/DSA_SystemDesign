@@ -1,9 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import mermaid from 'mermaid';
 import LoadingSpinner from '../components/LoadingSpinner';
 import useSEO from '../hooks/useSEO';
 import { blogsData } from '../data/blogsData';
+
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'dark',
+  themeVariables: {
+    background: 'transparent'
+  },
+  securityLevel: 'loose',
+});
+
+const Mermaid = ({ chart }) => {
+  const [svg, setSvg] = useState('');
+  useEffect(() => {
+    mermaid.render('mermaid-svg-' + Math.random().toString(36).substr(2, 9), chart)
+      .then((result) => setSvg(result.svg))
+      .catch((e) => console.error('Mermaid render error:', e));
+  }, [chart]);
+  return <div className="mermaid flex justify-center my-8 overflow-x-auto" dangerouslySetInnerHTML={{ __html: svg }} />;
+};
 
 export default function BlogDetailPage() {
   const { id } = useParams();
@@ -84,7 +104,19 @@ export default function BlogDetailPage() {
 
       {/* Article Content - Responsive Typography */}
       <article className="prose prose-zinc prose-base md:prose-lg max-w-none font-serif text-zinc-800 prose-headings:font-sans prose-headings:font-bold prose-headings:text-zinc-900 prose-a:text-blue-600 prose-strong:text-zinc-900">
-        <ReactMarkdown>{content}</ReactMarkdown>
+        <ReactMarkdown
+          components={{
+            code({node, inline, className, children, ...props}) {
+              const match = /language-(\w+)/.exec(className || '')
+              if (!inline && match && match[1] === 'mermaid') {
+                return <Mermaid chart={String(children).replace(/\n$/, '')} />
+              }
+              return <code className={className} {...props}>{children}</code>
+            }
+          }}
+        >
+          {content}
+        </ReactMarkdown>
       </article>
     </div>
   );

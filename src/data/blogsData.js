@@ -1,5 +1,20 @@
 export const blogsData = [
   {
+    id: 'cap_theorem_explained',
+    title: 'The CAP Theorem Explained (With Real-World Examples)',
+    description: 'Understand the mandatory trade-offs between Consistency and Availability in distributed systems, and why the PACELC theorem is the missing piece.'
+  },
+  {
+    id: 'system_migration_strategy',
+    title: 'Zero-Downtime Migration: Scaled Systems',
+    description: 'Learn the exact strategies (Strangler Fig, Dark Launching, Canary) to migrate massive legacy systems without dropping a single request.'
+  },
+  {
+    id: 'oms_high_availability',
+    title: 'High-Availability Order Management System Design',
+    description: 'A comprehensive architectural breakdown of an OMS capable of handling 100K orders/day using Kafka, Postgres, and Redis.'
+  },
+  {
     id: 'nodejs_streams_guide',
     title: 'Node.js Streams & Chunks',
     description: 'Learn how to handle massive datasets efficiently using Streams and Backpressure in Node.js.'
