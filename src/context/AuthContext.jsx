@@ -1,4 +1,4 @@
-import {  createContext, useContext, useState, useEffect  } from 'react';
+import {  createContext, useContext, useState, useEffect, useMemo  } from 'react';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, signOut as firebaseSignOut, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../lib/firebase';
@@ -73,8 +73,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const value = useMemo(() => ({
+    user,
+    isAuthenticated,
+    isLoading,
+    login,
+    signup,
+    logout
+  }), [user, isAuthenticated, isLoading]);
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, isLoading, login, signup, logout }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
