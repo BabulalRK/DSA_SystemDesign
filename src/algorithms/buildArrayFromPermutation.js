@@ -24,7 +24,7 @@ export function buildArrayOptimized(nums) {
     // Step 1: Encode both the original value and the new value in the same element
     for (let i = 0; i < n; i++) {
         // nums[nums[i]] % n gets the original value of nums[nums[i]]
-        nums[i] = nums[i] + n * (nums[nums[i]] % n);
+        nums[i] = nums[i] + (nums[nums[i]] % n) * n;
     }
     
     // Step 2: Extract the new values by dividing by n

@@ -25,7 +25,8 @@ export default function Layout() {
     { name: 'DSA', path: '/dsa' },
     { name: 'System Design', path: '/system-design' },
     { name: 'Gen AI', path: '/gen-ai' },
-    { name: 'Blogs', path: '/blogs' }
+    { name: 'Blogs', path: '/blogs' },
+    { name: 'Playground', path: '/playground' }
   ], []);
 
   const isActive = useCallback((path) => {

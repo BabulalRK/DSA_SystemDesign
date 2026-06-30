@@ -18,6 +18,7 @@ const SystemDesignDetailPage = lazy(() => import('./pages/SystemDesignDetailPage
 const GenAIPage = lazy(() => import('./pages/GenAIPage'));
 const BlogsPage = lazy(() => import('./pages/BlogsPage'));
 const BlogDetailPage = lazy(() => import('./pages/BlogDetailPage'));
+const PlaygroundPage = lazy(() => import('./pages/PlaygroundPage'));
 
 function App() {
   return (
@@ -89,6 +90,11 @@ function App() {
           <Route path="blogs/:id" element={
             <Suspense fallback={<LoadingSpinner />}>
               <ErrorBoundary><BlogDetailPage /></ErrorBoundary>
+            </Suspense>
+          } />
+          <Route path="playground" element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <ErrorBoundary><PlaygroundPage /></ErrorBoundary>
             </Suspense>
           } />
         </Route>
