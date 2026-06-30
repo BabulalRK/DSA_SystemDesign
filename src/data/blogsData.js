@@ -18,6 +18,12 @@ export const blogsData = [
     category: 'Data Structures'
   },
   {
+    id: 'kids_with_candies',
+    title: 'Kids With the Greatest Number of Candies (Data Structures)',
+    description: 'A clean and expressive JavaScript approach utilizing Math.max and Array.map to find relative maximums.',
+    category: 'Data Structures'
+  },
+  {
     id: 'cap_theorem_explained',
     title: 'The CAP Theorem Explained (With Real-World Examples)',
     description: 'Understand the mandatory trade-offs between Consistency and Availability in distributed systems, and why the PACELC theorem is the missing piece.',
