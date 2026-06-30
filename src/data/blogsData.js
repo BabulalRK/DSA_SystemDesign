@@ -24,6 +24,12 @@ export const blogsData = [
     category: 'Data Structures'
   },
   {
+    id: 'decode_xored_array',
+    title: 'Decode XORed Array (Data Structures)',
+    description: 'Learn the inverse property of the Bitwise XOR operator to easily decode hidden arrays in O(n) time.',
+    category: 'Data Structures'
+  },
+  {
     id: 'cap_theorem_explained',
     title: 'The CAP Theorem Explained (With Real-World Examples)',
     description: 'Understand the mandatory trade-offs between Consistency and Availability in distributed systems, and why the PACELC theorem is the missing piece.',
