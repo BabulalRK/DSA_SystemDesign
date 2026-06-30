@@ -21,6 +21,33 @@ You are given an integer array `gain` of length `n` where `gain[i]` is the net g
 
 ---
 
+### Step-by-Step Walkthrough
+
+Let's break down how we track the altitude step by step using Example 1 (`gain = [-5, 1, 5, 0, -7]`):
+
+1. **Start (Point 0):** You begin your journey at ground level. 
+    * `Current Altitude` = 0
+    * `Max Altitude` = 0
+2. **Point 1 (Gain -5):** You go down into a valley. 
+    * `Current Altitude` = 0 + (-5) = **-5**
+    * `Max Altitude` = **0** (since -5 is less than 0)
+3. **Point 2 (Gain 1):** You climb up slightly. 
+    * `Current Altitude` = -5 + 1 = **-4**
+    * `Max Altitude` = **0**
+4. **Point 3 (Gain 5):** You make a significant climb. 
+    * `Current Altitude` = -4 + 5 = **1**
+    * `Max Altitude` = **1** *(New Record!)*
+5. **Point 4 (Gain 0):** You travel on a flat surface. 
+    * `Current Altitude` = 1 + 0 = **1**
+    * `Max Altitude` = **1**
+6. **Point 5 (Gain -7):** You descend rapidly. 
+    * `Current Altitude` = 1 + (-7) = **-6**
+    * `Max Altitude` = **1**
+
+**Conclusion:** By tracking the peak value at every single step, we determine that the highest altitude reached during the entire trip was **1**.
+
+---
+
 ## Solution: Running Sum
 
 This problem is a classic application of the **Running Sum** (or Prefix Sum) pattern! 
