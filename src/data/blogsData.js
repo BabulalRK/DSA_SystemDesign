@@ -42,6 +42,36 @@ export const blogsData = [
     category: 'Data Structures'
   },
   {
+    id: 'search_rotated_array',
+    title: 'Search in Rotated Sorted Array (Data Structures)',
+    description: 'Master advanced Binary Search by learning how to find targets in O(log n) time within mathematically shifted arrays.',
+    category: 'Data Structures'
+  },
+  {
+    id: 'merge_intervals',
+    title: 'Merge Intervals (Data Structures)',
+    description: 'A classic sorting problem that teaches you how to organize and merge overlapping ranges of data in O(n log n) time.',
+    category: 'Data Structures'
+  },
+  {
+    id: 'kth_largest_element',
+    title: 'Kth Largest Element in an Array (Data Structures)',
+    description: 'Go beyond the standard sort function and learn the QuickSelect algorithm to find elements in O(n) time.',
+    category: 'Data Structures'
+  },
+  {
+    id: 'first_bad_version',
+    title: 'First Bad Version (Data Structures)',
+    description: 'Master boolean boundary searching and learn how to prevent integer overflow in Binary Search algorithms.',
+    category: 'Data Structures'
+  },
+  {
+    id: 'sort_colors',
+    title: 'Sort Colors (Data Structures)',
+    description: 'Tackle the famous Dutch National Flag problem using the advanced three-pointer technique for O(n) in-place sorting.',
+    category: 'Data Structures'
+  },
+  {
     id: 'cap_theorem_explained',
     title: 'The CAP Theorem Explained (With Real-World Examples)',
     description: 'Understand the mandatory trade-offs between Consistency and Availability in distributed systems, and why the PACELC theorem is the missing piece.',
