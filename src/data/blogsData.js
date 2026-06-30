@@ -42,6 +42,12 @@ export const blogsData = [
     category: 'Data Structures'
   },
   {
+    id: 'find_pivot_index',
+    title: 'Find Pivot Index (Data Structures)',
+    description: 'Learn how to solve the "Find Pivot Index" problem by leveraging Prefix Sums in O(n) time and O(1) space.',
+    category: 'Data Structures'
+  },
+  {
     id: 'search_rotated_array',
     title: 'Search in Rotated Sorted Array (Data Structures)',
     description: 'Master advanced Binary Search by learning how to find targets in O(log n) time within mathematically shifted arrays.',
