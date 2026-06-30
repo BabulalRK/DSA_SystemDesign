@@ -6,6 +6,12 @@ export const blogsData = [
     category: 'Data Structures'
   },
   {
+    id: 'concatenation_of_array',
+    title: 'Concatenation of Array (Data Structures)',
+    description: 'Learn how to solve the "Concatenation of Array" problem using standard loops and modern JavaScript spread operators.',
+    category: 'Data Structures'
+  },
+  {
     id: 'cap_theorem_explained',
     title: 'The CAP Theorem Explained (With Real-World Examples)',
     description: 'Understand the mandatory trade-offs between Consistency and Availability in distributed systems, and why the PACELC theorem is the missing piece.',
