@@ -30,6 +30,12 @@ export const blogsData = [
     category: 'Data Structures'
   },
   {
+    id: 'running_sum',
+    title: 'Running Sum of 1d Array (Data Structures)',
+    description: 'Understand the core concepts of Prefix Sums, and the trade-offs between functional non-mutating state vs in-place memory optimization.',
+    category: 'Data Structures'
+  },
+  {
     id: 'cap_theorem_explained',
     title: 'The CAP Theorem Explained (With Real-World Examples)',
     description: 'Understand the mandatory trade-offs between Consistency and Availability in distributed systems, and why the PACELC theorem is the missing piece.',
