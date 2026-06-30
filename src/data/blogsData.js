@@ -36,6 +36,12 @@ export const blogsData = [
     category: 'Data Structures'
   },
   {
+    id: 'largest_altitude',
+    title: 'Find the Highest Altitude (Data Structures)',
+    description: 'Learn how to apply the Running Sum pattern to calculate absolute values from relative changes in O(n) time and O(1) space.',
+    category: 'Data Structures'
+  },
+  {
     id: 'cap_theorem_explained',
     title: 'The CAP Theorem Explained (With Real-World Examples)',
     description: 'Understand the mandatory trade-offs between Consistency and Availability in distributed systems, and why the PACELC theorem is the missing piece.',
