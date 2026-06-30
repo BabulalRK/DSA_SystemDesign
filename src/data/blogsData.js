@@ -12,6 +12,12 @@ export const blogsData = [
     category: 'Data Structures'
   },
   {
+    id: 'shuffle_the_array',
+    title: 'Shuffle the Array (Data Structures)',
+    description: 'Learn an elegant mathematical indexing approach to interleave two halves of an array in O(n) time.',
+    category: 'Data Structures'
+  },
+  {
     id: 'cap_theorem_explained',
     title: 'The CAP Theorem Explained (With Real-World Examples)',
     description: 'Understand the mandatory trade-offs between Consistency and Availability in distributed systems, and why the PACELC theorem is the missing piece.',
