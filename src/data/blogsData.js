@@ -48,6 +48,12 @@ export const blogsData = [
     category: 'Data Structures'
   },
   {
+    id: 'maximum_xor_for_each_query',
+    title: 'Maximum XOR for Each Query (Data Structures)',
+    description: 'Master Bit Manipulation by using XOR inverse properties and bit masking to solve queries in O(n) time.',
+    category: 'Data Structures'
+  },
+  {
     id: 'search_rotated_array',
     title: 'Search in Rotated Sorted Array (Data Structures)',
     description: 'Master advanced Binary Search by learning how to find targets in O(log n) time within mathematically shifted arrays.',
